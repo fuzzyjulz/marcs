@@ -1,0 +1,27 @@
+-@newsList.each do |feedItem|
+ .panel.panel-default.newsfeedView
+  .panel-heading
+   %div.logo
+    %img{src: feedItem.logo}
+   %p
+    =feedItem.author
+   %p.time
+    =feedItem.createdDate.strftime(ApplicationHelper::DISPLAY_DATE_FORMAT)
+  .panel-body
+   -if feedItem.photo
+    %img.photo{src: feedItem.photo}
+   =simple_format feedItem.message
+   -unless feedItem.event.nil?
+    %p
+     .labelText
+      Start Time:
+     =feedItem.event.startTime.strftime(ApplicationHelper::DISPLAY_TIME_FORMAT)
+    %p
+     .labelText
+      Location:
+     =feedItem.event.location
+  .panel-footer
+   /Likes:
+   -unless feedItem.likesNum.nil?
+    =feedItem.likesNum
+   

@@ -1,0 +1,24 @@
+.newsfeedView {
+  .panel-heading {
+    .logo {
+        float:left;
+        margin-right: 10px;
+    }
+    .time {
+        color: grey;
+        font-style: italic;
+    }
+  }
+  .panel-body {
+    .photo {
+      float: left;
+      margin: 5px 20px 5px 0;
+    }
+  }
+  .panel-footer {
+    padding: 5px 10px;
+    color: grey;
+    background-color: #fcfcfc;
+    text-align: right;
+  }
+}

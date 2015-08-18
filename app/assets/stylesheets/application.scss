@@ -15,3 +15,9 @@
  */
 @import "bootstrap-sprockets";
 @import "bootstrap";
+
+.labelText {
+    font-weight: bold;
+    display: inline-block;
+    width: 100px;
+}
