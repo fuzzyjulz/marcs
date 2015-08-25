@@ -4,7 +4,7 @@ gem 'rails', '4.2.3'
 gem 'pg'
 gem 'uglifier', '>= 1.3.0'
 gem 'turbolinks'
-
+gem 'devise'
 
 gem 'bootstrap-sass'
 gem 'koala'
@@ -16,7 +16,7 @@ gem 'haml'
 gem 'jquery-rails'
 
 gem 'jbuilder', '~> 2.0'
-gem 'sdoc', '~> 0.4.0', group: :doc
+gem 'sdoc', '~> 0.4.0', group: :docs
 
 group :development, :test do
   gem 'better_errors'
