@@ -3,8 +3,15 @@ Rails.application.routes.draw do
     get 'home' => 'home#index'
     get 'newsfeed' => 'newsfeed#view'
     
-    devise_for :users
-
+    devise_for :users, :controllers => { :sessions => "api/v1/sessions" }
+    devise_scope :user do
+      namespace :api do
+        namespace :v1 do
+          resources :sessions, :only => [:create]
+        end
+      end
+      get '/users/sign_out' => 'api/v1/sessions#destroy'
+    end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

@@ -11,10 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150821110932) do
+ActiveRecord::Schema.define(version: 20150827051655) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "user_wings", force: :cascade do |t|
+    t.integer "user_id",   null: false
+    t.string  "wing_type", null: false
+    t.string  "rank",      null: false
+  end
+
+  add_index "user_wings", ["user_id", "wing_type"], name: "index_user_wings_on_user_id_and_wing_type", unique: true, using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -32,6 +40,17 @@ ActiveRecord::Schema.define(version: 20150821110932) do
     t.datetime "locked_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "fai"
+    t.string   "financial"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "street"
+    t.string   "city"
+    t.string   "postcode"
+    t.string   "home_phone"
+    t.string   "mobile_phone"
+    t.boolean  "maaa_instructor"
+    t.string   "club_instructor_type"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
