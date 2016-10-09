@@ -8,15 +8,19 @@
     %span.icon-bar
   / %a.navbar-brand{href:"#"}
   /  stuff
-  #bs-example-navbar-collapse-1.collapse.navbar-collapse
-   %ul.nav.navbar-nav
-    %li
-     %a{href:"#"} About MARCS
-    %li
-     %a{href:"#"} Photos
-    %li
-     %a{href:"#"} Member Area
-    %li
-     %a{href:"#"} Become a Member
-    %li
-     %a{href:"#"} FAQs
+  #marcs-navbar.collapse.navbar-collapse
+   .navbar-center
+    %ul.nav.navbar-nav
+     %li
+      %a{href: home_path} About MARCS
+     %li
+      %a{href:"#"} Photos
+     %li
+      %a{href:home_user_path} Member Area
+     %li
+      %a{href:"#"} Become a Member
+     %li
+      %a{href:"#"} FAQs
+     -if signed_in?
+      %li
+       %a{href:users_sign_out_path} Sign Out

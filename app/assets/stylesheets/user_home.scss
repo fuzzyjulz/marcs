@@ -1,0 +1,21 @@
+.wings_button{
+ width: 50px;
+ height: 50px;
+ border-radius: 3px;
+ padding: 5px;
+}
+
+.wings_bronze{
+ border:1px solid darkgrey;
+ background: peru;
+}
+
+.wings_gold{
+ border:1px solid #b90;
+ background: #fc0;
+}
+
+.wings_none{
+ border:1px solid #eee;
+ opacity: .7
+}

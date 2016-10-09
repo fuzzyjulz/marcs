@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
   validates :fai,  :presence => true
   
   has_many :user_wings, dependent: :destroy
+  accepts_nested_attributes_for :user_wings
     
   def self.find_for_database_authentication(warden_conditions)
     conditions = warden_conditions.dup

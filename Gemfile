@@ -5,6 +5,7 @@ gem 'pg'
 gem 'uglifier', '>= 1.3.0'
 gem 'turbolinks'
 gem 'devise'
+gem 'simple_form'
 
 gem 'bootstrap-sass'
 gem 'koala'                         #Facebook API for newsfeed

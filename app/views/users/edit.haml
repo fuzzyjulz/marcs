@@ -1,0 +1,29 @@
+.container
+ .row
+  .col-xs-8
+   .panel.panel-default
+    .panel-heading
+     .panel-title
+      Update Membership Details
+    .panel-body
+     = simple_form_for(current_user) do |f|
+      %p
+       =f.input :first_name
+       =f.input :last_name
+      %p
+       =f.input :email
+      %p
+       =f.input :street
+      %p
+       =f.input :city
+      %p
+       =f.input :postcode
+      
+      =f.simple_fields_for :user_wings do |w|
+       %p.input.string.optional
+        =w.label w.object.wing_type
+        =w.select :rank, UserWing::WING_TYPES
+        
+      %br
+      %p
+       =f.submit

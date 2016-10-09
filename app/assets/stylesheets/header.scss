@@ -1,3 +1,18 @@
+@import "bootstrap";
+
 .newsfeed {
     max-width: 500px;
+}
+#marcs-navbar > .nav{
+ //@include center-block();
+}
+.navbar-center
+{
+   margin: auto;
+   display: table;
+}
+
+nav.navbar {
+ border-radius: initial;
+ border-top: none;
 }
