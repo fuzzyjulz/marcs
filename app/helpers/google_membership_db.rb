@@ -13,7 +13,7 @@ class GoogleMembershipDb
   end
 
   private
-  def get_refresh_token()
+  def self.get_refresh_token()
     client = Google::APIClient.new
     auth = client.authorization
     auth.client_id = ApplicationHelper::GOOGLE_CLIENT_ID

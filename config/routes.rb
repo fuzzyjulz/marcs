@@ -14,7 +14,7 @@ Rails.application.routes.draw do
       get '/users/sign_out' => 'api/v1/sessions#destroy'
     end
     resource :user do
-      get :edit, :home
+      get :edit, :home, :refresh
       post :update
     end
 end

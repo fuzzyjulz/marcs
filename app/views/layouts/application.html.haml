@@ -7,7 +7,18 @@
  %body
   .header
    =render :partial => "layouts/header"
-  %p.notice=notice
-  %p.alert=alert
+  .container
+   .row
+    .col-xs-6.col-xs-offset-3
+     -unless notice.nil?
+      %p#noticeMessages.alert.alert-success=notice
+      :javascript
+       $("#noticeMessages").animate({opacity: "toggle"}, 2000);
+     -unless alert.nil?
+      %p#alertMessages.alert.alert-info=alert
+      :javascript
+       $("#alertMessages").animate({opacity: "toggle"}, 2000);
+   .row
+    &nbsp;
   .pageDetail
    =yield

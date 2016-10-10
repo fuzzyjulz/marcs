@@ -15,11 +15,7 @@ class Api::V1::SessionsController < Devise::SessionsController
   def create_user_for_fai(fai)
     member = GoogleMember.get_member_by_fai(fai)
     unless (member.nil?)
-      newuser = User.new({
-        password: member.last_name,
-        password_confirmation: member.last_name
-      }.merge(member.attributes_to_user))
-      newuser.save!(validate: false)
+      User::save_from_member(member)
     end
   end
 end

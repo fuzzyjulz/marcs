@@ -35,6 +35,7 @@ class GoogleMember
   VMAA_FEES_IDX = (@@idx +=1)
   KEY_DEPOSIT_IDX = (@@idx +=1)
   TOTAL_IDX = (@@idx +=1)
+  PROFILE_IMAGE_IDX = (@@idx += 9)
   
   FIRST_ROW = 2
   
@@ -42,25 +43,33 @@ class GoogleMember
   attr_accessor :street, :city, :postcode, :email
   attr_accessor :home_phone, :mobile_phone
   attr_accessor :wings, :maaa_instructor, :club_instructor_type
+  attr_accessor :committee_position
   
   def initialize(sheet,row)
     @financial = sheet[row, FINANCIAL_IDX]
-    @fai = sheet[row, FAI_IDX]
+    @fai = nil_if_blank sheet[row, FAI_IDX]
     @first_name = sheet[row, FIRST_NAME_IDX]
+    @known_by = nil_if_blank sheet[row, KNOWN_BY_IDX]
     @last_name = sheet[row, LAST_NAME_IDX]
     @street = sheet[row, STREET_IDX]
     @city = sheet[row, CITY_IDX]
     @postcode = sheet[row, POSTCODE_IDX]
     @email = sheet[row, EMAIL_IDX]
     @home_phone = sheet[row, HOME_PHONE_IDX]
-    @mobile_phone = sheet[row, MOBILE_PHONE_IDX]
+    @mobile_phone = nil_if_blank sheet[row, MOBILE_PHONE_IDX]
     @user_wings = []
     @user_wings << UserWing.new(wing_type: "fixed", rank: sheet[row, FIXED_WINGS_IDX])
     @user_wings << UserWing.new(wing_type: "heli", rank: sheet[row, HELI_WINGS_IDX])
     @user_wings << UserWing.new(wing_type: "glider", rank: sheet[row, GLIDER_WINGS_IDX])
     @user_wings << UserWing.new(wing_type: "multirotor", rank: sheet[row, MULTIROTOR_WINGS_IDX])
     @maaa_instructor = sheet[row, MAAA_INSTRUCTOR_IDX].present?
-    @club_instructor_type = sheet[row, CLUB_INSTRUCTOR_IDX]
+    @club_instructor_type = nil_if_blank sheet[row, CLUB_INSTRUCTOR_IDX]
+    @committee_position = nil_if_blank sheet[row, COMMITTEE_POSITION_IDX]
+    @profile_image = nil_if_blank sheet[row, PROFILE_IMAGE_IDX]
+  end
+  
+  def nil_if_blank(value)
+    value.empty? ? nil : value
   end
   
   def self.get_member_by_fai(fai)
@@ -71,6 +80,28 @@ class GoogleMember
       end
     end
     return nil
+  end
+  
+  def self.get_committee_members()
+    members = []
+    sheet = GoogleMembershipDb.new.get_membership_sheet
+    (FIRST_ROW..sheet.num_rows).each do |row|
+      unless (sheet[row, COMMITTEE_POSITION_IDX].empty?)
+        members << GoogleMember.new(sheet,row)
+      end
+    end
+    return members
+  end
+
+  def self.get_all_members()
+    members = []
+    sheet = GoogleMembershipDb.new.get_membership_sheet
+    (FIRST_ROW..sheet.num_rows).each do |row|
+      unless (sheet[row, FINANCIAL_IDX].empty?)
+        members << GoogleMember.new(sheet,row)
+      end
+    end
+    return members
   end
   
   def attributes_to_user()

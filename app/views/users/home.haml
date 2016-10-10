@@ -6,17 +6,18 @@
      &nbsp
     .panel-heading
      .panel-title
-      Update Membership Details
+      Membership Details
     .panel-body
      =render "view_member_details", {user: current_user}
   .col-xs-6
    .panel.panel-default.withLink
-    %a.panelLink{href: edit_user_path}
+    %a.panelLink
      &nbsp
     .panel-heading
      .panel-title
       Club Committee
     .panel-body
+     =render "view_committee_details"
  .row
   .col-xs-6
    .panel.panel-default.withLink
@@ -34,3 +35,5 @@
      .panel-title
       Club Trainers
     .panel-body
+  .row
+   .refreshDetails.jqueryLoad{href: refresh_user_path} Loading members...
