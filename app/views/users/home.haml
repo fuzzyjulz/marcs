@@ -1,39 +1,42 @@
 .container
  .row
-  .col-xs-6
-   .panel.panel-default.withLink
-    %a.panelLink{href: edit_user_path}
-     &nbsp
+  .col-xs-offset-3.col-xs-6.col-md-offset-0.col-md-6
+   .panel.panel-default.withLink{data:{toggle:"collapse", target:"#memberDetails"}}
     .panel-heading
      .panel-title
       Membership Details
-    .panel-body
+    #memberDetails.panel-body.in
      =render "view_member_details", {user: current_user}
-  .col-xs-6
-   .panel.panel-default.withLink
-    %a.panelLink
-     &nbsp
+     %p
+      =button_to "Change my details", edit_user_path, method: :get
+  .col-xs-offset-2.col-xs-4.col-md-offset-0.col-md-3
+   .panel.panel-default.withLink{data:{toggle:"collapse", target:"#planeTrainers"}}
     .panel-heading
      .panel-title
-      Club Committee
-    .panel-body
-     =render "view_committee_details"
- .row
-  .col-xs-6
-   .panel.panel-default.withLink
-    %a.panelLink{href: edit_user_path}
-     &nbsp
+      Plane Trainers
+    #planeTrainers.panel-body.in
+     =render "view_trainer_details", {members: User::plane_instructors}
+  .col-xs-4.col-md-3
+   .panel.panel-default.withLink{data:{toggle:"collapse", target:"#heliTrainers"}}
+    .panel-heading
+     .panel-title
+      Heli Trainers
+    #heliTrainers.panel-body.in
+     =render "view_trainer_details", {members: User::heli_instructors}
+  .col-xs-12.col-md-6
+   .panel.panel-default.withLink{data:{toggle:"collapse", target:"#minutesBody"}}
     .panel-heading
      .panel-title
       Meeting Minutes
-    .panel-body
-  .col-xs-6
-   .panel.panel-default.withLink
-    %a.panelLink{href: edit_user_path}
-     &nbsp
+    #minutesBody.panel-body.in
+     coming soon...
+  .col-xs-12.col-md-6
+   .panel.panel-default.withLink{data:{toggle:"collapse", target:"#ClubCommittee"}}
     .panel-heading
      .panel-title
-      Club Trainers
-    .panel-body
-  .row
+      Club Committee
+    #ClubCommittee.panel-body
+     =render "view_committee_details"
+ .row
+  .col-xs-12.small
    .refreshDetails.jqueryLoad{href: refresh_user_path} Loading members...

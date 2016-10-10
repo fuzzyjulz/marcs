@@ -9,7 +9,7 @@
    .navbar-brand{style: "padding-top: 7px;"}
     =image_tag "marcsLogo.png", width: "#{139*0.8}px", height: "#{92*0.8}px"
   #marcs-navbar.collapse.navbar-collapse
-   .navbar-center
+   .navbar-left
     %ul.nav.navbar-nav
      %li
       
@@ -20,9 +20,13 @@
      %li
       %a{href:home_user_path} Member Area
      %li
-      %a{href:"#"} Become a Member
+      %a{href:become_a_member_home_path} Become a Member
+     %li
+      %a{href:club_location_home_path} Club Location
      %li
       %a{href:"#"} FAQs
+   .navbar-right
+    %ul.nav.navbar-nav
      -if signed_in?
       %li
        %a{href:users_sign_out_path} Sign Out

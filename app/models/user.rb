@@ -32,6 +32,14 @@ class User < ActiveRecord::Base
     User.where(financial: "y")
   end
   
+  def self.plane_instructors
+    financial_memebers.where(club_instructor_type: ["f","b"])
+  end
+
+  def self.heli_instructors
+    financial_memebers.where(club_instructor_type: ["h","b"])
+  end
+
   def self.find_for_database_authentication(warden_conditions)
     conditions = warden_conditions.dup
     if login = conditions.delete(:login)
@@ -47,8 +55,8 @@ class User < ActiveRecord::Base
       
       if (user.nil?)
         user = User.new({
-          password: member.last_name,
-          password_confirmation: member.last_name
+          password: member.last_name.downcase,
+          password_confirmation: member.last_name.downcase
         }.merge(member.attributes_to_user))
         user.save!(validate: false)
       else
