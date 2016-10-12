@@ -1,10 +1,10 @@
 Rails.application.routes.draw do
-    root 'homes#index'
-    get 'home' => 'homes#index'
-    get 'newsfeed' => 'newsfeed#view'
-    resource :home do
-      get :become_a_member, :club_location
+    root 'home#index'
+    resources :home, only: :index do
+      get :become_a_member, :club_location, :faqs, on: :collection
     end
+    resources :newsfeed, only: :index
+    resources :photos, only: :index
     
     devise_for :users, :controllers => { :sessions => "api/v1/sessions" }
     devise_scope :user do

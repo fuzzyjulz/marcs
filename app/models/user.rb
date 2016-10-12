@@ -68,4 +68,8 @@ class User < ActiveRecord::Base
   def email_required?
       false
   end
+  
+  def financial?
+    financial=="y"
+  end
 end

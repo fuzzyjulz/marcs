@@ -1,4 +1,4 @@
-class HomesController < ApplicationController
+class HomeController < ApplicationController
     protect_from_forgery with: :exception
     
     def index
@@ -8,5 +8,8 @@ class HomesController < ApplicationController
     end
     
     def club_location
+    end
+    
+    def faqs
     end
 end

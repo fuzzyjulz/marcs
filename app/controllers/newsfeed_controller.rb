@@ -1,7 +1,7 @@
 class NewsfeedController < ApplicationController
   @@latestNewsUpdate = nil
   
-  def view
+  def index
     if @@latestNewsUpdate.nil? or @@latestNewsUpdate < Time.now - 10.minutes
       #cache it for 10 minutes
       @@latestNews = getNews

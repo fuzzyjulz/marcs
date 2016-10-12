@@ -1,13 +1,16 @@
-%table.table.table-condensed{style:"font-size:10px;"}
- %tr
-  %th
-  %th Member
-  %th Mobile
- -members.each do |member|
+-if cannot? :view_club_trainers, current_user
+ .alert.alert-danger This information is not available to you
+-else
+ %table.table.table-condensed{style:"font-size:10px;"}
   %tr
-   %td
-    -unless (member.profile_image.nil?)
-     %span.glyphicon.glyphicon-user{data:{toggle:"tooltip",placement:"left", html:"true"},title:"<img style='max-height:200px;max-width:180px;' src='#{member.profile_image}'>"}
-   %td="#{member.known_by_first_name} #{member.last_name}"
-   %td{style:"white-space:nowrap;"}=member.mobile_phone
-   
+   %th
+   %th Member
+   %th Mobile
+  -members.each do |member|
+   %tr
+    %td
+     -unless (member.profile_image.nil?)
+      %span.glyphicon.glyphicon-user{data:{toggle:"tooltip",placement:"left", html:"true"},title:"<img style='max-height:200px;max-width:180px;' src='#{member.profile_image}'>"}
+    %td="#{member.known_by_first_name} #{member.last_name}"
+    %td{style:"white-space:nowrap;"}=member.mobile_phone
+    
