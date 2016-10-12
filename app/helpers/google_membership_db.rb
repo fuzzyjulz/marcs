@@ -4,7 +4,7 @@ class GoogleMembershipDb
     # Creates a session.
     @refresh_token = ApplicationHelper::GOOGLE_REFRESH_TOKEN
     #get_refresh_token() #use this to get a new refresh token 
-    access_token = get_access_token_with_refresh_token(@refresh_token)
+    access_token = get_credentials_with_refresh_token(@refresh_token)
     @session = GoogleDrive.login_with_oauth(access_token)
   end
   
@@ -13,16 +13,19 @@ class GoogleMembershipDb
   end
 
   private
-  def self.get_refresh_token()
-    client = Google::APIClient.new
-    auth = client.authorization
-    auth.client_id = ApplicationHelper::GOOGLE_CLIENT_ID
-    auth.client_secret = ApplicationHelper::GOOGLE_CLIENT_SECRET
-    auth.scope = [
-      "https://www.googleapis.com/auth/drive",
-      "https://spreadsheets.google.com/feeds/"
-    ]
-    auth.redirect_uri = "urn:ietf:wg:oauth:2.0:oob"
+  def self.get_basic_credentials()
+    Google::Auth::UserRefreshCredentials.new(
+          client_id: ApplicationHelper::GOOGLE_CLIENT_ID,
+          client_secret: ApplicationHelper::GOOGLE_CLIENT_SECRET,
+          scope: [
+            "https://www.googleapis.com/auth/drive",
+            "https://spreadsheets.google.com/feeds/",
+          ],
+          redirect_uri: "http://marcs.org/redirect")
+  end
+  
+  def self.get_credentials()
+    auth = GoogleMembershipDb::get_basic_credentials
     print("1. Open this page:\n%s\n\n" % auth.authorization_uri)
     print("2. Enter the authorization code shown in the page: ")
     auth.code = $stdin.gets.chomp
@@ -31,18 +34,10 @@ class GoogleMembershipDb
     print("3. This is your refresh token: %s\n\n" % auth.refresh_token)
   end
   
-  def get_access_token_with_refresh_token(refresh_token)
-    client = Google::APIClient.new
-    auth = client.authorization
-    auth.client_id = ApplicationHelper::GOOGLE_CLIENT_ID
-    auth.client_secret = ApplicationHelper::GOOGLE_CLIENT_SECRET
-    auth.scope = [
-      "https://www.googleapis.com/auth/drive",
-      "https://spreadsheets.google.com/feeds/"
-    ]
-    auth.redirect_uri = "urn:ietf:wg:oauth:2.0:oob"
-    auth.refresh_token = refresh_token
-    auth.fetch_access_token!
-    auth.access_token
+  def get_credentials_with_refresh_token(refresh_token)
+    credentials = GoogleMembershipDb::get_basic_credentials
+    credentials.refresh_token = refresh_token
+    credentials.fetch_access_token!
+    credentials
   end
 end
