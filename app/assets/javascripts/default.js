@@ -12,6 +12,3 @@ function jqueryload_ready(){
 	
 	$("[data-toggle=tooltip]").tooltip();
 };
-
-$(document).ready( jqueryload_ready );
-$(document).on('page:load', jqueryload_ready);
