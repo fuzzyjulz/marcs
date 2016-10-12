@@ -8,6 +8,7 @@ gem 'turbolinks'
 gem 'devise'
 gem 'simple_form'
 gem 'mini_portile2'
+gem 'cancan'
 
 gem 'bootstrap-sass'
 gem 'koala'                         #Facebook API for newsfeed
