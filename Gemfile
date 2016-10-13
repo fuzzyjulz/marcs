@@ -23,13 +23,13 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :docs
 
 group :development, :test do
-  gem 'better_errors'
   gem 'byebug'
+end
+group :development do
+  gem 'better_errors'
   gem 'pry'
-
   gem 'web-console', '~> 2.0'
 end
-
 group :production do
   gem 'rails_12factor'
 end
