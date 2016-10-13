@@ -73,38 +73,35 @@ class GoogleMember
   end
   
   def self.get_member_by_fai(fai)
-    sheet = GoogleMembershipDb.new.get_membership_sheet
-    (FIRST_ROW..sheet.num_rows).each do |row|
+    processSheet {|sheet,row|
       if (sheet[row, FAI_IDX] == fai)
         return GoogleMember.new(sheet,row)
       end
-    end
+    }
     return nil
   end
   
-  def self.get_committee_members()
-    members = []
-    sheet = GoogleMembershipDb.new.get_membership_sheet
-    (FIRST_ROW..sheet.num_rows).each do |row|
-      unless (sheet[row, COMMITTEE_POSITION_IDX].empty?)
-        members << GoogleMember.new(sheet,row)
-      end
-    end
-    return members
-  end
-
   def self.get_all_members()
     members = []
-    sheet = GoogleMembershipDb.new.get_membership_sheet
-    (FIRST_ROW..sheet.num_rows).each do |row|
+    processSheet {|sheet,row|
       unless (sheet[row, FINANCIAL_IDX].empty?)
         members << GoogleMember.new(sheet,row)
       end
-    end
+    }
     return members
   end
   
   def attributes_to_user()
     instance_values
   end
+  
+  :private
+  def self.processSheet()
+    sheet = GoogleMembershipDb.new.get_membership_sheet
+    (FIRST_ROW..sheet.num_rows).each do |row|
+      yield(sheet,row)
+    end
+    return nil
+  end
+
 end
