@@ -4,7 +4,10 @@ Rails.application.routes.draw do
       get :become_a_member, :club_location, :faqs, on: :collection
     end
     resources :newsfeed, only: :index
-    resources :photos, only: :index
+    resources :albums, only: [:index, :show] do
+      resources :photos, only: [:index]
+    end
+    
     
     devise_for :users, :controllers => { :sessions => "api/v1/sessions" }
     devise_scope :user do

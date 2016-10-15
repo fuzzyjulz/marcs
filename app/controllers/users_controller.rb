@@ -34,7 +34,7 @@ class UsersController < ApplicationController
     User::get_committee_members
   end
   
- :private
+ private
   def stats
     @last_updated_date = User.order("updated_at desc").first.updated_at
     @member_count = User.count

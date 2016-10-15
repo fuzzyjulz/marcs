@@ -95,9 +95,9 @@ class GoogleMember
     instance_values
   end
   
-  :private
+  private
   def self.processSheet()
-    sheet = GoogleMembershipDb.new.get_membership_sheet
+    sheet = GoogleConnection.new.get_membership_sheet
     (FIRST_ROW..sheet.num_rows).each do |row|
       yield(sheet,row)
     end

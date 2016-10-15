@@ -1,0 +1,20 @@
+-@albums.each do |album|
+ %p
+  =album.title
+  %p.albumLoader{data:{load_album: album.id}}
+   Loading...
+   
+:javascript
+ function getNextAlbum() {
+  var albumToLoad = $(".albumLoader").first()
+  if (albumToLoad != null) {
+   albumToLoad.load("#{album_photos_path(album_id: "-id-")}".replace("-id-",albumToLoad.attr('data-load-album')), function(response,status){
+    albumToLoad.removeClass("albumLoader");
+    if (status != "success") {
+     albumToLoad.html("Couldn't load photos...");
+    }
+    getNextAlbum();
+   });
+  }
+ }
+ getNextAlbum();

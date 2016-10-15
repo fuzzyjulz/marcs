@@ -1,4 +1,4 @@
-class GoogleMembershipDb
+class GoogleConnection
   def initialize()
     
     # Creates a session.
@@ -10,6 +10,15 @@ class GoogleMembershipDb
   
   def get_membership_sheet()
     @session.spreadsheet_by_key(ApplicationHelper::GOOGLE_MEMBERSHIP_SPREADSHEET_KEY).worksheets[0]
+  end
+  
+  def get_photos_dirs()
+    gallery = @session.collection_by_title("MARCS Gallery")
+    gallery.subcollections
+  end
+  
+  def get_photos_by_url(url)
+    @session.collection_by_url(url)
   end
 
   private
@@ -25,7 +34,7 @@ class GoogleMembershipDb
   end
   
   def self.get_credentials()
-    auth = GoogleMembershipDb::get_basic_credentials
+    auth = GoogleConnection::get_basic_credentials
     print("1. Open this page:\n%s\n\n" % auth.authorization_uri)
     print("2. Enter the authorization code shown in the page: ")
     auth.code = $stdin.gets.chomp
@@ -35,7 +44,7 @@ class GoogleMembershipDb
   end
   
   def get_credentials_with_refresh_token(refresh_token)
-    credentials = GoogleMembershipDb::get_basic_credentials
+    credentials = GoogleConnection::get_basic_credentials
     credentials.refresh_token = refresh_token
     credentials.fetch_access_token!
     credentials

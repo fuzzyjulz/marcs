@@ -1,1 +1,6 @@
-Shows all MARCS photos
+-photos = @album.photos.order(:created_time)
+-if photos.count == 0
+ Sorry, no photos
+-else
+ -photos.each do |photo|
+  %img{src:photo.thumbnail_url}
