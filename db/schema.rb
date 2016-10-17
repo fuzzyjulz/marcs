@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161015080624) do
+ActiveRecord::Schema.define(version: 20161016114241) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,14 +24,18 @@ ActiveRecord::Schema.define(version: 20161015080624) do
   end
 
   create_table "photos", force: :cascade do |t|
-    t.integer  "album_id",       null: false
-    t.string   "google_id",      null: false
-    t.string   "photo_url",      null: false
-    t.string   "filename",       null: false
-    t.string   "thumbnail_url",  null: false
-    t.string   "mime_type",      null: false
-    t.string   "file_extension", null: false
-    t.datetime "created_time",   null: false
+    t.integer  "album_id",               null: false
+    t.string   "google_id",              null: false
+    t.string   "photo_url",              null: false
+    t.string   "filename",               null: false
+    t.string   "thumbnail_url"
+    t.string   "mime_type",              null: false
+    t.string   "file_extension",         null: false
+    t.datetime "created_time",           null: false
+    t.string   "thumbnail_file_name"
+    t.string   "thumbnail_content_type"
+    t.integer  "thumbnail_file_size"
+    t.datetime "thumbnail_updated_at"
   end
 
   create_table "user_wings", force: :cascade do |t|

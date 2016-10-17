@@ -3,4 +3,4 @@
  Sorry, no photos
 -else
  -photos.each do |photo|
-  %img{src:photo.thumbnail_url}
+  =image_tag photo.thumbnail.url
