@@ -1,4 +1,20 @@
-Shows all MARCS photos
--@album_groups.each do |album_group|
- %p
-  %a{href: album_path(album_group)} Album #{album_group}
+.container.photoGallery
+ .row
+  -@album_groups.each do |album_group|
+   -photos = Photo.joins(:album).where(albums: {album_group: album_group})
+   .col-xs-offset-1.col-xs-10.col-sm-5.photoPanel
+    .panel.panel-default
+     .panel-heading{onClick:"window.location='#{album_path(album_group)}'"}
+      .row
+       .col-xs-offset-4.col-xs-4.albumName=album_group
+       .col-xs-4
+        -photoCount = photos.count
+        .badge.photoCountBadge #{photoCount == 0 ? "some" : photoCount} photos
+        -last_updated = Album.where(album_group: album_group).maximum(:last_modified)
+        -unless last_updated.nil? or last_updated < Time.now - 14.days
+         .badge.badge-danger.photoCountBadge New
+
+     .panel-body{onClick:"window.location='#{album_path(album_group)}'"}
+      -photos = photos.order(id: :desc).first(12)
+      -photos.each_with_index do |photo, index|
+       %a.photoFrame{href: album_path(album_group)}=image_tag photo.thumbnail.url, style: "height: 60px;"

@@ -1,0 +1,31 @@
+.photoGallery {
+
+ .photoFrame {
+  display:inline-block;
+  padding:1px; 
+  background: black;
+  margin-bottom:2px;
+  border: 1px solid grey
+ }
+ 
+ .photoPanel {
+  margin-bottom:25px;
+  .panel {
+   cursor:hand;
+   .albumName {
+    text-align:center;
+    font-weight: bold;
+   }
+   .photoCountBadge {
+    float:right; font-size:10px;
+   }
+   .badge-danger {
+    background-color: red;
+   }
+   .panel-body {
+    text-align:center;
+    padding:5px;
+   }
+  }
+ }
+}
