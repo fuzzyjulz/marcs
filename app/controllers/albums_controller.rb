@@ -3,7 +3,12 @@ class AlbumsController < ApplicationController
   
   def index
     if @@latest_photo_update.nil? or @@latest_photo_update < Time.now - 1.hour
-      refreshAlbums
+      begin
+        refreshAlbums
+      rescue Faraday::ConnectionFailed
+        #don't check again, as it probably won't work.
+        logger.info "### Couldn't refresh the album, so just ignore until the next run time"
+      end
       @@latest_photo_update = Time.now
     end
     
