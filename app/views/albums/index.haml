@@ -3,11 +3,11 @@
   -@album_groups.each do |album_group|
    -photos = Photo.joins(:album).where(albums: {album_group: album_group})
    .col-xs-offset-1.col-xs-10.col-sm-5.photoPanel
-    .panel.panel-default
+    .panel.panel-default.withLink
      .panel-heading{onClick:"window.location='#{album_path(album_group)}'"}
       .row
        .col-xs-offset-4.col-xs-4.albumName=album_group
-       .col-xs-4
+       .col-xs-4{style: "white-space:nowrap;"}
         -photoCount = photos.count
         .badge.photoCountBadge #{photoCount == 0 ? "some" : photoCount} photos
         -last_updated = Album.where(album_group: album_group).maximum(:last_modified)
