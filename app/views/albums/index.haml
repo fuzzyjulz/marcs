@@ -17,4 +17,4 @@
      .panel-body{onClick:"window.location='#{album_path(album_group)}'"}
       -photos = photos.order(id: :desc).first(12)
       -photos.each_with_index do |photo, index|
-       %a.photoFrame{href: album_path(album_group)}=image_tag(photo.thumbnail.url, style: "height: 60px;").sub(/s3\.amazonaws\.com\/marcsprod/,"marcsprod.s3-ap-southeast-2.amazonaws.com")
+       %a.photoFrame{href: album_path(album_group)}=image_tag(photo.thumbnail.url, style: "height: 60px;").sub(/s3\.amazonaws\.com\/marcsprod/,"marcsprod.s3-ap-southeast-2.amazonaws.com").html_safe
