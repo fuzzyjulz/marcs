@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   helper_method :marcs_image_tag
   
   def marcs_image_tag(*p)
-    image_tag(p).sub(/s3\.amazonaws\.com\/marcsprod/,"marcsprod.s3-ap-southeast-2.amazonaws.com").html_safe
+    ActionController::Base.helpers.image_tag(*p).sub(/s3\.amazonaws\.com\/marcsprod/,"marcsprod.s3-ap-southeast-2.amazonaws.com").html_safe
   end
   
     protected
