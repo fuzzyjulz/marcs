@@ -1,28 +1,32 @@
-== README
+== TODO
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+* Member update -> email
 
-Things you may want to cover:
+* Member update -> Silver wings
 
-* Ruby version
+* Text for main screen
 
-* System dependencies
+* Text for New member - Ron
 
-* Configuration
+* Text for Location
 
-* Database creation
+* Membership form
 
-* Database initialization
+----------------------
+After MVP
 
-* How to run the test suite
+* Zoom in for photos
 
-* Services (job queues, cache servers, search engines, etc.)
+* More albums within album
 
-* Deployment instructions
+* FAQ articles
 
-* ...
+* For Sale section
 
+* Tidy up newsfeed
 
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+* Pull calendar from Google
+
+* Upload membership form
+
+* Years -> membership form -> financial
