@@ -16,3 +16,18 @@ nav.navbar {
  border-radius: initial;
  border-top: none;
 }
+
+.imageBackground {
+  position: absolute;
+  top: 51;
+  left: 0;
+  z-index:-1;
+  height: 200px;
+  opacity: .8;
+  overflow: hidden;
+  
+  img {
+   height: auto;
+   width: 100%;
+  }
+}
