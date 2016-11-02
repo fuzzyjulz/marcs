@@ -4,14 +4,6 @@
 
 * Member update -> Silver wings
 
-* Text for main screen
-
-* Text for New member - Ron
-
-* Text for Location
-
-* Membership form
-
 ----------------------
 After MVP
 
