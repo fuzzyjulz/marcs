@@ -6,6 +6,7 @@ class UsersController < ApplicationController
   end
   
   def update
+    MarcsMailer.member_details_update(current_user).deliver_now
     current_user.update!(user_params)
     flash[:notice]="Updated your details"
     redirect_to home_user_path
