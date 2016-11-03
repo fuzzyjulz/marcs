@@ -6,9 +6,15 @@ class UsersController < ApplicationController
   end
   
   def update
-    MarcsMailer.member_details_update(current_user).deliver_now
     current_user.update!(user_params)
-    flash[:notice]="Updated your details"
+
+    if current_user.changed_member_fields.empty?
+      flash[:notice]="No change"
+    else
+      MarcsMailer.member_details_update(current_user).deliver_now
+      
+      flash[:notice]="Updated your details"
+    end
     redirect_to home_user_path
   end
   

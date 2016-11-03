@@ -1,6 +1,7 @@
 class MarcsMailer < ActionMailer::Base
 
   def member_details_update(member)
+    @member = member
     mail(
       subject: 'Member details to be updated',
       to: ENV['MARCS_REGISTRAR_EMAIL'],

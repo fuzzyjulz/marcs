@@ -2,6 +2,20 @@
  %head
   %meta{content:'text/html; charset=UTF-8', http:{equiv:'Content-Type'}}
  %body
-  %h1 Member details has been update
+  %p Registrar,
+  %p Could you please amend the details for the member:
+  -@member.member_fields.each do |field, value|
+   %p
+    %b="#{field}:"
+    =value
+  %br
   %p
-   more details to come...
+   The following details have changed:
+  -@member.changed_member_fields.each do |field, change|
+   %p
+    Field
+    =field
+    has been changed from 
+    =change[0]
+    to
+    =change[1]
