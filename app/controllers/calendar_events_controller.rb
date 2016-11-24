@@ -6,18 +6,15 @@ class CalendarEventsController < ApplicationController
   
   def index
     if (@@latest_main_calendar_update.nil? or @@latest_main_calendar_update < Time.now - 1.days)
-      #http://calendar.google.com/calendar/ical/marcs.vic%40gmail.com/public/basic.ics
-      @@main_events = get_calendar("/users/julz/Downloads/basic.ics")
+      @@main_events = get_calendar(ENV["CLUB_CALENDAR"])
       @@latest_main_calendar_update = Time.now
     end
     
     @events = @@main_events
     
     if can? :view_committee_calendar, current_user
-      #https://calendar.google.com/calendar/ical/vhj2723ju2c84mv9h9dda8mcno%40group.calendar.google.com/public/basic.ics
       if (@@latest_comittee_calendar_update.nil? or @@latest_comittee_calendar_update < Time.now - 1.days)
-        #http://calendar.google.com/calendar/ical/marcs.vic%40gmail.com/public/basic.ics
-        @@committee_events = get_calendar("/users/julz/Downloads/basic (7).ics")
+        @@committee_events = get_calendar(ENV["COMMITTEE_CALENDAR"])
         @@latest_comittee_calendar_update = Time.now
       end
   
