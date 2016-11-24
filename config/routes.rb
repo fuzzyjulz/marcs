@@ -7,7 +7,7 @@ Rails.application.routes.draw do
     resources :albums, only: [:index, :show] do
       resources :photos, only: [:index]
     end
-    
+    resources :calendar_events, only: :index
     
     devise_for :users, :controllers => { :sessions => "api/v1/sessions" }
     devise_scope :user do

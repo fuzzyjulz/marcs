@@ -28,9 +28,13 @@ class Ability
     #
     # See the wiki for details:
     # https://github.com/ryanb/cancan/wiki/Defining-Abilities
-    
-    if user.financial?
-      can [:view_committee_members, :view_club_trainers], User
+    unless user.nil?
+      if user.financial?
+        can [:view_committee_members, :view_club_trainers], User
+      end
+      if user.committee_member?
+        can [:view_committee_calendar], User
+      end
     end
   end
 end

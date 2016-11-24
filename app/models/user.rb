@@ -73,6 +73,10 @@ class User < ActiveRecord::Base
     financial=="y"
   end
   
+  def committee_member?
+    !(committee_position.nil? || committee_position=='')
+  end
+  
   def member_fields
     attributes.reject do |key, value|
       ["encrypted_password", "reset_password_token", "reset_password_sent_at","remember_created_at",
