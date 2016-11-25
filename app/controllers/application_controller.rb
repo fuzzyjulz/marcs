@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
   end
   
   def extract_links(string)
-    string.gsub(/(https?:[\/\.\w\d\-?]+)/,"<a href='\\1'>\\1</a>").html_safe
+    string.gsub(/(https?:[\/\.\w\d\-?=&]+)/,"<a href='\\1'>\\1</a>").html_safe
   end
   
     protected

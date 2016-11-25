@@ -11,21 +11,21 @@ class FacebookFeedItem
     
     outputFeedList = []
     feed.first(num).each do |feed|
-      outputFeedList.push(FacebookFeedItem.new(feed, graph))
+      outputFeedList.push(FacebookFeedItem.new(feed, graph, logo))
     end
     outputFeedList
   end
   
-  def initialize(feed = nil, graph = nil)
-    unless feed.nil? or graph.nil?
-      map_feed_item(feed, graph)
+  def initialize(feed = nil, graph = nil, logo = nil)
+    unless feed.nil? or graph.nil? or logo.nil?
+      map_feed_item(feed, graph, logo)
     end
   end
   
-  def map_feed_item(feed, graph)
+  def map_feed_item(feed, graph, logo)
     @message = [feed['message'],feed['description'],feed['story']].delete_if {|v| v.nil?}.first
     @photo = feed['picture'].gsub(/https:/,'http:') unless feed['picture'].nil?
-    @linkToPost = feed['link']
+    @linkToPost = "https://www.facebook.com/#{feed['id']}"
     @likesNum = feed['likes']['data'].length unless feed['likes'].nil?
     @createdDate = DateTime.iso8601(feed['created_time']) unless feed['created_time'].nil?
     @logo = logo

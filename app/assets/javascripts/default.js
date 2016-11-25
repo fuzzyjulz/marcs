@@ -2,6 +2,7 @@ function jqueryload_ready(){
 	//Load pages if you put the load tag on it
 	$(".jqueryLoad").each(function (key) {
   var url = $(this).attr("href");
+  $(this).removeClass("jqueryLoad");
   loaderDiv = $(this);
   loaderDiv.html("<div class='badge'>Loading</div>");
   $(this).load(url, function(response,status){
@@ -10,6 +11,12 @@ function jqueryload_ready(){
    }
   });
 	});
-	
+
+ $(".openNewWindow").each(function (key) {
+  $(this).click(function () {
+   window.open($(this).attr("href"), '_blank');
+  });
+ });
+
 	$("[data-toggle=tooltip]").tooltip();
 };

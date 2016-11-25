@@ -1,6 +1,6 @@
 -@news_list.each do |feed_item|
  .panel.panel-default.newsfeedView
-  .panel-heading
+  .panel-heading.openNewWindow{href: feed_item.linkToPost}
    .row
     .col-xs-8
      .logo
@@ -22,8 +22,10 @@
       Location:
      =feed_item.event.location
   -unless feed_item.likesNum.nil?
-   .panel-footer
+   .panel-footer.openNewWindow{href: feed_item.linkToPost}
     /Likes:
     %span.glyphicon.glyphicon-thumbs-up
     =feed_item.likesNum
    
+:javascript
+ jqueryload_ready();
