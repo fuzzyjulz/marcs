@@ -13,6 +13,7 @@ function jqueryload_ready(){
 	});
 
  $(".openNewWindow").each(function (key) {
+  $(this).css("cursor","hand");
   $(this).click(function () {
    window.open($(this).attr("href"), '_blank');
   });
