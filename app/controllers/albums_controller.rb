@@ -16,7 +16,7 @@ class AlbumsController < ApplicationController
   end
   
   def show
-    @albums = Album.where(album_group: request[:id])
+    @albums = Album.where(album_group: request[:id]).order(title: :desc)
     @album_group = @albums.first.album_group
   end
 
