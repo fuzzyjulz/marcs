@@ -3,4 +3,9 @@
  Sorry, no photos
 -else
  -photos.each do |photo|
-  =marcs_image_tag photo.thumbnail.url
+  =marcs_image_tag photo.thumbnail.url, {onClick: "openImageDisplay(this);", 
+                                        style: "cursor: hand;",
+                                        class: "photoFrame",
+                                        data:{fullscreenimage: photo.photo_url, 
+                                              title: "#{@album.title} #{photo.filename}",
+                                              photoid: photo.id}}

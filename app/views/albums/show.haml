@@ -1,9 +1,26 @@
--@albums.each do |album|
- %p
-  =album.title
-  .albumLoader{data:{load_album: album.id}}
-   .badge Waiting to refresh
+.photoGallery
+ -@albums.each do |album|
+  .panel.panel-success.album
+   .panel-heading
+    %h3.panel-title.center=album.title
+   .panel-body.albumLoader{data:{load_album: album.id}}
+    .badge Waiting to refresh
    
+ #imageDisplayModal.modal.fade{tabindex:"-1", role:"dialog"}
+  .modal-dialog{role:"document"}
+   .modal-content
+    .modal-header
+     %button.close{type:"button",data:{dismiss:"modal"},aria:{label:"Close"}}
+      %span{aria:{hidden:"true"}} &times;
+     %h4.modal-title Modal title
+    .modal-body
+     %img#modalImage.center
+     %input#photoId{type:"hidden"}
+    .modal-footer
+     /%button.btn.btn-default{type:"button",data:{dismiss:"modal"}} Close
+     %button.btn.btn-default.prevButton{type:"button", onClick:"prevImage();"} Previous
+     %button.btn.btn-primary.nextButton{type:"button", onClick:"nextImage();"} Next
+
 :javascript
  function getNextAlbum() {
   var albumToLoad = $(".albumLoader").first()
@@ -20,3 +37,32 @@
   }
  }
  getNextAlbum();
+ 
+ function setImageDisplay(image) {
+  if ($(image).attr('data-fullscreenimage') != '') {
+   $("#imageDisplayModal #photoId").val($(image).attr('data-photoid'));
+   $("#modalImage").attr('src',$(image).attr('data-fullscreenimage'));
+   $('#imageDisplayModal .modal-title').html($(image).attr('data-title'));
+   $('#imageDisplayModal .nextButton').prop('disabled',$(image).next().size() < 1);
+   $('#imageDisplayModal .prevButton').prop('disabled',$(image).prev().size() < 1);
+   return true;
+  }
+  return false;
+ }
+ function openImageDisplay(image) {
+  if (setImageDisplay(image)) {
+   $('#imageDisplayModal').modal();
+  }
+ }
+ 
+ function nextImage() {
+  var photoId = $("#imageDisplayModal #photoId").val();
+  var image = $("img[data-photoid="+photoId+"]");
+  setImageDisplay(image.next());
+ }
+ 
+  function prevImage() {
+  var photoId = $("#imageDisplayModal #photoId").val();
+  var image = $("img[data-photoid="+photoId+"]");
+  setImageDisplay(image.prev());
+ }

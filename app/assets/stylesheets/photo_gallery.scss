@@ -28,4 +28,25 @@
    }
   }
  }
+ 
+ #imageDisplayModal {
+  .modal-dialog {
+   width:85vw;
+  }
+  .modal-body {
+   background:black;
+   #modalImage {
+    max-width:80vw;
+    max-height:70vh;
+   }
+  }
+ }
+ .album .panel-body {
+  text-align: center;
+ }
+ 
+ .album {
+  margin-left: 10px;
+  margin-right: 10px;
+ }
 }
