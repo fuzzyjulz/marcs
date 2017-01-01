@@ -1,24 +1,2 @@
-== TODO
-
-* Member update -> email
-
-* Member update -> Silver wings
-
-----------------------
-After MVP
-
-* Zoom in for photos
-
-* More albums within album
-
-* FAQ articles
-
-* For Sale section
-
-* Tidy up newsfeed
-
-* Pull calendar from Google
-
-* Upload membership form
-
-* Years -> membership form -> financial
+==MARCS Website
+See the full website at marcs.org.au
