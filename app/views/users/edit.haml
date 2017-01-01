@@ -19,11 +19,6 @@
       %p
        =f.input :postcode
       
-      =f.simple_fields_for :user_wings do |w|
-       %p.input.string.optional
-        =w.label w.object.wing_type
-        =w.select :rank, UserWing::WING_TYPES
-        
       %br
       %p
        =f.submit "Update my details"

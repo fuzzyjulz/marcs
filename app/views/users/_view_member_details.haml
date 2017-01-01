@@ -19,7 +19,3 @@
  .labelText
  =user.postcode
 
-%p
- -user.user_wings.each do |wing|
-  =image_tag "#{wing.wing_type}.png",class:"wings_button wings_#{wing.rank == "-"?"none":wing.rank}", 
-  title: "#{wing.rank == "-"?"No":wing.rank} #{wing.wing_type} wings.", data: {toggle:"tooltip", placement:"bottom"}

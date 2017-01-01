@@ -49,7 +49,6 @@ class UsersController < ApplicationController
   end
   
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :email, :street, :city, :postcode, :home_phone, :mobile_phone, 
-      user_wings_attributes: [:id, :rank])
+    params.require(:user).permit(:first_name, :last_name, :email, :street, :city, :postcode, :home_phone, :mobile_phone)
   end
 end
