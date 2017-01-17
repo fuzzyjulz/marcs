@@ -5,6 +5,7 @@ class CalendarEventsController < ApplicationController
   @@calendar_time_format = "%d %b at %l:%M%p"
   
   def index
+    @@latest_main_calendar_update = nil
     if (@@latest_main_calendar_update.nil? or @@latest_main_calendar_update < Time.now - 1.days)
       @@main_events = get_calendar(ENV["CLUB_CALENDAR"])
       @@latest_main_calendar_update = Time.now
@@ -19,12 +20,12 @@ class CalendarEventsController < ApplicationController
       end
   
       @events = @@main_events + @@committee_events
-      @events.sort! { |a,b| a.dtstart <=> b.dtstart}
+      @events.sort! { |a,b| a.start_date <=> b.start_date}
     end
 
     @events_by_month = Hash.new(0)
     @events.each do |event|
-      this_month_group = event.dtstart.strftime("%B")
+      this_month_group = event.start_date.strftime("%B")
       @events_by_month[this_month_group] = [] unless @events_by_month[this_month_group].nil?
         
       @events_by_month[this_month_group] << event
@@ -42,15 +43,29 @@ class CalendarEventsController < ApplicationController
     open(address) do |cal|
       main_calendar = Icalendar::Calendar.parse(cal)
       main_calendar.each do |calendar|
-        events = get_relevant_events(calendar.events)
+        events = get_relevant_events(calendar.events, 2)
       end
     end
     events
   end
   
-  def get_relevant_events(event_list)
-    event_list.reject! { |e| !e.dtstart.between?(DateTime::now.prev_month(2), DateTime::now.next_month(2)) }
-    event_list.sort! { |a,b| a.dtstart <=> b.dtstart}
-    event_list
+  def get_relevant_events(event_list, months)
+    final_events = []
+    
+    event_list.each do |event|
+      if event.rrule.present?
+        final_events << event \
+        .occurrences_between(DateTime::now.prev_month(months), DateTime::now.next_month(months)) \
+        .map!{ |event_occ| CalendarItem.new(event_occ.start_time, event.summary)}
+      end
+    end
+    
+    final_events << event_list \
+      .reject! { |e| !e.dtstart.between?(DateTime::now.prev_month(months), DateTime::now.next_month(months)) } \
+      .map!{ |event| CalendarItem.new(event.dtstart.value, event.summary)}
+    
+    final_events.flatten!.sort! { |a,b| a.start_date <=> b.start_date}
+    
+    final_events
   end
 end
