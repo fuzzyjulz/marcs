@@ -8,6 +8,6 @@
     -events.each do |event|
      .event.row{class: event.dtstart < Date::today ? "historicEvent":""}
       .dateTime.col-xs-2.col-sm-4.col-lg-3
-       =event.dtstart.strftime(get_time_format)
+       =event.dtstart.value.in_time_zone.strftime(get_time_format)
       .summary.col-xs-10.col-sm-8.col-lg-9
        =event.summary
