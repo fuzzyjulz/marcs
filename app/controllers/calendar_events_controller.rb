@@ -26,8 +26,8 @@ class CalendarEventsController < ApplicationController
     @events_by_month = Hash.new(0)
     @events.each do |event|
       this_month_group = event.start_date.strftime("%B")
-      @events_by_month[this_month_group] = [] unless @events_by_month[this_month_group].nil?
-        
+      
+      @events_by_month[this_month_group] = [] if (@events_by_month[this_month_group] == 0) 
       @events_by_month[this_month_group] << event
     end
 
@@ -61,10 +61,12 @@ class CalendarEventsController < ApplicationController
     end
     
     final_events << event_list \
-      .reject! { |e| !e.dtstart.between?(DateTime::now.prev_month(months), DateTime::now.next_month(months)) } \
+      .delete_if { |e| !e.dtstart.between?(DateTime::now.prev_month(months), DateTime::now.next_month(months)) } \
       .map!{ |event| CalendarItem.new(event.dtstart.value, event.summary)}
-    
-    final_events.flatten!.sort! { |a,b| a.start_date <=> b.start_date}
+
+    final_events.flatten!
+    final_events.compact!
+    final_events.sort! { |a,b| a.start_date <=> b.start_date}
     
     final_events
   end

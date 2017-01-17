@@ -16,7 +16,8 @@ gem 'google_drive'                  #Connector to google drive and spreadsheets
 gem "paperclip", "~> 5.0.0"
 gem 'postmark-rails', '>= 0.10.0'
 gem 'icalendar'
-gem "icalendar-recurrence"
+gem "icalendar-recurrence", git: 'git://github.com/fuzzyjulz/icalendar-recurrence.git'
+#gem "icalendar-recurrence", path: '/Users/julz/Documents/workspace/icalendar-recurrence'
 
 gem 'sass-rails', '~> 5.0'
 gem 'coffee-rails', '~> 4.1.0'
