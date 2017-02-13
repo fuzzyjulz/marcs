@@ -3,9 +3,10 @@
  Sorry, no photos
 -else
  -photos.each do |photo|
-  =marcs_image_tag photo.thumbnail.url, {onClick: "openImageDisplay(this);", 
+  .photoFrame
+   =marcs_image_tag photo.thumbnail.url, {onClick: "openImageDisplay(this);", 
                                         style: "cursor: hand;",
-                                        class: "photoFrame",
+                                        title: "#{photo.filename}",
                                         data:{fullscreenimage: photo.photo_url, 
-                                              title: "#{@album.title} #{photo.filename}",
-                                              photoid: photo.id}}
+                                              title: "#{@album.title} - #{photo.filename}",
+                                              photoid: photo.id, toggle:"tooltip", placement:"bottom" }}

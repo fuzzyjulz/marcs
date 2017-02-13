@@ -1,4 +1,4 @@
-function jqueryload_ready(){
+$(document).load(function (){
 	//Load pages if you put the load tag on it
 	$(".jqueryLoad").each(function (key) {
   var url = $(this).attr("href");
@@ -8,6 +8,8 @@ function jqueryload_ready(){
   $(this).load(url, function(response,status){
    if ($(this).size() == 0 || status != "success") {
    	loaderDiv.html("<div class='alert alert-danger' role='alert'>Error loading page.</div>");
+   } else {
+    $(document).load();
    }
   });
 	});
@@ -20,4 +22,6 @@ function jqueryload_ready(){
  });
 
 	$("[data-toggle=tooltip]").tooltip();
-};
+});
+
+$(document).ready(function() {$(document).load()});
