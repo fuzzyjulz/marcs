@@ -23,7 +23,7 @@
     .input-group
      %span.input-group-btn
       %button.btn.btn-default{type:"button",onClick:"copyToClipboard('#copyControl');"} Copy
-     %input#copyControl.form-control{type: "text",value: ENV["CLUB_CALENDAR"]}
+     %input#copyControl.form-control{type: "text",value: ApplicationHelper::CLUB_CALENDAR_ICS_URL}
    %p 
     %a{href:"https://support.google.com/calendar/answer/37100#add_via_link?co=GENIE.Platform%3DDesktop&hl=en"} Google/Android instructions
    %p 

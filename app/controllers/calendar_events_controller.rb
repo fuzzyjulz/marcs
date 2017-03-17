@@ -7,7 +7,7 @@ class CalendarEventsController < ApplicationController
   def index
     @@latest_main_calendar_update = nil
     if (@@latest_main_calendar_update.nil? or @@latest_main_calendar_update < Time.now - 1.days)
-      @@main_events = get_calendar(ENV["CLUB_CALENDAR"])
+      @@main_events = get_calendar(ApplicationHelper::CLUB_CALENDAR_ICS_URL)
       @@latest_main_calendar_update = Time.now
     end
     
@@ -15,7 +15,7 @@ class CalendarEventsController < ApplicationController
     
     if can? :view_committee_calendar, current_user
       if (@@latest_comittee_calendar_update.nil? or @@latest_comittee_calendar_update < Time.now - 1.days)
-        @@committee_events = get_calendar(ENV["COMMITTEE_CALENDAR"])
+        @@committee_events = get_calendar(ApplicationHelper::COMMITTEE_CALENDAR_ICS_URL)
         @@latest_comittee_calendar_update = Time.now
       end
   
