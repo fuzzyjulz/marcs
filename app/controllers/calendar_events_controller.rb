@@ -55,13 +55,13 @@ class CalendarEventsController < ApplicationController
     event_list.each do |event|
       if event.rrule.present?
         final_events << event \
-        .occurrences_between(DateTime::now.prev_month(months), DateTime::now.next_month(months)) \
+        .occurrences_between(DateTime::now.prev_month(0), DateTime::now.next_month(months)) \
         .map!{ |event_occ| CalendarItem.new(event_occ.start_time, event.summary)}
       end
     end
     
     final_events << event_list \
-      .delete_if { |e| !e.dtstart.between?(DateTime::now.prev_month(months), DateTime::now.next_month(months)) } \
+      .delete_if { |e| !e.dtstart.between?(DateTime::now.prev_month(0), DateTime::now.next_month(months)) } \
       .map!{ |event| CalendarItem.new(event.dtstart.value, event.summary)}
 
     final_events.flatten!

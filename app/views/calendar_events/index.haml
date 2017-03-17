@@ -1,9 +1,11 @@
 .calendarView
  -year_group = nil
+ -index = -1
  -@events_by_month.each_pair do |this_month_group, events|
-  .panel.panel-default
+  -index+=1
+  .panel{class:index==0?"panel-info":"panel-default"}
    .panel-heading
-    =this_month_group
+    %b=this_month_group
    .panel-body
     -events.each do |event|
      .event.row{class: event.start_date < Date::today ? "historicEvent":""}
@@ -11,3 +13,24 @@
        =event.start_date.in_time_zone.strftime(get_time_format)
       .summary.col-xs-10.col-sm-8.col-lg-9
        =event.description
+ %br
+ %br
+ .bs-callout.bs-callout-info
+  .small
+   %h4 Add MARCS events to your phone!
+   %p You can add the MARCS calendar to your phone or calendar by adding the following ICal url:
+   %p
+    .input-group
+     %span.input-group-btn
+      %button.btn.btn-default{type:"button",onClick:"copyToClipboard('#copyControl');"} Copy
+     %input#copyControl.form-control{type: "text",value: ENV["CLUB_CALENDAR"]}
+   %p 
+    %a{href:"https://support.google.com/calendar/answer/37100#add_via_link?co=GENIE.Platform%3DDesktop&hl=en"} Google/Android instructions
+   %p 
+    %a{href: "http://www.imore.com/how-subscribe-calendars-your-iphone-or-ipad"} Apple phones instructions
+:javascript
+ function copyToClipboard(copyControl) {
+    $(copyControl).select();
+    document.execCommand("copy");
+ }
+ 
