@@ -3,7 +3,7 @@
   .row
    .alert.alert-danger Our records show you haven't paid your membership. Some features of the website will not be available
  .row
-  .col-xs-offset-3.col-xs-6.col-md-offset-0.col-md-6
+  .col-md-offset-3.col-md-6
    .panel.panel-default
     .panel-heading
      .panel-title
@@ -12,22 +12,6 @@
      =render "view_member_details", {user: current_user}
      %p
       =button_to "Change my details", edit_user_path, method: :get
-  -if can? :view_club_trainers, current_user
-   .col-xs-offset-2.col-xs-4.col-md-offset-0.col-md-3
-    .panel.panel-default.withLink{data:{toggle:"collapse", target:"#planeTrainers"}}
-     .panel-heading
-      .panel-title
-       Plane Trainers
-     #planeTrainers.panel-body.in
-      =render "view_trainer_details", {members: User::plane_instructors}
-  -if can? :view_club_trainers, current_user
-   .col-xs-4.col-md-3
-    .panel.panel-default.withLink{data:{toggle:"collapse", target:"#heliTrainers"}}
-     .panel-heading
-      .panel-title
-       Heli Trainers
-     #heliTrainers.panel-body.in
-      =render "view_trainer_details", {members: User::heli_instructors}
   -if can? :view_meeting_minutes, current_user
    .col-xs-12.col-md-6
     .panel.panel-default.withLink{data:{toggle:"collapse", target:"#minutesBody"}}
@@ -36,14 +20,6 @@
        Meeting Minutes
      #minutesBody.panel-body.in
       coming soon...
-  -if can? :view_committee_members, current_user
-   .col-xs-12.col-md-6
-    .panel.panel-default.withLink{data:{toggle:"collapse", target:"#ClubCommittee"}}
-     .panel-heading
-      .panel-title
-       Club Committee
-     #ClubCommittee.panel-body
-      =render "view_committee_details"
  .row
   .col-xs-12.small
    .refreshDetails.jqueryLoad{href: refresh_user_path} Loading members...

@@ -1,0 +1,17 @@
+%nav#memberNavBar.navbar.navbar-inverse.center-block
+ .container-fluid
+  .navbar-header
+  #marcs-navbar.collapse.navbar-collapse
+  .navbar-center
+   %ul.nav.navbar-nav
+    %li
+     %a{href: home_user_path} Member details
+    -if can? :view_club_trainers, current_user
+     %li
+      %a{href: trainers_user_path} Trainers
+    -if can? :view_committee_members, current_user
+     %li
+      %a{href: committee_user_path} Committee
+    -if can? :renew_membership, current_user
+     %li
+      %a Renew Membership

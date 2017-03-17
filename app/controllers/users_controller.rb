@@ -5,6 +5,10 @@ class UsersController < ApplicationController
   def home
   end
   
+  def trainers
+    authorize! :view_club_trainers, current_user
+  end
+  
   def update
     current_user.update!(user_params)
 

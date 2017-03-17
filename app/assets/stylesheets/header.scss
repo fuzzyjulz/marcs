@@ -11,10 +11,13 @@
    margin: auto;
    display: table;
 }
-
+.header {
+   margin-bottom:20px;
+}
 nav.navbar {
  border-radius: initial;
  border-top: none;
+ margin-bottom: 0px;
 }
 
 .imageBackground {
