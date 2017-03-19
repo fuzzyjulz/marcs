@@ -4,13 +4,13 @@
   #marcs-navbar.collapse.navbar-collapse
   .navbar-center
    %ul.nav.navbar-nav
-    %li
-     %a{href: home_user_path} Member details
+    %li{class: (action_name == "home") ? "active" : ""}
+     %a{href: home_user_path} Profile
     -if can? :view_club_trainers, current_user
-     %li
+     %li{class: (action_name == "trainers") ? "active" : ""}
       %a{href: trainers_user_path} Trainers
     -if can? :view_committee_members, current_user
-     %li
+     %li{class: (action_name == "committee") ? "active" : ""}
       %a{href: committee_user_path} Committee
     -if can? :renew_membership, current_user
      %li

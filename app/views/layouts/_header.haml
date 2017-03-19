@@ -11,17 +11,15 @@
   #marcs-navbar.collapse.navbar-collapse
    .navbar-left
     %ul.nav.navbar-nav
-     %li
-      
-     %li
+     %li{class: (controller.is_a? HomeController and action_name == "index") ? "active" : ""}
       %a{href: home_index_path} About MARCS
-     %li
+     %li{class: (controller.is_a? AlbumsController) ? "active" : ""}
       %a{href:albums_path} Photos
-     %li
+     %li{class: (controller.is_a? UsersController) ? "active" : ""}
       %a{href:home_user_path} Member Area
-     %li
+     %li{class: (controller.is_a? HomeController and action_name == "become_a_member") ? "active" : ""}
       %a{href:become_a_member_home_index_path} Become a Member
-     %li
+     %li{class: (controller.is_a? HomeController and action_name == "club_location") ? "active" : ""}
       %a{href:club_location_home_index_path} Club Location
      /
       %li
