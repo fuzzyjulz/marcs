@@ -1,0 +1,15 @@
+.container.clubMinutes
+ .row
+  #yearList.panel-group.col-md-offset-3.col-md-6{role:"tablist",aria:{multiselectable:"true"}}
+   -@minutes_years.each do |year|
+    .panel.panel-default
+     .panel-heading{role: "tab", id: "year#{year.id}Heading"}
+      %h4.panel-title
+       %a{role: "button", href:"#year#{year.id}",aria:{controls:"#year#{year.id}",expanded:"true"}, data:{toggle:"collapse", parent:"#yearList"}}
+        #{year.title}
+     .panel-collapse.collapse.in{id:"year#{year.id}",role:"tabpanel", aria: {labelledby:"year2017Heading"}}
+      .panel-body
+       -year.minutes.each do |minutes|
+        -if [:club_meeting, :committee_meeting, :agm_meeting].include? minutes.type
+         %p
+          %a{href: minutes.view_url, target: "_blank"}=minutes.filename

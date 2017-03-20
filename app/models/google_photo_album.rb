@@ -34,6 +34,6 @@ class GooglePhotoAlbum
   
   def self.url(url)
     connection = GoogleConnection.new
-    GooglePhotoAlbum.new(connection.get_photos_by_url(url))
+    GooglePhotoAlbum.new(connection.get_by_url(url))
   end
 end

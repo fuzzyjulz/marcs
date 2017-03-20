@@ -17,7 +17,12 @@ class GoogleConnection
     gallery.subcollections
   end
   
-  def get_photos_by_url(url)
+  def get_minutes_dirs()
+    minutes = @session.collection_by_title("MARCS Club Minutes")
+    minutes.subcollections
+  end
+  
+  def get_by_url(url)
     @session.collection_by_url(url)
   end
 

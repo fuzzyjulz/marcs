@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
   before_action :configure_permitted_parameters, if: :devise_controller?
-  helper_method :marcs_image_tag, :extract_links
+  helper_method :marcs_image_tag, :extract_links, :show_member_submenu
   
   def marcs_image_tag(*p)
     ActionController::Base.helpers.image_tag(*p).sub(/s3\.amazonaws\.com\/marcsprod/,"marcsprod.s3-ap-southeast-2.amazonaws.com").html_safe
@@ -13,6 +13,13 @@ class ApplicationController < ActionController::Base
     string.gsub(/(https?:[\/\.\w\d\-?=&]+)/,"<a href='\\1'>\\1</a>").html_safe
   end
   
+  def show_member_submenu()
+    self.is_a? UsersController or self.is_a? MinutesController
+  end
+  
+  rescue_from CanCan::AccessDenied do |exception|
+    redirect_to root_url, :alert => exception.message
+  end
     protected
   
     def configure_permitted_parameters

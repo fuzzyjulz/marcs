@@ -22,4 +22,5 @@ Rails.application.routes.draw do
       get :edit, :home, :refresh, :trainers, :committee
       post :update
     end
+    resources :minutes, only: :index
 end

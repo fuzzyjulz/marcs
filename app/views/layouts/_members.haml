@@ -12,6 +12,9 @@
     -if can? :view_committee_members, current_user
      %li{class: (action_name == "committee") ? "active" : ""}
       %a{href: committee_user_path} Committee
+    -if can? :view_minutes, current_user
+     %li{class: (action_name == "index") ? "active" : ""}
+      %a{href: minutes_path} Minutes
     -if can? :renew_membership, current_user
      %li
       %a Renew Membership

@@ -10,7 +10,7 @@
  %body
   .header
    =render :partial => "layouts/header"
-   -if controller.is_a? UsersController
+   -if show_member_submenu
     =render :partial => "layouts/members"
   .container
    .row
