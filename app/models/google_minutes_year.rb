@@ -3,7 +3,7 @@ class GoogleMinutesYear
   
   def initialize(dir)
     @title = dir.title
-    @id = dir.title.gsub(/ /,"_")
+    @id = dir.title.tr(' ','_')
     @view_url = dir.web_view_link
     
     @dir = dir
@@ -12,7 +12,7 @@ class GoogleMinutesYear
   def minutes
     minutes = []
     @dir.files.each do |minutes_dir|
-      minutes << GoogleMinutes.new(minutes_dir)
+      minutes << GoogleMinutes.new(minutes_dir) unless minutes_dir.trashed?
     end
     minutes
   end
@@ -24,7 +24,7 @@ class GoogleMinutesYear
     minutes_dir = connection.get_minutes_dirs
 
     minutes_dir.each do |minutes_year|
-      minutes_years << GoogleMinutesYear.new(minutes_year)
+      minutes_years << GoogleMinutesYear.new(minutes_year) unless minutes_year.trashed?
     end
     
     minutes_years
@@ -32,6 +32,13 @@ class GoogleMinutesYear
 
   def self.url(url)
     connection = GoogleConnection.new
-    GoogleMinutesYear.new(connection.get_by_url(url))
+    minutes_dir = connection.get_by_url(url)
+    
+    if minutes_dir.trashed?
+      nil
+    else
+      GoogleMinutesYear.new(minutes_dir)
+    end
+    
   end
 end

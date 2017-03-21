@@ -10,8 +10,8 @@ class FacebookFeedItem
     feed = graph.get_connections("MarcsFlyingClub", "feed")
     
     outputFeedList = []
-    feed.first(num).each do |feed|
-      outputFeedList.push(FacebookFeedItem.new(feed, graph, logo))
+    feed.first(num).each do |feed_item|
+      outputFeedList.push(FacebookFeedItem.new(feed_item, graph, logo))
     end
     outputFeedList
   end

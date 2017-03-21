@@ -14,7 +14,7 @@ class GooglePhotoAlbum
     photos = []
     @dir.files.each do |photo|
       if photo.resource_type != "folder"
-        photos << GooglePhoto.new(photo)
+        photos << GooglePhoto.new(photo) unless photo.trashed?
       end
     end
     photos
@@ -27,13 +27,19 @@ class GooglePhotoAlbum
     photos_dir = connection.get_photos_dirs
     
     photos_dir.each do |dir|
-      album_lists << GooglePhotoAlbum.new(dir)
+      album_lists << GooglePhotoAlbum.new(dir) unless dir.trashed?
     end
     album_lists
   end
   
   def self.url(url)
     connection = GoogleConnection.new
-    GooglePhotoAlbum.new(connection.get_by_url(url))
+    photos_dir = connection.get_by_url(url)
+
+    if photos_dir.trashed?
+      nil
+    else
+      GooglePhotoAlbum.new(photos_dir)
+    end
   end
 end

@@ -6,7 +6,7 @@ $(document).load(function (){
   loaderDiv = $(this);
   loaderDiv.html("<div class='badge'>Loading</div>");
   $(this).load(url, function(response,status){
-   if ($(this).size() == 0 || status != "success") {
+   if ($(this).size() === 0 || status !== "success") {
    	loaderDiv.html("<div class='alert alert-danger' role='alert'>Error loading page.</div>");
    } else {
     $(document).load();
