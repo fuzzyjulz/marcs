@@ -34,7 +34,6 @@ class FacebookFeedItem
     self
   end
   
-  private
   def self.getGraphConnection
     graph = nil
     unless @@accessToken.nil?

@@ -95,7 +95,6 @@ class GoogleMember
     instance_values
   end
   
-  private
   def self.processSheet()
     sheet = GoogleConnection.new.get_membership_sheet
     (FIRST_ROW..sheet.num_rows).each do |row|
