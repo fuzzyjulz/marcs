@@ -5,33 +5,45 @@ class CalendarEventsController < ApplicationController
   @@calendar_time_format = "%d %b at %l:%M%p"
   
   def index
+    @events = get_club_events
+    
+    if can? :view_committee_calendar, current_user
+      @events = @events + get_committee_events
+    end
+
+    @events.sort! { |a,b| a.start_date <=> b.start_date}
+
+    @events_by_month = get_events_by_month(@events)
+
+    render layout: nil
+  end
+  
+  def get_events_by_month(events)
+    events_by_month = Hash.new(0)
+    events.each do |event|
+      this_month_group = event.start_date.strftime("%B")
+      
+      events_by_month[this_month_group] = [] if (events_by_month[this_month_group] == 0) 
+      events_by_month[this_month_group] << event
+    end
+    events_by_month
+  end
+  
+  def get_club_events()
     @@latest_main_calendar_update = nil
     if (@@latest_main_calendar_update.nil? or @@latest_main_calendar_update < Time.now - 1.days)
       @@main_events = get_calendar(ApplicationHelper::CLUB_CALENDAR_ICS_URL)
       @@latest_main_calendar_update = Time.now
     end
-    
-    @events = @@main_events
-    
-    if can? :view_committee_calendar, current_user
-      if (@@latest_comittee_calendar_update.nil? or @@latest_comittee_calendar_update < Time.now - 1.days)
-        @@committee_events = get_calendar(ApplicationHelper::COMMITTEE_CALENDAR_ICS_URL)
-        @@latest_comittee_calendar_update = Time.now
-      end
+    @@main_events
+  end
   
-      @events = @@main_events + @@committee_events
-      @events.sort! { |a,b| a.start_date <=> b.start_date}
+  def get_committee_events()
+    if (@@latest_comittee_calendar_update.nil? or @@latest_comittee_calendar_update < Time.now - 1.days)
+      @@committee_events = get_calendar(ApplicationHelper::COMMITTEE_CALENDAR_ICS_URL)
+      @@latest_comittee_calendar_update = Time.now
     end
-
-    @events_by_month = Hash.new(0)
-    @events.each do |event|
-      this_month_group = event.start_date.strftime("%B")
-      
-      @events_by_month[this_month_group] = [] if (@events_by_month[this_month_group] == 0) 
-      @events_by_month[this_month_group] << event
-    end
-
-    render layout: nil
+    @@committee_events
   end
   
   def get_time_format
