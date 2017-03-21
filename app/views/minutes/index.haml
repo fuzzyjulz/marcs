@@ -7,9 +7,11 @@
       %h4.panel-title
        %a{role: "button", href:"#year#{year.id}",aria:{controls:"#year#{year.id}",expanded:"true"}, data:{toggle:"collapse", parent:"#yearList"}}
         #{year.title}
-     .panel-collapse.collapse.in{id:"year#{year.id}",role:"tabpanel", aria: {labelledby:"year2017Heading"}}
-      .panel-body
-       -year.minutes.each do |minutes|
-        -if [:club_meeting, :committee_meeting, :agm_meeting].include? minutes.type
-         %p
-          %a{href: minutes.view_url, target: "_blank"}=minutes.filename
+     .panel-collapse.collapse.yearContent{id:"year#{year.id}",role:"tabpanel", aria: {labelledby:"year#{year.id}Heading"}}
+      .panel-body{href: minute_path(year.id)}
+
+:javascript
+ $('.yearContent').on("show.bs.collapse", function(){
+   $(this).find(".panel-body").addClass("jqueryLoad")
+   $(document).load();
+ });

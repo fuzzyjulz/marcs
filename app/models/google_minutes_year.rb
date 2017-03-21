@@ -32,6 +32,6 @@ class GoogleMinutesYear
 
   def self.url(url)
     connection = GoogleConnection.new
-    GooglePhotoAlbum.new(connection.get_by_url(url))
+    GoogleMinutesYear.new(connection.get_by_url(url))
   end
 end

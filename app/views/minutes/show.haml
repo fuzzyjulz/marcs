@@ -1,0 +1,4 @@
+-@year.minutes.each do |minutes|
+ -if can_view minutes
+  %p
+   %a{href: minutes.view_url, target: "_blank"}=minutes.title
