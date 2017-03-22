@@ -1,9 +1,6 @@
 class MinutesController < ApplicationController
   helper_method :can_view
   
-  @@minutes_years = nil
-  @@minutes_years_last_updated = nil
-  
   def index
     authorize! :view_minutes, current_user
     
@@ -13,12 +10,13 @@ class MinutesController < ApplicationController
   
   def show
     authorize! :view_minutes, current_user
-    
-    @year = get_years[request[:id]]
+    years = get_years
+    @year = years[request[:id]]
     if @year.minutes.nil?
       load_minutes(@year)
+      Rails.cache.write("minutes_years", years)
     end
-
+    
     render layout: nil
   end
   
@@ -37,18 +35,17 @@ class MinutesController < ApplicationController
   
   private
   def get_years()
-    if @@minutes_years.nil? or @@minutes_years_last_updated < Time.now - 1.days
-      @@minutes_years = Hash.new()
-      @@minutes_years_last_updated = Time.now
-      GoogleMinutesYear.all.each {|year| @@minutes_years[year.id] = MinutesYear.new(year)}
+    Rails.cache.fetch("minutes_years", expires_in: 1.days) do
+      minutes_years = Hash.new()
+      GoogleMinutesYear.all.each {|year| minutes_years[year.id] = MinutesYear.new(year)}
+      minutes_years
     end
-    @@minutes_years
   end
   
   def load_minutes(year)
     year.minutes = GoogleMinutesYear.url(year.view_url).minutes \
-                      .keep_if{|minutes| !minutes.type.nil?} \
-                      .map{|minutes| Minutes.new(minutes)} \
-                      .sort! {|a,b| b.title <=> a.title}
+                     .keep_if{|minutes| !minutes.type.nil?} \
+                     .map{|minutes| Minutes.new(minutes)} \
+                     .sort! {|a,b| b.title <=> a.title}
   end
 end

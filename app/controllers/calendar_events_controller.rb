@@ -1,7 +1,5 @@
 class CalendarEventsController < ApplicationController
   helper_method :get_time_format
-  @@latest_main_calendar_update = nil
-  @@latest_comittee_calendar_update = nil
   @@calendar_time_format = "%d %b at %l:%M%p"
   
   def index
@@ -30,20 +28,15 @@ class CalendarEventsController < ApplicationController
   end
   
   def get_club_events()
-    @@latest_main_calendar_update = nil
-    if (@@latest_main_calendar_update.nil? or @@latest_main_calendar_update < Time.now - 1.days)
-      @@main_events = get_calendar(ApplicationHelper::CLUB_CALENDAR_ICS_URL)
-      @@latest_main_calendar_update = Time.now
+    Rails.cache.fetch("club_events", expires_in: 1.days) do
+      get_calendar(ApplicationHelper::CLUB_CALENDAR_ICS_URL)
     end
-    @@main_events
   end
   
   def get_committee_events()
-    if (@@latest_comittee_calendar_update.nil? or @@latest_comittee_calendar_update < Time.now - 1.days)
-      @@committee_events = get_calendar(ApplicationHelper::COMMITTEE_CALENDAR_ICS_URL)
-      @@latest_comittee_calendar_update = Time.now
+    Rails.cache.fetch("committee_events", expires_in: 1.days) do
+      get_calendar(ApplicationHelper::COMMITTEE_CALENDAR_ICS_URL)
     end
-    @@committee_events
   end
   
   def get_time_format

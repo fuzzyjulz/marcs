@@ -1,13 +1,8 @@
 class NewsfeedController < ApplicationController
-  @@latest_news_update = nil
-  
   def index
-    if @@latest_news_update.nil? or @@latest_news_update < Time.now - 10.minutes
-      #cache it for 10 minutes
-      @@latest_news = getNews
-      @@latest_news_update = Time.now
+    @news_list = Rails.cache.fetch("news", expires_in: 10.minutes) do
+      getNews
     end
-    @news_list = @@latest_news
     
     render layout: nil
   end

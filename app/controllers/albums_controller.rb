@@ -1,15 +1,13 @@
 class AlbumsController < ApplicationController
-  @@latest_photo_update = nil
-  
   def index
-    if @@latest_photo_update.nil? or @@latest_photo_update < Time.now - 1.hour
+    Rails.cache.fetch("latest_photo_refresh",expires_in: 1.hours) do
       begin
         refreshAlbums
       rescue Faraday::ConnectionFailed
         #don't check again, as it probably won't work.
         logger.info "### Couldn't refresh the album, so just ignore until the next run time"
       end
-      @@latest_photo_update = Time.now
+      Time.now
     end
     
     @album_groups = Album.uniq.order(album_group: :desc).pluck(:album_group)
