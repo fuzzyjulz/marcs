@@ -33,6 +33,9 @@ group :development, :test do
   gem 'cucumber-rails', :require => false
   gem 'database_cleaner'
 end
+group :test do
+  gem 'codeclimate-test-reporter'
+end
 group :development do
   gem 'better_errors'
   gem 'pry'
