@@ -34,6 +34,7 @@ group :development, :test do
   gem 'database_cleaner'
 end
 group :test do
+  gem 'simplecov'
   gem 'codeclimate-test-reporter'
 end
 group :development do
