@@ -30,6 +30,8 @@ gem 'sdoc', '~> 0.4.0', group: :docs
 
 group :development, :test do
   gem 'byebug'
+  gem 'cucumber-rails', :require => false
+  gem 'database_cleaner'
 end
 group :development do
   gem 'better_errors'
