@@ -6,17 +6,11 @@
 
 require 'cucumber/rails'
 begin
-  require "codeclimate-test-reporter"
-  CodeClimate::TestReporter.start
+  require 'simplecov'
+  SimpleCov.start 'test_frameworks'
+  puts "###### Simple Cov Started."
 rescue LoadError
-  puts "###### Code climate test engine not installed."
-  begin
-    require 'simplecov'
-    SimpleCov.start 'test_frameworks'
-    puts "###### Simple Cov Started."
-  rescue LoadError
-    puts "###### Simple Cov test engine not installed."
-  end
+  puts "###### Simple Cov test engine not installed."
 end
 
 # Capybara defaults to CSS3 selectors rather than XPath.
