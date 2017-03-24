@@ -42,7 +42,8 @@ class User < ActiveRecord::Base
 
   def self.find_for_database_authentication(warden_conditions)
     conditions = warden_conditions.dup
-    if login == conditions.delete(:login)
+    login = conditions.delete(:login)
+    if login
       where(conditions.to_hash).where(["lower(fai) = :value", { :value => fai.downcase }]).first
     else
       where(conditions.to_hash).first
