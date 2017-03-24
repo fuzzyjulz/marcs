@@ -5,14 +5,21 @@
 # files.
 
 require 'cucumber/rails'
+require 'colorize'
+
 begin
   require 'simplecov'
   SimpleCov.start 'test_frameworks'
-  puts "###### Simple Cov Started."
+  puts "Simple Cov Started.".green
 rescue LoadError
-  puts "###### Simple Cov test engine not installed."
+  puts "Simple Cov test engine not installed.".red
 end
 
+begin
+  require 'pry'
+rescue LoadError
+  puts "Pry not installed.".red
+end
 # Capybara defaults to CSS3 selectors rather than XPath.
 # If you'd prefer to use XPath, just uncomment this line and adjust any
 # selectors in your step definitions to use the XPath syntax.
@@ -63,3 +70,9 @@ end
 # See https://github.com/cucumber/cucumber-rails/blob/master/features/choose_javascript_database_strategy.feature
 Cucumber::Rails::Database.javascript_strategy = :truncation
 
+Before do
+  ActiveRecord::FixtureSet.reset_cache
+  fixtures_folder = File.join(Rails.root, 'test', 'fixtures')
+  fixtures = Dir[File.join(fixtures_folder, '*.yml')].map {|f| File.basename(f, '.yml') }
+  ActiveRecord::FixtureSet.create_fixtures(fixtures_folder, fixtures)
+end
