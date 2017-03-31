@@ -11,9 +11,9 @@
  %br
  .row
   .col-xs-12.col-sm-6
-   .newsfeed.jqueryLoad{href: newsfeed_index_path}
+   .newsfeed
+    =renderAsAjax newsfeed_index_path
   .col-xs-12.col-sm-6
-   .jqueryLoad{href: calendar_events_path}
-
+   =renderAsAjax calendar_events_path
 :javascript
  $(document).load();

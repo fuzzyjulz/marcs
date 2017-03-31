@@ -4,7 +4,7 @@ class CalendarEventsController < ApplicationController
   
   def index
     @events = get_club_events
-    
+
     if can? :view_committee_calendar, current_user
       @events = @events + get_committee_events
     end
@@ -28,14 +28,14 @@ class CalendarEventsController < ApplicationController
   end
   
   def get_club_events()
-    Rails.cache.fetch("club_events", expires_in: 1.days) do
-      get_calendar(ApplicationHelper::CLUB_CALENDAR_ICS_URL)
+    Rails.cache.fetch("club_events", expires_in: 1.days, force: Rails.env.test?) do
+      get_calendar(ApplicationHelper::CLUB_CALENDAR_ICS_URL, :club)
     end
   end
   
   def get_committee_events()
-    Rails.cache.fetch("committee_events", expires_in: 1.days) do
-      get_calendar(ApplicationHelper::COMMITTEE_CALENDAR_ICS_URL)
+    Rails.cache.fetch("committee_events", expires_in: 1.days, force: Rails.env.test?) do
+      get_calendar(ApplicationHelper::COMMITTEE_CALENDAR_ICS_URL, :committee)
     end
   end
   
@@ -43,7 +43,7 @@ class CalendarEventsController < ApplicationController
     @@calendar_time_format
   end
   
-  def get_calendar(address)
+  def get_calendar(address, type)
     events = nil
     open(address) do |cal|
       main_calendar = Icalendar::Calendar.parse(cal)
@@ -51,6 +51,7 @@ class CalendarEventsController < ApplicationController
         events = get_relevant_events(calendar.events, 2)
       end
     end
+    events.each {|event| event.type = type}
     events
   end
   
@@ -60,13 +61,13 @@ class CalendarEventsController < ApplicationController
     event_list.each do |event|
       if event.rrule.present?
         final_events << event \
-        .occurrences_between(DateTime::now.prev_month(0), DateTime::now.next_month(months)) \
+        .occurrences_between(DateTime.current, DateTime.current.next_month(months)) \
         .map!{ |event_occ| CalendarItem.new(event_occ.start_time, event.summary)}
       end
     end
     
     final_events << event_list \
-      .delete_if { |e| !e.dtstart.between?(DateTime::now.prev_month(0), DateTime::now.next_month(months)) } \
+      .delete_if { |e| !e.dtstart.between?(DateTime.current, DateTime.current.next_month(months)) } \
       .map!{ |event| CalendarItem.new(event.dtstart.value, event.summary)}
 
     final_events.flatten!

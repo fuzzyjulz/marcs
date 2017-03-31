@@ -10,6 +10,7 @@ standard_member:
   street: 10 test street
   city: Memberberg
   postcode: 5678
+  financial: y
 
 committee_member:
   id: 2,
@@ -21,3 +22,6 @@ committee_member:
   street: 20 test street
   city: Committeeville
   postcode: 8765
+  committee_position: President
+  financial: y
+  

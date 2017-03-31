@@ -1,9 +1,11 @@
 class ApplicationController < ActionController::Base
+  include Analytics
+  
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
   before_action :configure_permitted_parameters, if: :devise_controller?
-  helper_method :marcs_image_tag, :extract_links, :show_member_submenu
+  helper_method :marcs_image_tag, :extract_links, :show_member_submenu, :renderAsAjax
   
   def marcs_image_tag(*p)
     ActionController::Base.helpers.image_tag(*p).sub(/s3\.amazonaws\.com\/marcsprod/,"marcsprod.s3-ap-southeast-2.amazonaws.com").html_safe
@@ -20,6 +22,19 @@ class ApplicationController < ActionController::Base
   rescue_from CanCan::AccessDenied do |exception|
     redirect_to root_url, :alert => exception.message
   end
+  
+  def renderAsAjax(path_url,params = {})
+    if Rails.env.test?
+      path = Rails.application.routes.recognize_path path_url
+      c = "#{path[:controller]}_controller".camelize.constantize.new
+      c.params = params
+      c.dispatch(path[:action], request)
+      c.response.body.html_safe
+    else
+      "<div class='jqueryLoad' href='#{path_url}'></div>".html_safe
+    end
+  end
+  
     protected
   
     def configure_permitted_parameters
