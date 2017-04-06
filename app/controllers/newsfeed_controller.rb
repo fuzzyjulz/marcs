@@ -1,6 +1,6 @@
 class NewsfeedController < ApplicationController
   def index
-    @news_list = Rails.cache.fetch("news", expires_in: 10.minutes) do
+    @news_list = Rails.cache.fetch("news", expires_in: 10.minutes, force: (Rails.env.test? or true)) do
       getNews
     end
     
@@ -8,6 +8,6 @@ class NewsfeedController < ApplicationController
   end
   
   def getNews
-    FacebookFeedItem.last(8)
+    FeedItem.last(8)
   end
 end
