@@ -15,6 +15,7 @@ class FacebookFeed
   
   def getGraphConnection
     @graph = nil
+    Koala.config.api_version = "v2.8"
     unless @@accessToken.nil?
       begin
         @graph = Koala::Facebook::API.new(@@accessToken)
