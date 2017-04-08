@@ -15,7 +15,8 @@ class UsersController < ApplicationController
     if current_user.changed_member_fields.empty?
       flash[:notice]="No change"
     else
-      MarcsMailer.member_details_update(current_user).deliver_now
+      mail = MarcsMailer.member_details_update(current_user)
+      mail.deliver_now unless Rails.env.test?
       
       flash[:notice]="Updated your details"
     end

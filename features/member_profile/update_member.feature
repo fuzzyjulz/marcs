@@ -20,7 +20,7 @@ Scenario: As a committee member I am able to update my own details
 @NonFinancialMember
 Scenario: As a non financial member I am able to update my own details and see my financial status
  When I navigate to the member profile screen
- Then I expect to not see my profile details 
+ Then I expect to see my profile details 
   And I expect to see that I am not financial 
  When I update my profile details
  Then I expect to see my updated profile details

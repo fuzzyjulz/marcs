@@ -5,7 +5,7 @@
     .col-xs-8
      .logo
       %img{src: feed_item.logo}
-     =feed_item.author
+     %span.author=feed_item.author
     .col-xs-4.time
      =feed_item.createdDate.strftime(ApplicationHelper::DISPLAY_DATE_FORMAT)
   .panel-body

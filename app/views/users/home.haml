@@ -11,7 +11,7 @@
     #memberDetails.panel-body.in
      =render "view_member_details", {user: current_user}
      %p
-      =button_to "Change my details", edit_user_path, method: :get
+      =button_to "Change my details", edit_user_path, method: :get, class: "updateProfile"
   -if can? :view_meeting_minutes, current_user
    .col-xs-12.col-md-6
     .panel.panel-default.withLink{data:{toggle:"collapse", target:"#minutesBody"}}

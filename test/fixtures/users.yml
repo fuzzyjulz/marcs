@@ -25,3 +25,14 @@ committee_member:
   committee_position: President
   financial: y
   
+non_financial:
+  id: 3,
+  fai: 5678,
+  first_name: NonFinancial,
+  last_name: Member
+  encrypted_password: <%= User.new.send(:password_digest, 'member') %>
+  email: nonf_member@marcs.org.au
+  street: 10 Not Fin street
+  city: Memberberg
+  postcode: 5678
+  financial: n

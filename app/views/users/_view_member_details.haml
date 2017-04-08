@@ -1,21 +1,30 @@
-%p
- .labelText
-  Name:
- .firstName=user.first_name
- .lastName=user.last_name
-%p
- .labelText
-  =label :user, :email
- .email=user.email
-
-%p
- .labelText
-  =label :user, :address
- .addressStreet=user.street
-%p
- .labelText
- .addressCity=user.city
-%p
- .labelText
- .addressPostcode=user.postcode
+.viewMember
+ %p
+  .labelText
+   Name
+  %span.firstName=user.first_name
+  %span.lastName=user.last_name
+ %p
+  .labelText
+   =label :user, :email
+  %span.email=user.email
+ 
+ %p
+  .labelText
+   =label :user, :address
+  %span.addressStreet=user.street
+ %p
+  .labelText
+  %span.addressCity=user.city
+ %p
+  .labelText
+  %span.addressPostcode=user.postcode
+ %p
+  .labelText
+   Membership Paid?
+  %span
+   -if user.financial?
+    %span.paidMembership.glyphicon.glyphicon-ok
+   -else
+    .unpaidMembership.glyphicon.glyphicon-remove
 
