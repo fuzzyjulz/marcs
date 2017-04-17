@@ -3,7 +3,7 @@ require 'webmock/cucumber'
 Before do
   fixtures_folder = File.join(Rails.root, 'test', 'fixtures')
   
-  
+  #Newsfeed
   stub_request(:post, "https://graph.facebook.com/v2.8/oauth/access_token").\
     to_return(:status => 200, :body => "##ACCESSTOKEN##", :headers => {})
   

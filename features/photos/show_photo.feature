@@ -1,7 +1,7 @@
 Feature: I am able to open a preview of a photo
 
 Scenario: Users are able to open previews of photos and navigate through them
- When I navigate to the photo albums page
+ When I navigate to the photo albums screen
   And I click on the photo album
   And I click on the first photo
  Then I expect to see the first photo

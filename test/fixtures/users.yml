@@ -1,9 +1,9 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 standard_member:
-  id: 1,
-  fai: 1234,
-  first_name: Test,
+  id: 1
+  fai: 1234
+  first_name: Test
   last_name: Member
   encrypted_password: <%= User.new.send(:password_digest, 'member') %>
   email: test_member@marcs.org.au
@@ -13,9 +13,9 @@ standard_member:
   financial: y
 
 committee_member:
-  id: 2,
-  fai: 4321,
-  first_name: Committee,
+  id: 2
+  fai: 4321
+  first_name: Committee
   last_name: Representitive
   encrypted_password: <%= User.new.send(:password_digest, 'representitive') %>
   email: test_committee@marcs.org.au
@@ -26,9 +26,9 @@ committee_member:
   financial: y
   
 non_financial:
-  id: 3,
-  fai: 5678,
-  first_name: NonFinancial,
+  id: 3
+  fai: 5678
+  first_name: NonFinancial
   last_name: Member
   encrypted_password: <%= User.new.send(:password_digest, 'member') %>
   email: nonf_member@marcs.org.au

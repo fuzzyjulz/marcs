@@ -1,0 +1,42 @@
+
+ThisYearJan:
+  id: 1
+  album_group: Current
+  title: January
+  last_modified: 1/1/2999
+  url: http://marcs.org.au/nil
+
+ThisYearFeb:
+  id: 2
+  album_group: Current
+  title: February
+  last_modified: 1/1/2999
+  url: http://marcs.org.au/nil
+  
+ThisYearMar:
+  id: 3
+  album_group: Current
+  title: March
+  last_modified: 1/1/2999
+  url: http://marcs.org.au/nil
+
+ThisYearApr:
+  id: 4
+  album_group: Current
+  title: April
+  last_modified: 1/1/2999
+  url: http://marcs.org.au/nil
+
+SecondYear:
+  id: 5
+  album_group: 1900
+  title: Ninteen Ten
+  last_modified: 1/1/2999
+  url: http://marcs.org.au/nil
+  
+ThirdYear:
+  id: 6
+  album_group: 1910
+  title: Ninteen Hundred
+  last_modified: 1/1/2999
+  url: http://marcs.org.au/nil
