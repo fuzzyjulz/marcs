@@ -1,7 +1,7 @@
 class GoogleAnalyticsImpl
 
-  DIMENSION_NAMES = [nil,'User Id']
-  DIMENSION_KEYS = [nil, :user_id]
+  DIMENSION_NAMES = [nil,'User Id', 'User First Name']
+  DIMENSION_KEYS = [nil, :user_id, :first_name]
   OFFICE_IPS = ["127.0.0.1"] 
   
   def initialize(request, session, cookies, campaign, current_user)
@@ -13,8 +13,10 @@ class GoogleAnalyticsImpl
     @ga_gabba.campaign = campaign
     if current_user
       set_ga_var(:user_id, current_user.id)
+      set_ga_var(:first_name, current_user.first_name)
     else
       set_ga_var(:user_id, "notLoggedIn")
+      set_ga_var(:first_name, "notLoggedIn")
     end
   end
   
