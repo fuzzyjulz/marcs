@@ -297,7 +297,5 @@
     }
   ],
   "paging": {
-    "previous": "https://graph.facebook.com/v2.8/240686749284785/feed?fields=message,description,story,picture,likes,created_time,from,admin_creator,type,object_id&limit=8&format=json&since=1489220397&access_token=EAACEdEose0cBAFyAv04TZCZA6ZC1zEhc4RKhQIYokecdwaPvNR00yby07lpUCZCUBj11MZC0QbZCSZANaGP8h9cyfcZCSCpIZCeI2x2kzRaZA2wr9xwHlwyNd5VOSh0Ftu9RbV3GkzqHWs0ctvALwP7nCPGYuVXYjBT2pKB9ZAydudZACUehYzjyWxNpWixsbOZB1fEsZD&__paging_token=enc_AdBToLExIyETLtOJh3MQJPThZBxk0LIfB4pllSJPzBpFdc3sDZA5lNQF1icyOCbzMEZC4zpOSTEN5CuRfCDFFy8RD1iZBQ5pDuIyrj1RCiIVQCHyNgZDZD&__previous=1",
-    "next": "https://graph.facebook.com/v2.8/240686749284785/feed?fields=message,description,story,picture,likes,created_time,from,admin_creator,type,object_id&limit=8&format=json&access_token=EAACEdEose0cBAFyAv04TZCZA6ZC1zEhc4RKhQIYokecdwaPvNR00yby07lpUCZCUBj11MZC0QbZCSZANaGP8h9cyfcZCSCpIZCeI2x2kzRaZA2wr9xwHlwyNd5VOSh0Ftu9RbV3GkzqHWs0ctvALwP7nCPGYuVXYjBT2pKB9ZAydudZACUehYzjyWxNpWixsbOZB1fEsZD&until=1485306000&__paging_token=enc_AdAAeZB6m21kgRVaYsfDOZC8fy6RrZAryjtZAZCQI7CihxOAbjax7JYzEQ6Er07hPUZA9HOYCZBAm5FFVDZCQVPy2KsokZCds6bNgzjiDRFfJzRMZB4zChawZDZD"
   }
 }
