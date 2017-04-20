@@ -2,7 +2,7 @@ class AlbumsController < ApplicationController
   def index
     Rails.cache.fetch("latest_photo_refresh",expires_in: 1.hours) do
       begin
-        refreshAlbums
+        refreshAlbums unless Rails.env.test?
       rescue Faraday::ConnectionFailed
         #don't check again, as it probably won't work.
         logger.info "### Couldn't refresh the album, so just ignore until the next run time"
