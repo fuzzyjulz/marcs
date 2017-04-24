@@ -11,6 +11,7 @@ standard_member:
   city: Memberberg
   postcode: 5678
   financial: y
+  club_instructor_type: f
 
 committee_member:
   id: 2
@@ -24,6 +25,7 @@ committee_member:
   postcode: 8765
   committee_position: President
   financial: y
+  club_instructor_type: h
   
 non_financial:
   id: 3
@@ -36,3 +38,4 @@ non_financial:
   city: Memberberg
   postcode: 5678
   financial: n
+  club_instructor_type: b

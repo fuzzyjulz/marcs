@@ -13,7 +13,7 @@
     %td
      -unless (member.profile_image.nil?)
       %span.glyphicon.glyphicon-user{data:{toggle:"tooltip",placement:"right", html:"true"},title:"<img style='max-height:200px;max-width:180px;' src='#{member.profile_image}'>"}
-    %td="#{member.known_by_first_name} #{member.last_name}"
+    %td.committeeMemberName="#{member.known_by_first_name} #{member.last_name}"
     %td=member.committee_position
     %td{style:"white-space:nowrap;"}=member.mobile_phone
     %td=member.external_email

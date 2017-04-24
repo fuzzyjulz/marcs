@@ -8,7 +8,7 @@
      %a{href: home_user_path} Profile
     -if can? :view_club_trainers, current_user
      %li{class: (action_name == "trainers") ? "active" : ""}
-      %a{href: trainers_user_path} Trainers
+      %a.membersTrainers{href: trainers_user_path} Trainers
     -if can? :view_committee_members, current_user
      %li{class: (action_name == "committee") ? "active" : ""}
       %a{href: committee_user_path} Committee
