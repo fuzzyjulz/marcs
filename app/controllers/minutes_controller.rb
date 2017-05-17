@@ -4,7 +4,6 @@ class MinutesController < ApplicationController
   def index
     authorize! :view_minutes, current_user
     
-    
     @minutes_years = get_years.values.sort! {|a,b| b.title <=> a.title}
   end
   
