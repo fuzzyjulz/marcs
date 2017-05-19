@@ -16,7 +16,8 @@ class ApplicationController < ActionController::Base
   end
   
   def show_member_submenu()
-    (self.is_a? UsersController or self.is_a? MinutesController) and can? :view_member_area, current_user
+    (self.is_a? UsersController or self.is_a? MinutesController or self.is_a? MembershipController) \
+    and can? :view_member_area, current_user
   end
   
   rescue_from CanCan::AccessDenied do |exception|

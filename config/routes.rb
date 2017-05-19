@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
     root 'home#index'
     resources :home, only: :index do
-      get :become_a_member, :club_location, :faqs, on: :collection
+      get :become_a_member, :club_location, :club_rules, :faqs, on: :collection
     end
     resources :newsfeed, only: :index
     resources :albums, only: [:index, :show] do
@@ -21,6 +21,7 @@ Rails.application.routes.draw do
     resource :user do
       get :edit, :home, :refresh, :trainers, :committee
       post :update
+      resources :membership, only: [:new, :create]
     end
     resources :minutes, only: [:index,:show]
 end

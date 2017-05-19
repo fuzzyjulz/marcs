@@ -16,5 +16,5 @@
      %li{class: (action_name == "index") ? "active" : ""}
       %a{href: minutes_path} Minutes
     -if can? :renew_membership, current_user
-     %li
-      %a Renew Membership
+     %li{class: (controller.is_a? MembershipController and action_name == "new") ? "active" : ""}
+      %a{href: new_user_membership_path} Renew Membership
