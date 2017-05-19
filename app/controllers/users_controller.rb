@@ -24,17 +24,11 @@ class UsersController < ApplicationController
   end
   
   def refresh
-    last_updated_member = User.order("updated_at desc").first
-    
-    if (last_updated_member.updated_at > Date.yesterday)
-      stats
-      render layout: nil
-      return
-    end
-    
-    GoogleMember.get_all_members.each do |member|
-      unless (member.nil?)
-        User::save_from_member(member)
+    Rails.cache.fetch("latest_member_refresh",expires_in: 1.day) do
+      GoogleMember.get_all_members.each do |member|
+        unless (member.nil?)
+          User::save_from_member(member)
+        end
       end
     end
     
