@@ -1,4 +1,4 @@
-$(document).load(function (){
+function reloadJavascripts(){
 	//Load pages if you put the load tag on it
 	$(".jqueryLoad").each(function (key) {
   var url = $(this).attr("href");
@@ -21,7 +21,29 @@ $(document).load(function (){
   });
  });
 
-	$("[data-toggle=tooltip]").tooltip();
-});
+ $("[data-toggle=tooltip]").tooltip();
+ 
+ //Collapse for radio buttons based on a target
+ $("input[data-toggle='radio-collapse']").each(function () {
+  var key = this;
+  var group = $("input[name='"+key.name+"']");
+  group.change(function(){
+   $($(key).attr("data-target")).collapse(this == key && key.checked ? "show":"hide");
+  });
+  $($(key).attr("data-target")).addClass(key.checked ? "in":"collapse");
+ });
 
-$(document).ready(function() {$(document).load()});
+ $("input[data-toggle='enable']").each(function () {
+  var target = $($(this).attr("data-target"));
+  
+  $(this).change(function(){
+   target.prop("disabled",!this.checked);
+  });
+  if (!this.enabled)
+   target.prop("disabled",!this.checked);
+ });
+};
+
+$(document).load(reloadJavascripts);
+$(document).ready(reloadJavascripts);
+$(document).on('turbolinks:load', reloadJavascripts);

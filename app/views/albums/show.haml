@@ -32,7 +32,7 @@
     if (status != "success") {
      albumToLoad.html("<div class='alert alert-danger' role='alert'>Error loading page.</div>");
     } else {
-     $(document).load();
+     reloadJavascripts();
     }
     getNextAlbum();
    });
