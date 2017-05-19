@@ -27,4 +27,14 @@
     %span.paidMembership.glyphicon.glyphicon-ok
    -else
     .unpaidMembership.glyphicon.glyphicon-remove
-
+ -if user.financial?
+  %p
+   .labelText
+    Membership Type
+   %span
+    =user.membership_type_sym.to_s.titleize
+    -if user.life_member?
+     Life
+    -if user.affiliate?
+     Affiliate
+    Member

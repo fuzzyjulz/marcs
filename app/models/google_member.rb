@@ -43,7 +43,7 @@ class GoogleMember
   attr_accessor :street, :city, :postcode, :email
   attr_accessor :home_phone, :mobile_phone
   attr_accessor :wings, :maaa_instructor, :club_instructor_type
-  attr_accessor :committee_position
+  attr_accessor :committee_position, :membership_type
   
   def initialize(sheet,row)
     @financial = sheet[row, FINANCIAL_IDX]
@@ -66,6 +66,7 @@ class GoogleMember
     @club_instructor_type = nil_if_blank sheet[row, CLUB_INSTRUCTOR_IDX]
     @committee_position = nil_if_blank sheet[row, COMMITTEE_POSITION_IDX]
     @profile_image = nil_if_blank sheet[row, PROFILE_IMAGE_IDX]
+    @membership_type = nil_if_blank sheet[row, MEMBERSHIP_TYPE_IDX]
   end
   
   def nil_if_blank(value)
@@ -102,5 +103,4 @@ class GoogleMember
     end
     return nil
   end
-
 end

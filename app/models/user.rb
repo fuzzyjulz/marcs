@@ -24,6 +24,28 @@ class User < ActiveRecord::Base
     end
   end
   
+  def life_member?
+    !membership_type.nil? and membership_type.downcase.include? "life"
+  end
+  
+  def membership_type_sym
+    if membership_type.nil?
+      :senior
+    elsif membership_type.downcase.include? "pensioner"
+      :pensioner
+    elsif membership_type.downcase.include? "student"
+      :student
+    elsif membership_type.downcase.include? "junior"
+      :junior
+    else
+      :senior
+    end
+  end
+  
+  def affiliate?
+    !membership_type.nil? and membership_type.downcase.include? "affiliate"
+  end
+  
   def self.get_committee_members
     User.where("committee_position IS NOT NULL and committee_position != ''")
   end
