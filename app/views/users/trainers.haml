@@ -4,7 +4,7 @@
    .col-xs-offset-2.col-xs-4
     .panel.panel-default.withLink{data:{toggle:"collapse", target:"#planeTrainers"}}
      .panel-heading
-      .panel-title
+      %h1.panel-title
        Plane Trainers
      #planeTrainers.panel-body.in
       =render "view_trainer_details", {members: User::plane_instructors}
@@ -12,7 +12,7 @@
    .col-xs-4
     .panel.panel-default.withLink{data:{toggle:"collapse", target:"#heliTrainers"}}
      .panel-heading
-      .panel-title
+      %h1.panel-title
        Heli Trainers
      #heliTrainers.panel-body.in
       =render "view_trainer_details", {members: User::heli_instructors}

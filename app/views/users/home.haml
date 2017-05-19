@@ -6,12 +6,12 @@
   .col-md-offset-3.col-md-6
    .panel.panel-default
     .panel-heading
-     .panel-title
+     %h1.panel-title
       Membership Details
     #memberDetails.panel-body.in
      =render "view_member_details", {user: current_user}
      %p
-      =button_to "Change my details", edit_user_path, method: :get, class: "updateProfile"
+      =button_to "Change my details", edit_user_path, method: :get, class: "updateProfile btn btn-primary"
   -if can? :view_meeting_minutes, current_user
    .col-xs-12.col-md-6
     .panel.panel-default.withLink{data:{toggle:"collapse", target:"#minutesBody"}}
