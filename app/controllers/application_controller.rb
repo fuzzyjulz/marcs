@@ -21,7 +21,7 @@ class ApplicationController < ActionController::Base
   end
   
   rescue_from CanCan::AccessDenied do |exception|
-    redirect_to root_url, :alert => exception.message
+    redirect_to home_user_path, :alert => exception.message
   end
   
   def renderAsAjax(path_url,params = {})
