@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170519121446) do
+ActiveRecord::Schema.define(version: 20170521102009) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,6 +21,31 @@ ActiveRecord::Schema.define(version: 20170519121446) do
     t.string   "title",         null: false
     t.datetime "last_modified"
     t.string   "url",           null: false
+  end
+
+  create_table "membership_fees", force: :cascade do |t|
+    t.integer "year",                null: false
+    t.boolean "half_year",           null: false
+    t.string  "membership_type",     null: false
+    t.decimal "club_membership_fee", null: false
+    t.decimal "insurance_fee",       null: false
+  end
+
+  create_table "membership_years", force: :cascade do |t|
+    t.integer  "user_id",                   null: false
+    t.integer  "year",                      null: false
+    t.boolean  "half_year",                 null: false
+    t.string   "membership_type",           null: false
+    t.string   "pensioner_number"
+    t.string   "student_number"
+    t.boolean  "life_member",               null: false
+    t.boolean  "affiliate",                 null: false
+    t.string   "affiliated_club"
+    t.boolean  "club_rules_accepted",       null: false
+    t.string   "payment_authorised_number"
+    t.datetime "payment_date"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "photos", force: :cascade do |t|
@@ -77,9 +102,13 @@ ActiveRecord::Schema.define(version: 20170519121446) do
     t.string   "profile_image"
     t.string   "known_by"
     t.string   "membership_type"
+    t.string   "affiliated_club"
+    t.string   "pensioner_number"
+    t.string   "student_number"
   end
 
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "membership_years", "users"
   add_foreign_key "photos", "albums"
 end

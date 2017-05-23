@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
   validates :fai,  :presence => true
   
   has_many :user_wings, dependent: :destroy
+  has_many :membership_years, dependent: :destroy
   accepts_nested_attributes_for :user_wings
   
   def known_by_first_name

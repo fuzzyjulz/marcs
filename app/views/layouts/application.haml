@@ -21,7 +21,7 @@
       :javascript
        $("#noticeMessages").animate({opacity: "toggle"}, 2000);
      -unless alert.nil?
-      %p#alertMessages.alert.alert-info=alert
+      %p#alertMessages.alert.alert-danger=alert
       :javascript
        $("#alertMessages").animate({opacity: "toggle"}, 2000);
    .row

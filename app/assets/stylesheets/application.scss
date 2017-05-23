@@ -61,7 +61,12 @@ div:hover > .panel.withLink {
 padding-left: 20px;
 }
 
-.simple_form label {
+label.radio{
+  position: absolute;
+  margin-top: 0px;
+}
+
+.simple_form .input.string label, .simple_form .input.email label {
  width: 150px;
 }
 
@@ -95,6 +100,19 @@ border-radius: 3px;
 
 .bs-callout+.bs-callout {
 margin-top: -5px;
+}
+
+span.error {
+ position: absolute;
+ right: 0px;
+ z-index: 2;
+ color: red;
+ font-size: 10px;
+ padding-right: 4px;
+}
+
+.field_with_errors input {
+ background: mistyrose;
 }
 
 @mixin bs-mixin($name, $callout-color) {

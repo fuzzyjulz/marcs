@@ -67,6 +67,9 @@ class GoogleMember
     @committee_position = nil_if_blank sheet[row, COMMITTEE_POSITION_IDX]
     @profile_image = nil_if_blank sheet[row, PROFILE_IMAGE_IDX]
     @membership_type = nil_if_blank sheet[row, MEMBERSHIP_TYPE_IDX]
+    @affiliated_club = nil_if_blank sheet[row, AFFILIATES_CLUB_IDX]
+    @pensioner_number = nil_if_blank sheet[row, PENSIONER_NO_IDX] if membership_type.downcase.include? "pensioner"
+    @student_number = nil_if_blank sheet[row, PENSIONER_NO_IDX] if membership_type.downcase.include? "student"
   end
   
   def nil_if_blank(value)

@@ -42,6 +42,12 @@ function reloadJavascripts(){
   if (!this.enabled)
    target.prop("disabled",!this.checked);
  });
+ 
+ function clearErrors(){
+  $(this).parent().removeClass("field_with_errors").find("span").remove();
+ }
+ $(".field_with_errors input").change(clearErrors);
+ $(".field_with_errors input").keydown(clearErrors);
 };
 
 $(document).load(reloadJavascripts);
