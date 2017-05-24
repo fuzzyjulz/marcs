@@ -11,7 +11,7 @@ class GoogleMinutesYear
   
   def minutes
     minutes = []
-    @dir.files.each do |minutes_dir|
+    @dir.files do |minutes_dir|
       minutes << GoogleMinutes.new(minutes_dir) unless minutes_dir.trashed?
     end
     minutes

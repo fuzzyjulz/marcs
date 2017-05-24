@@ -12,7 +12,7 @@ class GooglePhotoAlbum
   
   def photos
     photos = []
-    @dir.files.each do |photo|
+    @dir.files do |photo|
       if photo.resource_type != "folder"
         photos << GooglePhoto.new(photo) unless photo.trashed?
       end
