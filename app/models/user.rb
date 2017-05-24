@@ -43,6 +43,10 @@ class User < ActiveRecord::Base
     end
   end
   
+  def membership_name
+    "#{membership_type_sym.to_s.titleize} #{life_member? ? 'life':''} #{affiliate? ? 'Affiliate':''}"
+  end
+
   def affiliate?
     !membership_type.nil? and membership_type.downcase.include? "affiliate"
   end

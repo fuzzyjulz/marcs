@@ -1,0 +1,35 @@
+.container
+ .row
+  .col-md-offset-3.col-md-6
+   .panel.panel-default
+    .panel-heading
+     %h1.panel-title
+      Membership Successfully Renewed
+    .panel-body
+     .indented
+      %p All signed up for the #{membership_year.half_year? ? "half" : "full"} year #{membership_year.year_range}!
+      -if agm_time?
+       %p When you attend the AGM you can collect your key
+      -else
+       %p You will be able to pick up your key from one of the committee
+      %br
+      %br
+      %p
+       If you need to send money to the club the details are as follows:
+      %p
+       %label.labelText Account Name:
+       Model Aircraft Radio Control Society Inc
+      %p
+       %label.labelText BSB:
+       #{ApplicationHelper::BANK_BSB}
+      %p
+       %label.labelText Account:
+       #{ApplicationHelper::BANK_ACCT_NO}
+      %p
+       %label.labelText Amount:
+       #{number_to_currency(@membership_fee)}
+      %br
+      %p
+       %b Please Note:
+       When making EFT payments you must include your name in ‘payer reference field’, or membership may not be effected.
+      

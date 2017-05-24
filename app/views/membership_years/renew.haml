@@ -6,9 +6,9 @@
      %h1.panel-title
       Renew Membership
     .panel-body
-     =simple_form_for [current_user, @membership_year], url: user_membership_years_path() do |f|
+     =simple_form_for [current_user, membership_year], url: user_membership_years_path() do |f|
       %p
-       Renew my membership for the full year 2016-2017
+       Renew my membership for the #{membership_year.half_year? ? "half" : "full"} year #{membership_year.year_range}
       %h2
        =current_user.membership_type
        Membership Type:
@@ -20,7 +20,7 @@
         .input-group
          %span.input-group-addon Pensioner Number
          =f.input :pensioner_number, label: false,
-            input_html: {class:"form-control", type:"text", aria:{label:"Enter your pensioner number"}}
+            input_html: {class:"form-control", type:"text", placeholder:"Enter your pensioner number"}
        =f.input :membership_type, as: :radio, value: :student, label: "Student",
           input_html: {data: {toggle: "radio-collapse", target: "#studentNumberGroup"}}
        #studentNumberGroup.indented
@@ -28,7 +28,7 @@
         .input-group
          %span.input-group-addon Student Number
          =f.input :student_number, label: false, 
-            input_html: {class: "form-control", type:"text", aria:{label:"Enter your student number"}}
+            input_html: {class: "form-control", type:"text", placeholder:"Enter your student number"}
        =f.input :membership_type, as: :radio, value: 'junior', label: "Junior",
           input_html: {data: {toggle: "radio-collapse", target: "#juniorDescription"}}
        #juniorDescription.indented
@@ -49,14 +49,15 @@
        #mainClubGroup.indented
         .input-group
          %span.input-group-addon Main club
-         =f.input :affiliated_club, label: false, input_html: {class: "form-control", type:"text", aria:{label:"Enter name of your main club"}}
- 
+         =f.input :affiliated_club, label: false, 
+            input_html: {class: "form-control", type:"text", placeholder:"Enter name of your main club"}
+
       %br
       .indented
        .indented
-        =f.input :club_rules_accepted, as: :boolean, input_html: {data: {toggle: "enable", target: "#submitButton"}}
-       I have read and agree to the 
-       %a{href: club_rules_home_index_path, target: "_blank"} club rules
+        =f.input :club_rules_accepted, as: :boolean, label: "", input_html: {data: {toggle: "enable", target: "#submitButton"}}
+        I have read and agree to the 
+        %a{href: club_rules_home_index_path, target: "_blank"} club rules
  
       %br
       .indented

@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(version: 20170521102009) do
     t.string   "url",           null: false
   end
 
-  create_table "membership_fees", force: :cascade do |t|
+  create_table "membership_fees", primary_key: "[:year, :half_year]", force: :cascade do |t|
     t.integer "year",                null: false
     t.boolean "half_year",           null: false
     t.string  "membership_type",     null: false
@@ -31,7 +31,7 @@ ActiveRecord::Schema.define(version: 20170521102009) do
     t.decimal "insurance_fee",       null: false
   end
 
-  create_table "membership_years", force: :cascade do |t|
+  create_table "membership_years", primary_key: "[:user_id, :year]", force: :cascade do |t|
     t.integer  "user_id",                   null: false
     t.integer  "year",                      null: false
     t.boolean  "half_year",                 null: false

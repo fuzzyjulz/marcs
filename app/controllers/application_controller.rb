@@ -5,7 +5,8 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
   before_action :configure_permitted_parameters, if: :devise_controller?
-  helper_method :marcs_image_tag, :extract_links, :show_member_submenu, :renderAsAjax
+  helper_method :marcs_image_tag, :extract_links, :show_member_submenu, :renderAsAjax,
+    :agm_time?, :financial_half_year?, :financial_year
   
   def marcs_image_tag(*p)
     ActionController::Base.helpers.image_tag(*p).sub(/s3\.amazonaws\.com\/marcsprod/,"marcsprod.s3-ap-southeast-2.amazonaws.com").html_safe
@@ -20,6 +21,19 @@ class ApplicationController < ActionController::Base
     and can? :view_member_area, current_user
   end
   
+  def agm_time?
+    (6..7).include? Date.today.month
+  end
+
+  def financial_half_year?
+    (11..12).include? Date.today.month or (1..5).include? Date.today.month
+  end
+
+  def financial_year
+    (1..5).include?(Date.today.month) ? Date.today.year-1 : Date.today.year
+  end
+
+
   rescue_from CanCan::AccessDenied do |exception|
     redirect_to home_user_path, :alert => exception.message
   end

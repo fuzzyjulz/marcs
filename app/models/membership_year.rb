@@ -12,4 +12,20 @@ class MembershipYear < ActiveRecord::Base
   def student?
     membership_type.to_sym == :student
   end
+  
+  def year_range
+    "#{year}-#{year+1}"
+  end
+
+  def membership_name
+    "#{membership_type.to_s.titleize} #{life_member ? 'life':''} #{affiliate ? 'Affiliate':''}"
+  end
+
+  def membership_fee
+    fee_obj = MembershipFee.find_by(year: year, half_year: half_year, membership_type: membership_type)
+    fee = 0
+    fee += fee_obj.club_membership_fee unless life_member
+    fee += fee_obj.insurance_fee unless affiliate
+    fee
+  end
 end

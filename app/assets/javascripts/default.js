@@ -48,6 +48,15 @@ function reloadJavascripts(){
  }
  $(".field_with_errors input").change(clearErrors);
  $(".field_with_errors input").keydown(clearErrors);
+ 
+ $('.date-picker').datepicker({
+    format: "dd/mm/yyyy",
+    todayBtn: "linked",
+    endDate: "0d",
+    language: "en-AU",
+    autoclose: true,
+    todayHighlight: true
+});
 };
 
 $(document).load(reloadJavascripts);

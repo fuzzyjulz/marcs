@@ -1,7 +1,7 @@
 class CreateMembershipYears < ActiveRecord::Migration
   def change
 
-    create_table :membership_years do |t|
+    create_table :membership_years, primary_key: [:user_id, :year] do |t|
       
       t.integer :user_id, null: false
       t.integer :year, null: false
@@ -19,7 +19,7 @@ class CreateMembershipYears < ActiveRecord::Migration
     end
     add_foreign_key :membership_years, :users
 
-    create_table :membership_fees do |t|
+    create_table :membership_fees, primary_key: [:year, :half_year] do |t|
       t.integer :year, null: false
       t.boolean :half_year, null: false
       t.string  :membership_type, null: false

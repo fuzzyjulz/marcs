@@ -1,1 +1,59 @@
-Fees.
+.container
+ .row
+  .col-md-offset-3.col-md-6
+   .panel.panel-default
+    .panel-heading
+     %h1.panel-title
+      Renew Membership
+    .panel-body
+     =simple_form_for [current_user, membership_year], url: user_membership_year_path(membership_year) do |f|
+      .indented
+      %p Great to have you back in the club for #{membership_year.year_range}!
+      -if membership_year.half_year?
+       %p
+        %b Please note:
+        this is a HALF YEAR membership for the #{membership_year.year_range} financial year.
+      %br
+      %p
+       Your membership fee is
+       %b #{number_to_currency(@membership_fee)}
+       (#{membership_year.membership_name}
+       Member#{membership_year.half_year? ? " - half year":""})
+      %p Please pay your membership fee via EFT using the following details:
+      %br
+      %p
+       %label.labelText Account Name:
+       Model Aircraft Radio Control Society Inc
+      %p
+       %label.labelText BSB:
+       #{ApplicationHelper::BANK_BSB}
+      %p
+       %label.labelText Account:
+       #{ApplicationHelper::BANK_ACCT_NO}
+      %p
+       %label.labelText Amount:
+       #{number_to_currency(@membership_fee)}
+      %br
+      %p
+       %b Please Note:
+       When making EFT payments you must include your name in ‘payer reference field’, or membership may not be effected.
+      %br
+      
+      .indented
+       %p
+        Once you have transferred the funds enter the transaction number below
+       %p
+       .input-group
+        %span.input-group-addon Transaction Number
+        =f.input :student_number, label: false, 
+           input_html: {class: "form-control", type:"text", placeholder: "Your bank's transaction number"}
+       %p
+        .date-picker.input-group.date.center{style: "width:260px"}
+         %span.input-group-addon Payment Date
+         =f.input :payment_date, label: false, as: :string,
+             input_html: {class: "form-control", type:"text"}
+         %span.input-group-addon
+          %i.glyphicon.glyphicon-th
+         
+      %br
+      =f.button :submit, "Save", id: "submitButton", class: "btn btn-primary"
