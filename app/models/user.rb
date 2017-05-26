@@ -101,6 +101,10 @@ class User < ActiveRecord::Base
     financial=="y"
   end
   
+  def non_renewal?
+    financial=="-"
+  end
+
   def committee_member?
     !(committee_position.nil? || committee_position=='')
   end

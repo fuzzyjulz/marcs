@@ -22,7 +22,7 @@ Rails.application.routes.draw do
       get :edit, :home, :refresh, :trainers, :committee
       post :update
       resources :membership_years, only: [:create, :update, :show], path: "membership" do
-        get :fees
+        get :fees,:fees_back, :update_back
         collection do
           get :renew
         end

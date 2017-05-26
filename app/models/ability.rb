@@ -8,7 +8,7 @@ class Ability
         can [:view_club_trainers, :view_minutes], User
         can [:view_club_minutes,:view_agm_minutes], Minutes
         if user.first_name.downcase == "julian"
-          can [:renew_membership], User
+          can [:renew_membership], User unless user.non_renewal?
         end
         if user.committee_member?
           can [:view_committee_calendar], User

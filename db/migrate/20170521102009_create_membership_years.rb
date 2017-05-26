@@ -1,8 +1,7 @@
 class CreateMembershipYears < ActiveRecord::Migration
   def change
 
-    create_table :membership_years, primary_key: [:user_id, :year] do |t|
-      
+    create_table :membership_years do |t|
       t.integer :user_id, null: false
       t.integer :year, null: false
       t.boolean :half_year, null: false
@@ -18,13 +17,15 @@ class CreateMembershipYears < ActiveRecord::Migration
       t.timestamps
     end
     add_foreign_key :membership_years, :users
+    add_index :membership_years, [:user_id,:year], :unique => true
 
-    create_table :membership_fees, primary_key: [:year, :half_year] do |t|
+    create_table :membership_fees do |t|
       t.integer :year, null: false
       t.boolean :half_year, null: false
       t.string  :membership_type, null: false
       t.decimal :club_membership_fee, null: false
       t.decimal :insurance_fee, null: false
     end
+    add_index :membership_years, [:year,:half_year], :unique => true
   end
 end

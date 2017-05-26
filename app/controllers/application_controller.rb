@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :configure_permitted_parameters, if: :devise_controller?
   helper_method :marcs_image_tag, :extract_links, :show_member_submenu, :renderAsAjax,
-    :agm_time?, :financial_half_year?, :financial_year
+    :agm_time?, :financial_half_year?, :financial_year, :within_half_year_warning?, :within_full_year_warning?
   
   def marcs_image_tag(*p)
     ActionController::Base.helpers.image_tag(*p).sub(/s3\.amazonaws\.com\/marcsprod/,"marcsprod.s3-ap-southeast-2.amazonaws.com").html_safe
@@ -33,6 +33,13 @@ class ApplicationController < ActionController::Base
     (1..5).include?(Date.today.month) ? Date.today.year-1 : Date.today.year
   end
 
+  def within_half_year_warning?
+    Date.today.month == 11
+  end
+  
+  def within_full_year_warning?
+    Date.today.month == 5
+  end
 
   rescue_from CanCan::AccessDenied do |exception|
     redirect_to home_user_path, :alert => exception.message

@@ -25,11 +25,12 @@
       %p
        %label.labelText Account:
        #{ApplicationHelper::BANK_ACCT_NO}
-      %p
-       %label.labelText Amount:
-       #{number_to_currency(@membership_fee)}
       %br
       %p
        %b Please Note:
        When making EFT payments you must include your name in ‘payer reference field’, or membership may not be effected.
-      
+      %br
+      -if can_change?
+       .indented
+        %span
+         %a{href: user_membership_year_update_back_path(membership_year)} Back

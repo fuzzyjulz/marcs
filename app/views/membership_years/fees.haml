@@ -10,9 +10,10 @@
       .indented
       %p Great to have you back in the club for #{membership_year.year_range}!
       -if membership_year.half_year?
-       %p
-        %b Please note:
-        this is a HALF YEAR membership for the #{membership_year.year_range} financial year.
+       .bs-callout.bs-callout-info
+        This is a 
+        %b HALF YEAR
+        membership for the #{membership_year.year_range} financial year.
       %br
       %p
        Your membership fee is
@@ -45,7 +46,7 @@
        %p
        .input-group
         %span.input-group-addon Transaction Number
-        =f.input :student_number, label: false, 
+        =f.input :payment_authorised_number, label: false, 
            input_html: {class: "form-control", type:"text", placeholder: "Your bank's transaction number"}
        %p
         .date-picker.input-group.date.center{style: "width:260px"}
@@ -56,4 +57,6 @@
           %i.glyphicon.glyphicon-th
          
       %br
-      =f.button :submit, "Save", id: "submitButton", class: "btn btn-primary"
+      =f.button :submit, "Next", id: "submitButton", class: "btn btn-primary"
+      %span.indented
+       %a{href: user_membership_year_fees_back_path(membership_year)} Back
