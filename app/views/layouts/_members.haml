@@ -17,4 +17,4 @@
       %a{href: minutes_path} Minutes
     -if can? :renew_membership, current_user
      %li{class: (controller.is_a? MembershipYearsController and action_name == "new") ? "active" : ""}
-      %a{href: renew_user_membership_years_path} Renew Membership
+      %a.renewMembership{href: renew_user_membership_years_path} Renew Membership
