@@ -50,7 +50,7 @@ Scenario: As a senior member if my membership has already been sent I should not
   Then I expect to see the membership renewal complete screen
    And I expect to see the link back to the fees
   
-  When the day is tomorrow
+  When the day is day after tomorrow
    And I navigate to the membership renewal screen
    
   Then I expect to see the membership renewal complete screen
