@@ -7,5 +7,6 @@ Then(/^I expect to( not)? see the home screen$/) do |notOn|
 end
 
 When(/^the day is tomorrow$/) do
+  puts "Setting date to #{Date.tomorrow}"
   travel_to Date.tomorrow
 end
