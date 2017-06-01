@@ -39,3 +39,71 @@ non_financial:
   postcode: 5678
   financial: n
   club_instructor_type: b
+
+affiliate_member:
+  id: 4
+  fai: 1235
+  first_name: Affiliate
+  last_name: Member
+  encrypted_password: <%= User.new.send(:password_digest, 'member') %>
+  email: aff_member@marcs.org.au
+  street: 10 test street
+  city: Memberberg
+  postcode: 5678
+  financial: y
+  membership_type: Affiliate
+  affiliated_club: My Affiliated Club
+
+life_member:
+  id: 5
+  fai: 1236
+  first_name: Life
+  last_name: Member
+  encrypted_password: <%= User.new.send(:password_digest, 'member') %>
+  email: life_member@marcs.org.au
+  street: 10 test street
+  city: Memberberg
+  postcode: 5678
+  financial: y
+  membership_type: Life
+
+student_member:
+  id: 6
+  fai: 1237
+  first_name: Student
+  last_name: Member
+  encrypted_password: <%= User.new.send(:password_digest, 'member') %>
+  email: student_member@marcs.org.au
+  street: 10 test street
+  city: Memberberg
+  postcode: 5678
+  financial: y
+  membership_type: Student
+  student_number: SN123456
+
+pensioner_member:
+  id: 7
+  fai: 1238
+  first_name: Pensioner
+  last_name: Member
+  encrypted_password: <%= User.new.send(:password_digest, 'member') %>
+  email: pensioner_member@marcs.org.au
+  street: 10 test street
+  city: Memberberg
+  postcode: 5678
+  financial: y
+  membership_type: Pensioner
+  pensioner_number: PN123456
+
+junior_member:
+  id: 8
+  fai: 1239
+  first_name: Junior
+  last_name: Member
+  encrypted_password: <%= User.new.send(:password_digest, 'member') %>
+  email: junior_member@marcs.org.au
+  street: 10 test street
+  city: Memberberg
+  postcode: 5678
+  financial: y
+  membership_type: Junior

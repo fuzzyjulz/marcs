@@ -39,7 +39,28 @@ Then(/^I expect to( not)? see my address$/) do |notIn|
 end
 
 Then(/^I expect that my membership type is( not)? selected$/) do |notIn|
-  assert notIn.present? ^ find('input[name="membership_year[membership_type]"][checked]')[:id].ends_with?("senior")
+  puts @member.membership_type
+  assert notIn.present? ^ find('input[name="membership_year[membership_type]"][checked]')[:id].ends_with?(@member.membership_type.to_s)
+end
+
+Then(/^I expect that I am( not)? shown as an affiliate member$/) do |notIn|
+  assert notIn.present? ^ find_all('input[id="membership_year_affiliate_true"][checked]').present?
+end
+
+Then(/^I expect that I am( not)? shown as a life member$/) do |notIn|
+  assert notIn.present? ^ find_all(".LifeMembership").present?
+end
+
+Then(/^I expect to( not)? see my affiliated club name$/) do |notIn|
+  assert notIn.present? ^ (find('input[id="membership_year_affiliated_club"]')[:value] == "My Affiliated Club")
+end
+
+Then(/^I expect to( not)? see my student number$/) do |notIn|
+  assert notIn.present? ^ (find('input[id="membership_year_student_number"]')[:value] == "SN123456")
+end
+
+Then(/^I expect to( not)? see my pensioner number$/) do |notIn|
+  assert notIn.present? ^ (find('input[id="membership_year_pensioner_number"]')[:value] == "PN123456")
 end
 
 Then(/^I expect to( not)? see the half year membership notice$/) do |notIn|
@@ -52,6 +73,26 @@ end
 
 Then(/^I expect to( not)? see the Senior full member half year fee$/) do |notIn|
   assert notIn.present? ^ has_text?("\$102.50")
+end
+
+Then(/^I expect to( not)? see the Senior Affiliate member full year fee$/) do |notIn|
+  assert notIn.present? ^ has_text?("\$91.00")
+end
+
+Then(/^I expect to( not)? see the Senior Life member full year fee$/) do |notIn|
+  assert notIn.present? ^ has_text?("\$114.00")
+end
+
+Then(/^I expect to( not)? see the Student member full year fee$/) do |notIn|
+  assert notIn.present? ^ has_text?("\$144.00")
+end
+
+Then(/^I expect to( not)? see the Pensioner member full year fee$/) do |notIn|
+  assert notIn.present? ^ has_text?("\$159.50")
+end
+
+Then(/^I expect to( not)? see the Junior member full year fee$/) do |notIn|
+  assert notIn.present? ^ has_text?("\$57.00")
 end
 
 Then(/^I expect to( not)? see the membership renewal complete screen$/) do |notIn|
