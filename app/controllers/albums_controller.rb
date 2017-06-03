@@ -20,7 +20,7 @@ class AlbumsController < ApplicationController
   
   def refresh
     album = Album.find(request[:album_id])
-    album.update!(last_modified: nil)
+    album.update!(last_modified: nil) if authorize! :refresh_album, album
     
     redirect_to(album_path(album.album_group))
   end
