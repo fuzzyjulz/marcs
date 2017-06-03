@@ -31,6 +31,8 @@ ActiveRecord::Schema.define(version: 20170521102009) do
     t.decimal "insurance_fee",       null: false
   end
 
+  add_index "membership_fees", ["year", "half_year", "membership_type"], name: "index_membership_fees_on_year_and_half_year_and_membership_type", unique: true, using: :btree
+
   create_table "membership_years", force: :cascade do |t|
     t.integer  "user_id",                   null: false
     t.integer  "year",                      null: false
@@ -50,7 +52,6 @@ ActiveRecord::Schema.define(version: 20170521102009) do
   end
 
   add_index "membership_years", ["user_id", "year"], name: "index_membership_years_on_user_id_and_year", unique: true, using: :btree
-  add_index "membership_years", ["year", "half_year"], name: "index_membership_years_on_year_and_half_year", unique: true, using: :btree
 
   create_table "photos", force: :cascade do |t|
     t.integer  "album_id",               null: false

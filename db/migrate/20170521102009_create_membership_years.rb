@@ -27,6 +27,6 @@ class CreateMembershipYears < ActiveRecord::Migration
       t.decimal :club_membership_fee, null: false
       t.decimal :insurance_fee, null: false
     end
-    add_index :membership_years, [:year,:half_year], :unique => true
+    add_index :membership_fees, [:year,:half_year, :membership_type], :unique => true
   end
 end
