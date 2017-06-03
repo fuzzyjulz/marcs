@@ -54,6 +54,7 @@ class MembershipYearsController < ApplicationController
     return redirect_to(user_membership_year_path(membership_year)) if membership_year.payment_date.present?
     
     @membership_fee = membership_year.membership_fee
+    membership_year.update!(total_fees: @membership_fee)
     membership_year.payment_date = Date.today.strftime("%d/%m/%Y") 
   end
   

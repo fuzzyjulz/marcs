@@ -12,6 +12,7 @@ class CreateMembershipYears < ActiveRecord::Migration
       t.boolean :affiliate, null: false
       t.string  :affiliated_club
       t.boolean :club_rules_accepted, null: false
+      t.decimal :total_fees
       t.string  :payment_authorised_number
       t.timestamp  :payment_date
       t.timestamps

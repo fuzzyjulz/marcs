@@ -42,6 +42,7 @@ ActiveRecord::Schema.define(version: 20170521102009) do
     t.boolean  "affiliate",                 null: false
     t.string   "affiliated_club"
     t.boolean  "club_rules_accepted",       null: false
+    t.decimal  "total_fees"
     t.string   "payment_authorised_number"
     t.datetime "payment_date"
     t.datetime "created_at"
