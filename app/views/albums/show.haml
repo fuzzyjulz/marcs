@@ -2,7 +2,13 @@
  -@albums.each do |album|
   .panel.panel-success.album
    .panel-heading
-    %h3.panel-title.center=album.title
+    %h3.panel-title.center
+     =album.title
+     -if can? :refresh_album, album
+      &nbsp; (
+      %a{href: album_refresh_path(album)}
+       Refresh
+      )
    .panel-body.albumLoader{data:{load_album: album.id}}
     .badge Waiting to refresh
    

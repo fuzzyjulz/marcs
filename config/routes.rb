@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     resources :newsfeed, only: :index
     resources :albums, only: [:index, :show] do
       resources :photos, only: [:index]
+      get :refresh
     end
     resources :calendar_events, only: :index
     

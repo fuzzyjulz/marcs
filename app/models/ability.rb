@@ -11,6 +11,7 @@ class Ability
         if user.committee_member?
           can [:view_committee_calendar], User
           can [:view_committee_minutes], Minutes
+          can [:refresh_album], Album
         end
       end
     end

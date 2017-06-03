@@ -17,6 +17,13 @@ class AlbumsController < ApplicationController
     @albums = Album.where(album_group: request[:id]).order(title: :desc)
     @album_group = @albums.first.album_group
   end
+  
+  def refresh
+    album = Album.find(request[:album_id])
+    album.update!(last_modified: nil)
+    
+    redirect_to(album_path(album.album_group))
+  end
 
   private
   
