@@ -14,21 +14,29 @@
        %p You will be able to pick up your key from one of the committee
       %br
       %br
-      %p
-       If you need to make any payments to the club the details are as follows:
-      %p
-       %label.labelText Account Name:
-       Model Aircraft Radio Control Society Inc
-      %p
-       %label.labelText BSB:
-       #{ApplicationHelper::BANK_BSB}
-      %p
-       %label.labelText Account:
-       #{ApplicationHelper::BANK_ACCT_NO}
-      %br
-      %p
-       %b Please Note:
-       When making EFT payments you must include your name in ‘payer reference field’, or membership may not be effected.
+     .panel.panel-default
+      .panel-heading{role: "tab", id: "paymentdetailsHeading"}
+       %h4.panel-title
+        %a{role: "button", href:"#paymentdetails",aria:{controls:"#paymentdetails",expanded:"true"}, data:{toggle:"collapse", parent:"#paymentdetails"}}
+         What were the MARCS bank details again?
+      #paymentdetails.panel-collapse.collapse{role:"tabpanel", aria: {labelledby:"paymentdetailsHeading"}}
+       .panel-body
+        %p
+         If you need to make any payments to the club the details are as follows:
+        %p
+         %label.labelText Account Name:
+         Model Aircraft Radio Control Society Inc
+        %p
+         %label.labelText BSB:
+         #{ApplicationHelper::BANK_BSB}
+        %p
+         %label.labelText Account:
+         #{ApplicationHelper::BANK_ACCT_NO}
+        %br
+        %p
+         %b Please Note:
+         When making EFT payments you must include your name in ‘payer reference field’, or membership may not be effected.
+     .indented
       %br
       -if can_change?
        .indented
