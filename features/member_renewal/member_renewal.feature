@@ -1,5 +1,24 @@
 Feature: As a member I should be able to renew my membership
 
+@NonFinancialMember
+Scenario: As a non financial member I am ably to renew my membership
+ Given I was previously a member
+   And it is within the full year membership period
+   
+  When I navigate to the membership renewal screen
+  
+  Then I expect to be shown the full financial year
+   And I expect to see my address
+   And I expect that my membership type is selected
+   
+  When I agree to the rules and continue
+  Then I expect to not see the half year membership notice
+   And I expect to see the Senior full member fee
+  
+  When I enter a transaction number and click next
+  Then I expect to see the membership renewal complete screen
+
+
 @Member
 Scenario: As a senior member I should be able to renew my full year membership
  Given I was previously a member
