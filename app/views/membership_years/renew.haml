@@ -13,7 +13,9 @@
        %p
         %label.labelText
          Current Address:
-        #{current_user.street}, #{current_user.city}, #{current_user.postcode}
+        #{current_user.street}
+        %label.labelText &nbsp;
+        #{current_user.city}, #{current_user.postcode}
        %p
         %label.labelText
          Email:
