@@ -10,7 +10,7 @@ require 'colorize'
 begin
   require 'simplecov'
   SimpleCov.start 'test_frameworks'
-  SimpleCov.minimum_coverage 90
+  SimpleCov.minimum_coverage 78
   puts "Simple Cov Started.".green
 rescue LoadError
   puts "Simple Cov test engine not installed.".red
