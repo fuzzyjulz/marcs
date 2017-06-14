@@ -14,7 +14,7 @@ class MembershipYear < ActiveRecord::Base
   end
   
   def can_change?
-    updated_at > Date.yesterday
+    payment_date.present? and updated_at > Date.yesterday
   end
 
   def year_range
