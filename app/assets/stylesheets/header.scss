@@ -6,11 +6,28 @@
 #marcs-navbar > .nav{
  //@include center-block();
 }
-.navbar-center
-{
-   margin: auto;
-   display: table;
+.navbar-center {
+ margin: auto;
+ display: table;
 }
+.navbar-committee {
+ background-color: #115;
+ border-color: #004;
+}
+
+.navbar-committee .navbar-nav > .active > a, 
+.navbar-committee .navbar-nav > .active > a:hover, 
+.navbar-committee .navbar-nav > .active > a:focus {
+ color: #fff;
+ background-color: #228;
+}
+
+.navbar-committee .navbar-nav > li > a:hover,
+.navbar-committee .navbar-nav > li > a:focus {
+ color: #fff;
+ background-color: transparent;
+}
+
 .header {
    margin-bottom:20px;
 }

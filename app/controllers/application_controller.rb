@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
   before_action :configure_permitted_parameters, if: :devise_controller?
-  helper_method :marcs_image_tag, :extract_links, :show_member_submenu, :renderAsAjax,
+  helper_method :marcs_image_tag, :extract_links, :show_member_submenu, :show_committee_submenu, :renderAsAjax,
     :agm_time?, :financial_half_year?, :financial_year, :within_half_year_warning?, :within_full_year_warning?
   
   def marcs_image_tag(*p)
@@ -16,9 +16,14 @@ class ApplicationController < ActionController::Base
     string.gsub(/(https?:[\/\.\w\d\-?=&]+)/,"<a href='\\1'>\\1</a>").html_safe
   end
   
-  def show_member_submenu()
+  def show_member_submenu
     (self.is_a? UsersController or self.is_a? MinutesController or self.is_a? MembershipYearsController) \
     and can? :view_member_area, current_user
+  end
+  
+  def show_committee_submenu
+    show_member_submenu \
+    and can? :view_commitee_area, current_user
   end
   
   def agm_time?

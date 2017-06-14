@@ -12,6 +12,9 @@ class Ability
           can [:view_committee_calendar], User
           can [:view_committee_minutes], Minutes
           can [:refresh_album], Album
+          if user.committee_executive?
+            can [:view_commitee_area], User
+          end
         end
       end
     end

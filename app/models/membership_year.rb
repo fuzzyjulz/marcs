@@ -13,6 +13,10 @@ class MembershipYear < ActiveRecord::Base
     membership_type.to_sym == :student
   end
   
+  def can_change?
+    updated_at > Date.yesterday
+  end
+
   def year_range
     "#{year}-#{year+1}"
   end

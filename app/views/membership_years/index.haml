@@ -1,0 +1,37 @@
+.container-fluid
+ .row
+  .col-lg-offset-1.col-lg-10.col-xs-12
+   .panel.panel-default
+    %table.table.table-striped
+     %tr
+      %th Year
+      %th Name
+      %th
+      %th Membership
+      %th Club
+      %th Last Changed
+      %th Rules Accepted
+      %th Fees Paid
+      %th Payment Number
+      %th Payment Date
+      %th Locked?
+     -MembershipYear.where(year: financial_year).includes(:user).order("users.last_name").each do |year|
+      %td
+       -if year.half_year
+        Half
+       -else
+        Full
+      %td=year.user.first_name
+      %td=year.user.last_name
+      %td=year.membership_name
+      %td=year.affiliated_club
+      %td=year.created_at.strftime("%d/%b/%Y") unless year.updated_at.nil?
+      %td
+       -if year.club_rules_accepted
+        %span.glyphicon.glyphicon-ok
+      %td=number_to_currency(year.total_fees)
+      %td=year.payment_authorised_number
+      %td=year.payment_date.strftime("%d/%b/%Y") unless year.payment_date.nil?
+      %td
+       -unless year.can_change?
+        %span.glyphicon.glyphicon-ok

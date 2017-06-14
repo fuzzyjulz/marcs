@@ -1,0 +1,8 @@
+%nav#memberNavBar.navbar.navbar-committee.center-block
+ .container-fluid
+  .navbar-header
+  #marcs-navbar.collapse.navbar-collapse
+  .navbar-center
+   %ul.nav.navbar-nav
+    %li{class: (controller.is_a? MembershipYearsController and action_name == "index") ? "active" : ""}
+     %a{href: user_membership_years_path} Renewals

@@ -109,6 +109,10 @@ class User < ActiveRecord::Base
     !(committee_position.nil? || committee_position=='')
   end
   
+  def committee_executive?
+    external_email != ""
+  end
+
   def member_fields
     attributes.reject do |key, _value|
       ["encrypted_password", "reset_password_token", "reset_password_sent_at","remember_created_at",

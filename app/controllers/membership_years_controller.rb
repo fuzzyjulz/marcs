@@ -1,6 +1,9 @@
 class MembershipYearsController < ApplicationController
   respond_to :html
-  helper_method :membership_year, :membership_fee, :can_change?
+  helper_method :membership_year, :membership_fee
+  
+  def index
+  end
   
   def renew
     authorize! :renew_membership, current_user
@@ -87,10 +90,6 @@ class MembershipYearsController < ApplicationController
     render :update
   end
 
-  def can_change?
-    membership_year.updated_at > Date.yesterday
-  end
-    
   def membership_year
     if @membership_year.nil?
       @membership_year = MembershipYear.find_by(user_id: current_user.id, year: financial_year, half_year: financial_half_year?)

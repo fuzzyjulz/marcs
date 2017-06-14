@@ -13,6 +13,8 @@
    =render :partial => "layouts/header"
    -if show_member_submenu
     =render :partial => "layouts/members"
+   -if show_committee_submenu
+    =render :partial => "layouts/committee"
   .container
    .row
     .col-xs-6.col-xs-offset-3
