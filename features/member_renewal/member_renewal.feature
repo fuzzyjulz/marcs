@@ -161,4 +161,25 @@ Scenario: As a senior member if my membership has already been sent I should not
    And I expect to not see the link back to the fees
 
 Scenario: As a senior member I can renew my membership as any of the other membership types
+
+@Member
 Scenario: As a member I can finalise my membership and then go back to the start of the process
+ Given I was previously a member
+   And it is within the full year membership period
+   
+  When I navigate to the membership renewal screen
+   And I agree to the rules and continue
+   And I enter a transaction number and click next
+   
+  Then I expect to see the membership renewal complete screen
+   And I expect to see the link back to the fees
+
+  When I click the link back to the fees
+   
+  Then I expect to see the Senior full member fee
+   And I expect to not see the membership renewal complete screen
+   
+  When I click the link back to the membership renewal selection
+  
+  Then I expect to be shown the full financial year
+   And I expect to see my address

@@ -10,10 +10,11 @@
       %p
        Please double check your current address details
       .indented
-       %p
+       %p.noMargins
         %label.labelText
          Current Address:
         #{current_user.street}
+       %p
         %label.labelText &nbsp;
         #{current_user.city}, #{current_user.postcode}
        %p

@@ -26,6 +26,14 @@ When(/^I enter a transaction number and click next$/) do
   click_on("Next")
 end
 
+When(/^I click the link back to the fees$/) do
+  find(".backToFees").click
+end
+
+When(/^I click the link back to the membership renewal selection$/) do
+  find(".backToRenew").click
+end
+
 Then(/^I expect to( not)? be shown the full financial year$/) do |notIn|
   assert notIn.present? ^ has_text?("2017-2018 Full Year")
 end
