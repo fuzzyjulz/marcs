@@ -210,12 +210,6 @@ GEM
       mimemagic (~> 0.3.0)
     pg (0.20.0)
     pg (0.20.0-x64-mingw32)
-    postmark (1.10.0)
-      json
-      rake
-    postmark-rails (0.15.0)
-      actionmailer (>= 3.0.0)
-      postmark (~> 1.10.0)
     pry (0.10.4)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
@@ -273,6 +267,9 @@ GEM
     sdoc (0.4.2)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
+    sendgrid-rails (3.1.0)
+      actionmailer (>= 3.0.0)
+      activesupport (>= 2.1.0)
     signet (0.7.3)
       addressable (~> 2.3)
       faraday (~> 0.9)
@@ -349,12 +346,12 @@ DEPENDENCIES
   mini_portile2
   paperclip (~> 5.0.0)
   pg
-  postmark-rails (>= 0.10.0)
   pry
   rails (= 4.2.7.1)
   rails_12factor
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
+  sendgrid-rails (>= 0.10.0)
   simple_form
   simplecov
   turbolinks
