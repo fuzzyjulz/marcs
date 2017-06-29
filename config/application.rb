@@ -24,8 +24,22 @@ module Marcs
     config.active_record.raise_in_transactional_callbacks = true
     config.assets.initialize_on_precompile = false
     
-    config.action_mailer.delivery_method   = :postmark
-    config.action_mailer.postmark_settings = { :api_token => ENV['POSTMARK_API_TOKEN'] }
+    ActionMailer::Base.register_interceptor(SendGrid::MailInterceptor)
+    
+    if ENV['SENDGRID_USERNAME'] && ENV['SENDGRID_PASSWORD']
+      ActionMailer::Base.smtp_settings = {
+        :address        => 'smtp.sendgrid.net',
+        :port           => '465',
+        :authentication => :plain,
+        :user_name      => ENV['SENDGRID_USERNAME'],
+        :password       => ENV['SENDGRID_PASSWORD'],
+        :domain         => 'heroku.com',
+        :enable_starttls_auto => true,
+        :ssl => true
+      }
+      ActionMailer::Base.delivery_method = :smtp
+    end
+    
     config.site_name = "MARCS"
   end
 end
