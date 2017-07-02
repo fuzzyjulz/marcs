@@ -14,7 +14,7 @@ class MembershipYear < ActiveRecord::Base
   end
   
   def can_change?
-    payment_date.nil? or updated_at > Date.yesterday
+    (payment_date.nil? or updated_at > Date.yesterday) and !confirmed_paid
   end
 
   def year_range

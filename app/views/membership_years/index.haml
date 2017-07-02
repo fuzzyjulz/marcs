@@ -3,41 +3,54 @@
   .col-lg-offset-1.col-lg-10.col-xs-12
    .panel.panel-default
     %table.table.table-striped
-     %tr
-      %th Year
-      %th Name
-      %th
-      %th Membership
-      %th Student / Pensioner Number
-      %th Club
-      %th Last Changed
-      %th Rules Accepted
-      %th Fees Paid
-      %th Payment Number
-      %th Payment Date
-      %th Locked?
-     -MembershipYear.where(year: financial_year).includes(:user).order("users.last_name").each do |year|
+     %thead
       %tr
-       %td
-        -if year.half_year
-         Half
-        -else
-         Full
-       %td=year.user.first_name
-       %td=year.user.last_name
-       %td=year.membership_name
-       %td="#{year.student_number}#{year.pensioner_number}"
-       %td=year.affiliated_club
-       %td=year.created_at.strftime("%d/%b/%Y") unless year.updated_at.nil?
-       %td
-        -if year.club_rules_accepted
-         %span.glyphicon.glyphicon-ok
-        -else
-         %span.glyphicon.glyphicon-remove
-        
-       %td=number_to_currency(year.total_fees)
-       %td=year.payment_authorised_number
-       %td=year.payment_date.strftime("%d/%b/%Y") unless year.payment_date.nil?
-       %td
-        -unless year.can_change?
-         %span.glyphicon.glyphicon-ok
+       %th Year
+       %th Name
+       %th
+       %th Membership
+       %th Student / Pensioner Number
+       %th Club
+       %th Last Changed
+       %th Rules Accepted
+       %th Fees Paid
+       %th Payment Number
+       %th Locked?
+       %th Payment Date
+     %tbody
+      -MembershipYear.where(year: financial_year).includes(:user).order("users.last_name").each do |year|
+       %tr
+        %td
+         -if year.half_year
+          Half
+         -else
+          Full
+        %td=year.user.first_name
+        %td=year.user.last_name
+        %td=year.membership_name
+        %td="#{year.student_number}#{year.pensioner_number}"
+        %td=year.affiliated_club
+        %td=year.updated_at.strftime("%d/%b/%Y") unless year.updated_at.nil?
+        %td
+         -if year.club_rules_accepted
+          %span.glyphicon.glyphicon-ok
+         -else
+          %span.glyphicon.glyphicon-remove
+         
+        %td=number_to_currency(year.total_fees)
+        %td=year.payment_authorised_number
+        %td
+         -unless year.can_change?
+          %span.glyphicon.glyphicon-ok
+        %td
+         -if year.confirmed_paid or cannot? :update_member_renewals, current_user
+          =year.payment_date.strftime("%d/%b/%Y")
+         -else
+          =simple_form_for [year], url: membership_year_admin_paid_path(year) do |f|
+           .date-picker.input-group.date.center{style: "width:200px"}
+            =f.input :payment_date, label: false, as: :string,
+                input_html: {class: "form-control", type:"text", value: year.payment_date.nil? ? "" : year.payment_date.strftime("%d/%m/%Y")}
+            %span.input-group-addon
+             %i.glyphicon.glyphicon-th
+            %span.input-group-btn
+             =f.button :button, "Paid", class: "btn btn-default"

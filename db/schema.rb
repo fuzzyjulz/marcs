@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170521102009) do
+ActiveRecord::Schema.define(version: 20170702120457) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,6 +49,7 @@ ActiveRecord::Schema.define(version: 20170521102009) do
     t.datetime "payment_date"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "confirmed_paid"
   end
 
   add_index "membership_years", ["user_id", "year"], name: "index_membership_years_on_user_id_and_year", unique: true, using: :btree

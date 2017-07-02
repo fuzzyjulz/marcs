@@ -3,6 +3,18 @@ class MembershipYearsController < ApplicationController
   helper_method :membership_year, :membership_fee
   
   def index
+    authorize! :view_member_renewals, current_user
+  end
+  
+  def admin_paid
+    authorize! :update_member_renewals, current_user
+    
+    params = admin_membership_update_params
+    params[:confirmed_paid] = true
+    
+    membership_year = MembershipYear.find(request[:membership_year_id]).update!(params)
+    flash[:notice] = "Updated payment date"
+    return redirect_to(membership_years_path)
   end
   
   def renew
@@ -105,5 +117,9 @@ class MembershipYearsController < ApplicationController
 
   def membership_update_params
     params.require(:membership_year).permit(:payment_authorised_number, :payment_date)
+  end
+
+  def admin_membership_update_params
+    params.require(:membership_year).permit(:payment_date)
   end
 end
