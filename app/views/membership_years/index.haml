@@ -8,6 +8,7 @@
       %th Name
       %th
       %th Membership
+      %th Student / Pensioner Number
       %th Club
       %th Last Changed
       %th Rules Accepted
@@ -25,11 +26,15 @@
        %td=year.user.first_name
        %td=year.user.last_name
        %td=year.membership_name
+       %td="#{year.student_number}#{year.pensioner_number}"
        %td=year.affiliated_club
        %td=year.created_at.strftime("%d/%b/%Y") unless year.updated_at.nil?
        %td
         -if year.club_rules_accepted
          %span.glyphicon.glyphicon-ok
+        -else
+         %span.glyphicon.glyphicon-remove
+        
        %td=number_to_currency(year.total_fees)
        %td=year.payment_authorised_number
        %td=year.payment_date.strftime("%d/%b/%Y") unless year.payment_date.nil?
