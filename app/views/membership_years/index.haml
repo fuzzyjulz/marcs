@@ -45,6 +45,9 @@
         %td
          -if year.confirmed_paid or cannot? :update_member_renewals, current_user
           =year.payment_date.strftime("%d/%b/%Y")
+          =simple_form_for [year], url: membership_year_admin_paid_revert_path(year) do |f|
+           =f.button :button, class: "btn btn-default" do
+            %i.glyphicon.glyphicon-pencil
          -else
           =simple_form_for [year], url: membership_year_admin_paid_path(year) do |f|
            .date-picker.input-group.date.center{style: "width:200px"}

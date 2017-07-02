@@ -17,6 +17,14 @@ class MembershipYearsController < ApplicationController
     return redirect_to(membership_years_path)
   end
   
+  def admin_paid_revert
+    authorize! :update_member_renewals, current_user
+    
+    membership_year = MembershipYear.find(request[:membership_year_id]).update!(confirmed_paid: false)
+    flash[:notice] = "Reverted payment confirmation"
+    return redirect_to(membership_years_path)
+  end
+  
   def renew
     authorize! :renew_membership, current_user
 
