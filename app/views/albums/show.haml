@@ -6,8 +6,14 @@
      =album.title
      -if can? :refresh_album, album
       &nbsp; (
-      %a{href: album_refresh_path(album)}
-       Refresh
+      -if can? :refresh_album, album
+       =simple_form_for [album], url: album_refresh_path(album.id), method: :get, html: {class: "inline"} do |f|
+        =f.button :button, class: "btn btn-default" do
+         Refresh
+      -if can? :delete_album, album
+       =simple_form_for [album], url: album_path(album.id), method: :delete, html: {class: "inline"} do |f|
+        =f.button :button, class: "btn btn-default" do
+         Delete
       )
    .panel-body.albumLoader{data:{load_album: album.id}}
     .badge Waiting to refresh

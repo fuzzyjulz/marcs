@@ -11,8 +11,8 @@ class Ability
         if user.committee_member?
           can [:view_committee_calendar], User
           can [:view_committee_minutes], Minutes
-          can [:refresh_album], Album
           if user.committee_executive?
+            can [:refresh_album, :delete_album], Album
             can [:view_commitee_area, :view_member_renewals, :update_member_renewals], User
           end
         end

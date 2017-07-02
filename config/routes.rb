@@ -4,7 +4,7 @@ Rails.application.routes.draw do
       get :become_a_member, :club_location, :club_rules, :faqs, on: :collection
     end
     resources :newsfeed, only: :index
-    resources :albums, only: [:index, :show] do
+    resources :albums, only: [:index, :show, :destroy] do
       resources :photos, only: [:index]
       get :refresh
     end
