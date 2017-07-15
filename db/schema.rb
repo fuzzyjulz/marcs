@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170702120457) do
+ActiveRecord::Schema.define(version: 20170715110637) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,32 +24,34 @@ ActiveRecord::Schema.define(version: 20170702120457) do
   end
 
   create_table "membership_fees", force: :cascade do |t|
-    t.integer "year",                null: false
-    t.boolean "half_year",           null: false
-    t.string  "membership_type",     null: false
-    t.decimal "club_membership_fee", null: false
-    t.decimal "insurance_fee",       null: false
+    t.integer "year",                                null: false
+    t.boolean "half_year",                           null: false
+    t.string  "membership_type",                     null: false
+    t.decimal "club_membership_fee",                 null: false
+    t.decimal "insurance_fee",                       null: false
+    t.boolean "new_member",          default: false, null: false
   end
 
-  add_index "membership_fees", ["year", "half_year", "membership_type"], name: "index_membership_fees_on_year_and_half_year_and_membership_type", unique: true, using: :btree
+  add_index "membership_fees", ["year", "half_year", "membership_type", "new_member"], name: "membership_fees_unique_key", unique: true, using: :btree
 
   create_table "membership_years", force: :cascade do |t|
-    t.integer  "user_id",                   null: false
-    t.integer  "year",                      null: false
-    t.boolean  "half_year",                 null: false
-    t.string   "membership_type",           null: false
+    t.integer  "user_id",                                   null: false
+    t.integer  "year",                                      null: false
+    t.boolean  "half_year",                                 null: false
+    t.string   "membership_type",                           null: false
     t.string   "pensioner_number"
     t.string   "student_number"
-    t.boolean  "life_member",               null: false
-    t.boolean  "affiliate",                 null: false
+    t.boolean  "life_member",                               null: false
+    t.boolean  "affiliate",                                 null: false
     t.string   "affiliated_club"
-    t.boolean  "club_rules_accepted",       null: false
+    t.boolean  "club_rules_accepted",                       null: false
     t.decimal  "total_fees"
     t.string   "payment_authorised_number"
     t.datetime "payment_date"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "confirmed_paid"
+    t.boolean  "new_member",                default: false, null: false
   end
 
   add_index "membership_years", ["user_id", "year"], name: "index_membership_years_on_user_id_and_year", unique: true, using: :btree
