@@ -13,8 +13,16 @@ class MembershipYear < ActiveRecord::Base
     membership_type.to_sym == :student
   end
   
+  def junior?
+    membership_type.to_sym == :junior
+  end
+
+  def member_marked_paid?
+    confirmed_paid or !payment_date.nil?
+  end
+
   def can_change?
-    (payment_date.nil? or updated_at > Date.yesterday) and !confirmed_paid
+    (!member_marked_paid? or updated_at > Date.yesterday) and !confirmed_paid
   end
 
   def year_range
@@ -26,10 +34,19 @@ class MembershipYear < ActiveRecord::Base
   end
 
   def membership_fee
-    fee_obj = MembershipFee.find_by(year: year, half_year: half_year, membership_type: membership_type)
-    fee = 0
-    fee += fee_obj.club_membership_fee unless life_member
-    fee += fee_obj.insurance_fee unless affiliate
-    fee
+    @fee_obj = MembershipFee.find_by(year: year, half_year: half_year, membership_type: membership_type) if @fee_obj.nil?
+    @fee_obj
+  end
+
+  def club_fee
+    life_member ? 0 : membership_fee.club_membership_fee
+  end
+
+  def insurance_fee
+    affiliate ? 0 : membership_fee.insurance_fee
+  end
+  
+  def total_fee
+    club_fee + insurance_fee
   end
 end

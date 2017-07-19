@@ -46,6 +46,10 @@ class User < ActiveRecord::Base
   def membership_name
     "#{membership_type_sym.to_s.titleize} #{life_member? ? 'life':''} #{affiliate? ? 'Affiliate':''}"
   end
+  
+  def address
+    "#{street} #{city} #{postcode}"
+  end
 
   def affiliate?
     !membership_type.nil? and membership_type.downcase.include? "affiliate"

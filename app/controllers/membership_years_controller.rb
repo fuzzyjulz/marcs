@@ -6,6 +6,10 @@ class MembershipYearsController < ApplicationController
     authorize! :view_member_renewals, current_user
   end
   
+  def view_batches
+    authorize! :view_insurance_batches, current_user
+  end
+
   def admin_paid
     authorize! :update_member_renewals, current_user
     
@@ -76,7 +80,7 @@ class MembershipYearsController < ApplicationController
     return redirect_to(renew_user_membership_years_path) unless membership_year.user == current_user
     return redirect_to(user_membership_year_path(membership_year)) if membership_year.payment_date.present?
     
-    @membership_fee = membership_year.membership_fee
+    @membership_fee = membership_year.total_fee
     membership_year.update!(total_fees: @membership_fee)
     membership_year.payment_date = Date.today.strftime("%d/%m/%Y") 
   end

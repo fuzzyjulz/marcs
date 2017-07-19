@@ -32,6 +32,9 @@ Rails.application.routes.draw do
     end
     resources :membership_years, only: [:index], path: "membership" do
       patch :admin_paid, :admin_paid_revert
+      collection do
+        get :view_batches
+      end
     end
     resources :minutes, only: [:index,:show]
 end

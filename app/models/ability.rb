@@ -13,7 +13,7 @@ class Ability
           can [:view_committee_minutes], Minutes
           if user.committee_executive?
             can [:refresh_album, :delete_album], Album
-            can [:view_commitee_area, :view_member_renewals, :update_member_renewals], User
+            can [:view_commitee_area, :view_member_renewals, :update_member_renewals, :view_insurance_batches], User
           end
         end
       end

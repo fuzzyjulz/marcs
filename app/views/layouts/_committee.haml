@@ -6,3 +6,5 @@
    %ul.nav.navbar-nav
     %li{class: (controller.is_a? MembershipYearsController and action_name == "index") ? "active" : ""}
      %a{href: membership_years_path} Renewals
+    %li{class: (controller.is_a? MembershipYearsController and action_name == "view_batches") ? "active" : ""}
+     %a{href: view_batches_membership_years_path} Batches

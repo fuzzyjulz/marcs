@@ -18,7 +18,11 @@
        %th Locked?
        %th Payment Date
      %tbody
+      -confirmed_member_count = paid_member_count = member_count = 0
       -MembershipYear.where(year: financial_year).includes(:user).order("users.last_name").each do |year|
+       -member_count += 1
+       -paid_member_count += 1 if year.member_marked_paid?
+       -confirmed_member_count += 1 if year.confirmed_paid
        %tr
         %td
          -if year.half_year
@@ -44,7 +48,7 @@
           %span.glyphicon.glyphicon-ok
         %td
          -if year.confirmed_paid or cannot? :update_member_renewals, current_user
-          =year.payment_date.strftime("%d/%b/%Y")
+          =year.payment_date.strftime("%d/%b/%Y") unless year.payment_date.nil?
           =simple_form_for [year], url: membership_year_admin_paid_revert_path(year), html:{class: "inline"} do |f|
            =f.button :button, class: "btn btn-default" do
             %i.glyphicon.glyphicon-pencil
@@ -52,8 +56,24 @@
           =simple_form_for [year], url: membership_year_admin_paid_path(year), html:{class: "inline"} do |f|
            .date-picker.input-group.date.center{style: "width:200px"}
             =f.input :payment_date, label: false, as: :string,
-                input_html: {class: "form-control", type:"text", value: year.payment_date.nil? ? "" : year.payment_date.strftime("%d/%m/%Y")}
+                input_html: {class: "form-control", type:"text", 
+                value: year.member_marked_paid? ? year.payment_date.strftime("%d/%m/%Y") : ""}
             %span.input-group-addon
              %i.glyphicon.glyphicon-th
             %span.input-group-btn
              =f.button :button, "Paid", class: "btn btn-default"
+ .row
+  .col-xs-6.col-xs-offset-3
+   .panel.panel-default
+    %table.table.table-striped
+     %tbody
+      %tr
+       %td
+        %b Entered:
+        =member_count
+       %td
+        %b Paid:
+        =paid_member_count
+       %td
+        %b Confirmed:
+        =confirmed_member_count
