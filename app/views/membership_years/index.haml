@@ -19,7 +19,7 @@
        %th Payment Date
      %tbody
       -confirmed_member_count = paid_member_count = member_count = 0
-      -MembershipYear.where(year: financial_year).includes(:user).order("users.last_name").each do |year|
+      -MembershipYear.where(year: financial_year, batch: nil).includes(:user).order("users.last_name").each do |year|
        -member_count += 1
        -paid_member_count += 1 if year.member_marked_paid?
        -confirmed_member_count += 1 if year.confirmed_paid
