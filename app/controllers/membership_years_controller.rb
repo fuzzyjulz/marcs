@@ -6,10 +6,6 @@ class MembershipYearsController < ApplicationController
     authorize! :view_member_renewals, current_user
   end
   
-  def view_batches
-    authorize! :view_insurance_batches, current_user
-  end
-
   def admin_paid
     authorize! :update_member_renewals, current_user
     

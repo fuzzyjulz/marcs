@@ -1,0 +1,79 @@
+.container-fluid
+ 
+ -batches = batch_list(@financial_year)
+ -if batches.empty?
+  .center
+   No members signed up yet for financial year #{@financial_year}.
+ -batches.each do |batch|
+  .row
+   .col-lg-12.col-xs-12
+    .panel.panel-default
+     %table.table.table-striped
+      %thead
+       %tr
+        %th{colspan: 9}
+         %h2{style: "margin-top: 10px; font-weight: bold;"}
+          Financial Year #{@financial_year} -
+          -if batch.nil?
+           New Batch
+           -if batch.nil? and can? :create_insurance_batches, current_user
+            =simple_form_for :membership_batches, url: membership_batches_path(), html:{class: "inline"} do |f|
+             %input{type: "hidden", name: "id", value: @financial_year}
+             =f.button :button, "Create Batch", class: "btn btn-primary"
+          -else
+           Batch
+           =batch
+       %tr
+        %th Year
+        %th Name
+        %th
+        %th Address
+        %th Email
+        %th Student / Pensioner Number
+        %th Club
+        %th Membership
+        %th Insurance Fee
+      %tbody
+       -full_member_count = affiliate_member_count = junior_member_count = member_count = 0
+       -insurance_fees = 0
+       -members_in_batch(@financial_year, batch).includes(:user).order("users.last_name").each do |year|
+        -member_count += 1
+        -affiliate_member_count += 1 if year.affiliate
+        -junior_member_count += 1 if year.junior?
+        -full_member_count += 1 unless year.junior? or year.affiliate
+        -insurance_fees += year.insurance_fee
+        %tr
+         %td
+          -if year.half_year
+           Half
+          -else
+           Full
+         %td=year.user.first_name
+         %td=year.user.last_name
+         %td=year.user.address
+         %td=year.user.email
+         %td="#{year.student_number}#{year.pensioner_number}"
+         %td=year.affiliated_club
+         %td=year.membership_name
+         %td=number_to_currency(year.insurance_fee)
+  .row
+   .col-xs-6.col-xs-offset-3
+    .panel.panel-default
+     %table.table.table-striped
+      %tbody
+       %tr
+        %td
+         %b Junior:
+         =junior_member_count
+        %td
+         %b Affiliate:
+         =affiliate_member_count
+        %td
+         %b Full Fee:
+         =full_member_count
+        %td
+         %b Total:
+         =member_count
+        %td
+         %b Fees:
+         =number_to_currency(insurance_fees)
