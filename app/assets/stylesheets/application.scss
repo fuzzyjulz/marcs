@@ -70,8 +70,13 @@ label.radio{
   margin-top: 0px;
 }
 
-.simple_form .input.string label, .simple_form .input.email label {
- width: 150px;
+.simple_form .input.string, .simple_form .input.email, .simple_form .input.tel {
+ input {
+  width: 250px;
+ }
+ label {
+  width: 150px;
+ }
 }
 
 .date-picker input {

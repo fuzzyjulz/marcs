@@ -5,6 +5,10 @@ class UsersController < ApplicationController
   def home
   end
   
+  def new
+    authorize! :create_member, current_user
+  end
+  
   def trainers
     authorize! :view_club_trainers, current_user
   end

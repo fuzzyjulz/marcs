@@ -1,0 +1,30 @@
+.container
+ .row
+  .col-xs-6.col-xs-offset-3
+   .panel.panel-default
+    .panel-heading
+     %h1.panel-title
+      Create New Member
+    .panel-body
+     =simple_form_for(User.new, url: user_path) do |f|
+      %p
+       =f.input :fai
+      %p
+       =f.input :first_name
+      %p
+       =f.input :last_name
+      %p
+       =f.input :email
+      %p
+       =f.input :street
+      %p
+       =f.input :city
+      %p
+       =f.input :postcode
+      %p
+       =f.input :home_phone
+      %p
+       =f.input :mobile_phone
+      %br
+      %p
+       =f.submit "Create", class: "updateMyDetails btn btn-primary"
