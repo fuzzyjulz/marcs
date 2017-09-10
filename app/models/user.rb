@@ -9,6 +9,10 @@ class User < ActiveRecord::Base
   def known_by_first_name
     known_by.nil? ? first_name : known_by
   end
+
+  def name
+    "#{first_name} #{known_by.blank? ? "" : "'"+known_by+"' "}#{last_name}"
+  end
   
   def external_email()
     case committee_position

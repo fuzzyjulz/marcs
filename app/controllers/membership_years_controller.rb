@@ -81,6 +81,60 @@ class MembershipYearsController < ApplicationController
     membership_year.payment_date = Date.today.strftime("%d/%m/%Y") 
   end
   
+  def new_member_fees
+    authorize! :create_member, current_user
+    @user = User.find(request[:user_id])
+    @membership_year = MembershipYear.new() if @membership_year.nil?
+
+    membership_year.year = financial_year
+    membership_year.half_year = financial_half_year?
+
+    unless @user.membership_years.empty?
+      flash[:alert] = "Membership has been recorded, so this member is no longer a new member"
+      return redirect_to(home_user_path)
+    end
+  end
+  
+  def new_member_fees_create
+    authorize! :create_member, current_user
+    @user = User.find(request[:user_id])
+    unless @user.membership_years.empty?
+      flash[:alert] = "Membership has been recorded, so this member is no longer a new member"
+      return redirect_to(home_user_path)
+    end
+
+    @membership_year = MembershipYear.new() if @membership_year.nil?
+    membership_year.assign_attributes(membership_params)
+    membership_year.user = @user
+    
+    membership_year.student_number = nil unless membership_year.membership_type.to_sym == :student
+    membership_year.pensioner_number = nil unless membership_year.membership_type.to_sym == :pensioner
+    membership_year.affiliated_club = nil unless membership_year.affiliate
+
+    membership_year.year = financial_year
+    membership_year.half_year = financial_half_year?
+    membership_year.life_member = false
+    membership_year.new_member = true
+    membership_year.club_rules_accepted = true
+    
+    membership_year.total_fees = membership_year.total_fee
+
+    membership_year.save
+
+    if membership_year.errors.any?
+      flash[:alert] = membership_year.errors.full_messages.to_sentence
+      render :new_member_fees
+    else
+      flash[:notice] = "New member has been added successfully"
+      redirect_to new_member_fees_saved_user_membership_years_path(@user)
+    end
+  end
+
+  def new_member_fees_saved
+    @user = User.find(request[:user_id])
+    @membership_year = @user.membership_years.first
+  end
+  
   def fees_back
     authorize! :renew_membership, current_user
     return redirect_to(renew_user_membership_years_path) unless membership_year.user == current_user

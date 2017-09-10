@@ -1,0 +1,12 @@
+.container
+ .row
+  .col-md-offset-3.col-md-6
+   .panel.panel-default
+    .panel-heading
+     %h1.panel-title
+      #{membership_year.year_range} #{membership_year.half_year? ? "Half" : "Full"} Year -
+      New Membership
+    .panel-body
+     The new member #{@user.name} has been created and the fees chargeable are 
+     %b
+      #{number_to_currency(membership_year.total_fees)}

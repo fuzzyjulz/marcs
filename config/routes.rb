@@ -21,12 +21,19 @@ Rails.application.routes.draw do
     end
     resource :user do
       get :edit, :home, :refresh, :trainers, :committee
-      post :update
       resources :membership_years, only: [:create, :update, :show], path: "membership" do
         get :fees,:fees_back, :update_back
         post :admin_paid
         collection do
           get :renew
+        end
+      end
+    end
+    resources :users, only: [] do
+      resources :membership_years, only: [:create], path: "membership" do
+        collection do
+          get :new_member_fees, :new_member_fees_saved
+          post :new_member_fees, to: "membership_years#new_member_fees_create"
         end
       end
     end

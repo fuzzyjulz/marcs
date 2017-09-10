@@ -6,11 +6,13 @@
      %h1.panel-title
       Create New Member
     .panel-body
-     =simple_form_for(User.new, url: user_path) do |f|
+     =simple_form_for(@user, url: user_path) do |f|
       %p
        =f.input :fai
       %p
        =f.input :first_name
+      %p
+       =f.input :known_by
       %p
        =f.input :last_name
       %p

@@ -34,7 +34,7 @@ class MembershipYear < ActiveRecord::Base
   end
 
   def membership_fee
-    @fee_obj = MembershipFee.find_by(year: year, half_year: half_year, membership_type: membership_type) if @fee_obj.nil?
+    @fee_obj = MembershipFee.find_by(year: year, half_year: half_year, membership_type: membership_type, new_member: new_member) if @fee_obj.nil?
     @fee_obj
   end
 

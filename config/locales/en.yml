@@ -23,4 +23,4 @@ en:
   activerecord:
     attributes:
       user:
-        password: Surname
+        password: Last name
