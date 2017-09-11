@@ -9,6 +9,7 @@ class RadioInput < SimpleForm::Inputs::Base
         label: false,
         as: :radio_buttons,
         collection: [[options[:value],options[:label]]],
+        include_hidden: false,
         input_html: input_html_options)}".html_safe
   end
 end

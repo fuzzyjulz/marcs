@@ -53,7 +53,7 @@
       %h2{style: "margin-top: 0px"}
        Membership Type
       .indented
-       =f.input :membership_type, as: :radio, value: :senior, label: "Senior"
+       =f.input :membership_type, as: :radio, value: :senior, label: "Senior", include_hidden: false
        =f.input :membership_type, as: :radio, value: :pensioner, label: "Pensioner",
          input_html: {data: {toggle: "radio-collapse", target: "#pensionerNumberGroup"}}
        #pensionerNumberGroup.indented

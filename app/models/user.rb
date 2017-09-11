@@ -48,7 +48,7 @@ class User < ActiveRecord::Base
   end
   
   def membership_name
-    "#{membership_type_sym.to_s.titleize} #{life_member? ? 'life':''} #{affiliate? ? 'Affiliate':''}"
+    "#{membership.new_member ? "New ":""}#{membership_type_sym.to_s.titleize} #{life_member? ? 'life':''} #{affiliate? ? 'Affiliate':''}"
   end
   
   def address
@@ -105,8 +105,12 @@ class User < ActiveRecord::Base
       false
   end
   
+  def membership
+    membership_years.find_by(year: ApplicationController.financial_year)
+  end
+  
   def financial?
-    financial=="y"
+    membership.nil? ? false : membership.member_marked_paid?
   end
   
   def non_renewal?

@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -30,9 +29,8 @@ ActiveRecord::Schema.define(version: 20170801110011) do
     t.decimal "club_membership_fee",                 null: false
     t.decimal "insurance_fee",                       null: false
     t.boolean "new_member",          default: false, null: false
+    t.index ["year", "half_year", "membership_type", "new_member"], name: "membership_fees_unique_key", unique: true, using: :btree
   end
-
-  add_index "membership_fees", ["year", "half_year", "membership_type", "new_member"], name: "membership_fees_unique_key", unique: true, using: :btree
 
   create_table "membership_years", force: :cascade do |t|
     t.integer  "user_id",                                   null: false
@@ -53,9 +51,8 @@ ActiveRecord::Schema.define(version: 20170801110011) do
     t.boolean  "confirmed_paid"
     t.boolean  "new_member",                default: false, null: false
     t.integer  "batch"
+    t.index ["user_id", "year"], name: "index_membership_years_on_user_id_and_year", unique: true, using: :btree
   end
-
-  add_index "membership_years", ["user_id", "year"], name: "index_membership_years_on_user_id_and_year", unique: true, using: :btree
 
   create_table "photos", force: :cascade do |t|
     t.integer  "album_id",               null: false
@@ -76,9 +73,8 @@ ActiveRecord::Schema.define(version: 20170801110011) do
     t.integer "user_id",   null: false
     t.string  "wing_type", null: false
     t.string  "rank",      null: false
+    t.index ["user_id", "wing_type"], name: "index_user_wings_on_user_id_and_wing_type", unique: true, using: :btree
   end
-
-  add_index "user_wings", ["user_id", "wing_type"], name: "index_user_wings_on_user_id_and_wing_type", unique: true, using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: ""
@@ -114,9 +110,8 @@ ActiveRecord::Schema.define(version: 20170801110011) do
     t.string   "affiliated_club"
     t.string   "pensioner_number"
     t.string   "student_number"
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
-
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   add_foreign_key "membership_years", "users"
   add_foreign_key "photos", "albums"

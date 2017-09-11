@@ -34,8 +34,12 @@ class ApplicationController < ActionController::Base
     (11..12).include? Date.today.month or (1..5).include? Date.today.month
   end
 
-  def financial_year
+  def self.financial_year
     (1..5).include?(Date.today.month) ? Date.today.year-1 : Date.today.year
+  end
+
+  def financial_year
+    ApplicationController.financial_year
   end
 
   def within_half_year_warning?
@@ -55,7 +59,7 @@ class ApplicationController < ActionController::Base
       path = Rails.application.routes.recognize_path path_url
       c = "#{path[:controller]}_controller".camelize.constantize.new
       c.params = params
-      c.dispatch(path[:action], request)
+      c.dispatch(path[:action], request, response)
       c.response.body.html_safe
     else
       "<div class='jqueryLoad' href='#{path_url}'></div>".html_safe

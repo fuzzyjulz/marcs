@@ -5,7 +5,7 @@ class Ability
     unless user.nil?
       can [:view_committee_members, :view_member_area], User
       can [:renew_membership], User unless user.non_renewal?
-      if user.financial?
+      if user.financial? or user.committee_member?
         can [:view_club_trainers, :view_minutes], User
         can [:view_club_minutes,:view_agm_minutes], Minutes
         if user.committee_member?

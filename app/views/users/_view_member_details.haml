@@ -22,8 +22,13 @@
   .labelText
    Membership Paid?
   %span
-   -if user.financial?
+   -membership = user.membership
+   -if membership.nil?
+    .unpaidMembership.glyphicon.glyphicon-remove
+   -elsif membership.confirmed_paid
     %span.paidMembership.glyphicon.glyphicon-ok
+   -elsif membership.member_marked_paid?
+    %span.glyphicon.glyphicon-ok
    -else
     .unpaidMembership.glyphicon.glyphicon-remove
  -if user.financial?
