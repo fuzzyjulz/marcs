@@ -4,11 +4,15 @@ When(/^I was previously a member$/) do
 end
 
 Given(/^it is within the full year membership period$/) do
-  travel_to Time.new(2017, 7, 1, 01, 04, 44)
+  time = Time.new(2017, 7, 1, 01, 04, 44)
+  puts "Setting date to #{time}"
+  travel_to time
 end
 
 Given(/^it is within the half year membership period$/) do
-  travel_to Time.new(2018, 2, 1, 01, 04, 44)
+  time = Time.new(2018, 2, 1, 01, 04, 44)
+  puts "Setting date to #{time}"
+  travel_to time
 end
 
 When(/^I navigate to the membership renewal screen$/) do

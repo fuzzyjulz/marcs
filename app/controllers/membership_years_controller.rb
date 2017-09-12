@@ -166,7 +166,7 @@ class MembershipYearsController < ApplicationController
 
   def membership_year
     if @membership_year.nil?
-      @membership_year = MembershipYear.find_by(user_id: current_user.id, year: financial_year, half_year: financial_half_year?)
+      @membership_year = MembershipYear.find_by(user_id: current_user.id, year: financial_year)
     end
     @membership_year
   end

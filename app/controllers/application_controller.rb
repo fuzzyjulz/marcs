@@ -59,8 +59,9 @@ class ApplicationController < ActionController::Base
       path = Rails.application.routes.recognize_path path_url
       c = "#{path[:controller]}_controller".camelize.constantize.new
       c.params = params
-      c.dispatch(path[:action], request, response)
-      c.response.body.html_safe
+      resp = ActionDispatch::Response.new
+      c.dispatch(path[:action], request, resp)
+      resp.body.html_safe
     else
       "<div class='jqueryLoad' href='#{path_url}'></div>".html_safe
     end

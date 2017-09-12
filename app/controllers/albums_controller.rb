@@ -10,7 +10,7 @@ class AlbumsController < ApplicationController
       Time.now
     end
     
-    @album_groups = Album.uniq.order(album_group: :desc).pluck(:album_group)
+    @album_groups = Album.distinct.order(album_group: :desc).pluck(:album_group)
   end
   
   def show
