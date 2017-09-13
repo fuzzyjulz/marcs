@@ -15,9 +15,6 @@ When(/^I update my profile details$/) do
 end
 
 Then(/^I expect to see that I am( not)? financial$/) do |notIn|
-  puts "user #{User.all.as_json}"
-  puts "user membership years #{User.find(1).membership_years.as_json}"
-  puts "user membership #{User.find(1).membership.as_json}"
   assert notIn.present? ^ (page.find_all(".paidMembership").present? || page.find_all(".unconfirmedPaidMembership").present?)
 end
 
