@@ -56,7 +56,7 @@
          %td=year.user.email
          %td="#{year.student_number}#{year.pensioner_number}"
          %td=year.affiliated_club
-         %td=year.membership_name
+         %td="#{year.new_member ? "New ":""}#{year.membership_name}"
          %td=number_to_currency(year.insurance_fee)
   .row
    .col-xs-6.col-xs-offset-3
