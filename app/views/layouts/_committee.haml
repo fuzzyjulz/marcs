@@ -7,6 +7,6 @@
     %li{class: (controller.is_a? UsersController and action_name == "new") ? "active" : ""}
      %a{href: new_user_path} New Member
     %li{class: (controller.is_a? MembershipYearsController and action_name == "index") ? "active" : ""}
-     %a{href: membership_years_path} Renewals
+     %a.renewals{href: membership_years_path} Renewals
     %li{class: (controller.is_a? MembershipBatchesController and action_name == "show") ? "active" : ""}
      %a{href: membership_batches_path} Batches

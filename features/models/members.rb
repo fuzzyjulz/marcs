@@ -13,6 +13,10 @@ class Members
     @suburb = suburb
     @postcode = postcode
   end
+  
+  def name
+    "#{first_name} #{last_name}"
+  end
 
   STANDARD_MEMBER = Members.new(1234,'Test','Member', :senior, false, false, 'test_member@marcs.org.au', '10 test street', 'Memberberg', '5678')
   COMMITTEE_MEMBER = Members.new(4321,'Committee','Representitive', :senior, false, false, 'test_committee@marcs.org.au', '20 test street', 'Committeeville','8765')

@@ -1,4 +1,4 @@
-.container-fluid
+.container-fluid.confimRenewals
  .row
   .col-lg-12.col-xs-12
    .panel.panel-default
@@ -23,7 +23,7 @@
        -member_count += 1
        -paid_member_count += 1 if year.member_marked_paid?
        -confirmed_member_count += 1 if year.confirmed_paid
-       %tr
+       %tr{class: "member#{year.user.id}"}
         %td
          -if year.half_year
           Half
@@ -61,7 +61,7 @@
             %span.input-group-addon
              %i.glyphicon.glyphicon-th
             %span.input-group-btn
-             =f.button :button, "Paid", class: "btn btn-default"
+             =f.button :button, "Paid", class: "btn btn-default paidBtn"
  .row
   .col-xs-6.col-xs-offset-3
    .panel.panel-default

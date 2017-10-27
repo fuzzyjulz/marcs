@@ -3,26 +3,15 @@ When(/^I was previously a member$/) do
   
 end
 
-Given(/^it is within the full year membership period$/) do
-  time = Time.new(2017, 7, 1, 01, 04, 44)
-  puts "Setting date to #{time}"
-  travel_to time
-end
-
-Given(/^it is within the half year membership period$/) do
-  time = Time.new(2018, 2, 1, 01, 04, 44)
-  puts "Setting date to #{time}"
-  travel_to time
+Given(/^I have a member who has completed their renewal$/) do
 end
 
 When(/^I navigate to the membership renewal screen$/) do
-  MemberPage.new.open
-  find(".renewMembership").click
+  member_renewal.open
 end
 
 When(/^I agree to the rules and continue$/) do
-  check('membership_year_club_rules_accepted')
-  click_on("Next")
+  member_renewal.agree_to_rules.accept_membership_details
 end
 
 When(/^I enter a transaction number and click next$/) do
@@ -119,4 +108,8 @@ def can_see_address?(member)
   has_text? member.street and
   has_text? member.suburb and
   has_text? member.postcode
+end
+
+def member_renewal()
+  MemberRenewalPage.new
 end
