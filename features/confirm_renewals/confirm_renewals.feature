@@ -10,6 +10,16 @@ Scenario: As a Committee member I can mark members for renewal
   When I set the payment date and mark as paid
   Then I expect to see the member has been marked as paid
 
+@Committee
+Scenario: As a Committee member I can revert the payment if I have made a mistake
+ Given I have a member who has completed their renewal
+  When I navigate to the renewals screen
+  Then I expect to see the member has not been marked as paid
+  When I set the payment date and mark as paid
+  Then I expect to see the member has been marked as paid
+  When I revert the payment so I can edit it
+  Then I expect to see the member has not been marked as paid
+
 @Member
 Scenario: As a standard member I can't see or visit the renewal screen
  Given I have a member who has completed their renewal

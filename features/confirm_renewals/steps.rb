@@ -16,6 +16,11 @@ When(/^I set the payment date and mark as paid$/) do
   confirm_renewals.set_paid(completed_member, "1/1/2017")
 end
 
+When(/^I revert the payment so I can edit it$/) do
+  completed_member = Members::COMMITTEE_MEMBER
+  confirm_renewals.set_revert_paid(completed_member)
+end
+
 Then(/^I expect to( not)? see the member who has completed their renewal$/) do |notIn|
   completed_member = Members::COMMITTEE_MEMBER
   puts completed_member.name
