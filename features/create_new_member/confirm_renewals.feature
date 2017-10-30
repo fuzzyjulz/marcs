@@ -11,11 +11,15 @@ Scenario Outline: As a Committee member I can create a new member and that membe
 
 Examples:
  | membership_type | affiliation   |
+ #---------------------------------#
  | senior          | affiliate     |
  | senior          | non affiliate |
+
  | pensioner       | affiliate     |
  | pensioner       | non affiliate |
+
  | junior          | affiliate     |
  | junior          | non affiliate |
+
  | student         | affiliate     |
  | student         | non affiliate |
