@@ -107,6 +107,17 @@ class MembershipYearsController < ApplicationController
     membership_year.assign_attributes(membership_params)
     membership_year.user = @user
     
+    if membership_year.membership_type.nil?
+      flash[:alert] = "Membership type is required"
+      return redirect_to(new_member_fees_user_membership_years_path(@user))
+    end
+
+    if membership_year.affiliate.nil?
+      flash[:alert] = "Affiliate is required"
+      return redirect_to(new_member_fees_user_membership_years_path(@user))
+    end
+    
+    membership_year.affiliate = (membership_year.affiliate.nil? ? nil : membership_year.affiliate == true)
     membership_year.student_number = nil unless membership_year.membership_type.to_sym == :student
     membership_year.pensioner_number = nil unless membership_year.membership_type.to_sym == :pensioner
     membership_year.affiliated_club = nil unless membership_year.affiliate
@@ -172,9 +183,11 @@ class MembershipYearsController < ApplicationController
   end
   
   def membership_params
-    params.require(:membership_year).permit(
+    _params = params.require(:membership_year).permit(
       :membership_type, :pensioner_number, :student_number,
       :affiliate, :affiliated_club, :club_rules_accepted)
+    _params["affiliate"] = (_params["affiliate"].nil? ? nil : _params["affiliate"] == "true")
+    _params
   end
 
   def membership_update_params

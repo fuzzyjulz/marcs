@@ -46,7 +46,7 @@
 
       %h2 Affiliation
       .indented
-       =f.input :affiliate, as: :radio, value: false, label: "MARCS is my main club"
+       =f.input :affiliate, as: :radio, value: "False", label: "MARCS is my main club"
        =f.input :affiliate, as: :radio, value: true, label: "Another club is my main club",
           input_html: {data: {toggle: "radio-collapse", target: "#mainClubGroup"}}
        #mainClubGroup.indented
