@@ -8,6 +8,7 @@ class Ability
       if user.financial? or user.committee_member?
         can [:view_club_trainers, :view_minutes], User
         can [:view_club_minutes,:view_agm_minutes], Minutes
+        return
         if user.committee_member?
           can [:view_committee_calendar], User
           can [:view_committee_minutes], Minutes
