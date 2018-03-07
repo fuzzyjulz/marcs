@@ -26,6 +26,6 @@
        %a{href:faqs_home_index_path} FAQs
    .navbar-right
     %ul.nav.navbar-nav
-     -if signed_in?
+     -if signed_in? and can? :logout, current_user
       %li
        %a{href:users_sign_out_path} Sign Out

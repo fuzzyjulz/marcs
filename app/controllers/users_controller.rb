@@ -3,6 +3,12 @@ class UsersController < ApplicationController
   helper_method :get_committee_members
   
   def home
+    if current_user.sign_in_count <= 1
+      redirect_to change_password_user_path
+    end
+  end
+  
+  def change_password
   end
   
   def new
@@ -38,6 +44,34 @@ class UsersController < ApplicationController
     authorize! :view_club_trainers, current_user
   end
   
+  def update_change_password
+    current_user.assign_attributes(user_change_pw_params)
+    
+    #sign in count will be used to force the member to update their password the first time they login.
+    current_user.sign_in_count = 2 if current_user.sign_in_count <= 1
+    
+    if current_user.password != current_user.password_confirmation
+      flash[:alert] = "Confirmed password and password must match."
+
+      redirect_to change_password_user_path
+      return
+    end
+    
+    current_user.password = current_user.password.downcase
+    current_user.password_confirmation = current_user.password_confirmation.downcase
+    
+    current_user.save
+    if current_user.errors.present?
+      flash[:alert] = current_user.errors.full_messages.join(",")
+
+      redirect_to change_password_user_path
+    else
+      flash[:notice]="Updated your password"
+  
+      redirect_to home_user_path
+    end
+  end
+
   def update
     current_user.update!(user_params)
 
@@ -76,6 +110,10 @@ class UsersController < ApplicationController
     @active_member_count = User.financial_memebers.count
   end
   
+  def user_change_pw_params
+    params.require(:user).permit(:password, :password_confirmation)
+  end
+
   def user_params
     params.require(:user).permit(:first_name, :known_by, :last_name, :email, :street, :city, :postcode, :home_phone, :mobile_phone)
   end

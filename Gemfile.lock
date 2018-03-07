@@ -361,7 +361,7 @@ DEPENDENCIES
   koala
   mini_portile2
   paperclip (~> 5.0.0)
-  pg
+  pg (= 0.21.0)
   pry
   rails (~> 5)
   rails_12factor

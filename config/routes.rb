@@ -20,7 +20,8 @@ Rails.application.routes.draw do
       get '/users/sign_out' => 'api/v1/sessions#destroy'
     end
     resource :user do
-      get :edit, :home, :refresh, :trainers, :committee
+      get :edit, :home, :refresh, :trainers, :committee, :change_password
+      patch :update_change_password
       resources :membership_years, only: [:create, :update, :show], path: "membership" do
         get :fees,:fees_back, :update_back
         post :admin_paid

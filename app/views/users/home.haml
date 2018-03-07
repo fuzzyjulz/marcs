@@ -12,14 +12,14 @@
      =render "view_member_details", {user: current_user}
      %p
       =button_to "Change my details", edit_user_path, method: :get, class: "updateProfile btn btn-primary"
-  -if can? :view_meeting_minutes, current_user
-   .col-xs-12.col-md-6
-    .panel.panel-default.withLink{data:{toggle:"collapse", target:"#minutesBody"}}
-     .panel-heading
-      .panel-title
-       Meeting Minutes
-     #minutesBody.panel-body.in
-      coming soon...
+ .row
+  .col-md-offset-3.col-md-6
+   .panel.panel-default
+    .panel-heading
+     %h1.panel-title
+      Account Options
+    .panel-body.in
+     =button_to "Change password", change_password_user_path, method: :get, class: "btn btn-primary"
  .row
   .col-xs-12.small
    .refreshDetails.jqueryLoad{href: refresh_user_path} Loading members...

@@ -12,9 +12,9 @@
      = f.text_field :fai, autofocus: true
    
     .field
-     = f.label :password
+     = f.label "Password (or surname if you haven't logged in before)"
      %br
-     = f.text_field :password, autocomplete: "off"
+     = f.password_field :password, autocomplete: "off"
    
     -if devise_mapping.rememberable?
      .field
