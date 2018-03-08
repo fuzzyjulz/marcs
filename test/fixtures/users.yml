@@ -12,6 +12,7 @@ standard_member:
   postcode: 5678
   financial: y
   club_instructor_type: f
+  sign_in_count: 2
 
 committee_member:
   id: 2
@@ -26,6 +27,7 @@ committee_member:
   committee_position: President
   financial: y
   club_instructor_type: h
+  sign_in_count: 2
   
 non_financial:
   id: 3
@@ -39,6 +41,7 @@ non_financial:
   postcode: 5678
   financial: n
   club_instructor_type: b
+  sign_in_count: 2
 
 affiliate_member:
   id: 4
@@ -53,6 +56,7 @@ affiliate_member:
   financial: y
   membership_type: Affiliate
   affiliated_club: My Affiliated Club
+  sign_in_count: 2
 
 life_member:
   id: 5
@@ -66,6 +70,7 @@ life_member:
   postcode: 5678
   financial: y
   membership_type: Life
+  sign_in_count: 2
 
 student_member:
   id: 6
@@ -80,6 +85,7 @@ student_member:
   financial: y
   membership_type: Student
   student_number: SN123456
+  sign_in_count: 2
 
 pensioner_member:
   id: 7
@@ -94,6 +100,7 @@ pensioner_member:
   financial: y
   membership_type: Pensioner
   pensioner_number: PN123456
+  sign_in_count: 2
 
 junior_member:
   id: 8
@@ -107,3 +114,4 @@ junior_member:
   postcode: 5678
   financial: y
   membership_type: Junior
+  sign_in_count: 2

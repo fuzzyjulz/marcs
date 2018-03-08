@@ -20,8 +20,9 @@ class UsersController < ApplicationController
     authorize! :create_member, current_user
     
     params = create_user_params
-    params[:password] = params[:last_name].downcase
-    params[:password_confirmation] = params[:password]
+    temp_pwd = Devise.friendly_token.first(8)
+    params[:password] = temp_pwd
+    params[:password_confirmation] = temp_pwd
 
     @user = User.find_by(fai: params[:fai])
     unless @user.nil?
@@ -37,6 +38,10 @@ class UsersController < ApplicationController
       return
     end
     
+    @user.password = @user.last_name.downcase
+    @user.password_confirmation = @user.password.downcase
+    @user.save!(validate: false)
+
     redirect_to new_member_fees_user_membership_years_path(@user)
   end
 
