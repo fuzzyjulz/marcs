@@ -24,7 +24,7 @@ class FacebookFeedItemFacade
   end
   
   def author
-    @facebook_item['from']['name']
+    @facebook_item['from']['name'] unless @facebook_item['from'].nil?
   end
   
   def event_id
