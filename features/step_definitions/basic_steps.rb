@@ -17,6 +17,17 @@ Given(/^it is within the full year membership period$/) do
   travel_to time
 end
 
+Given(/^it is at the end of the full year membership period$/) do
+  time = Time.new(2018, 6, 30, 01, 04, 44)
+  puts "Setting date to #{time}"
+  travel_to time
+end
+Given(/^it is at the start of the next membership period$/) do
+  time = Time.new(2018, 7, 1, 01, 04, 44)
+  puts "Setting date to #{time}"
+  travel_to time
+end
+
 Given(/^it is within the half year membership period$/) do
   time = Time.new(2018, 2, 1, 01, 04, 44)
   puts "Setting date to #{time}"

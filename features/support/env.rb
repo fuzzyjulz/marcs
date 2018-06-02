@@ -72,7 +72,7 @@ end
 Cucumber::Rails::Database.javascript_strategy = :truncation
 
 Before do
-  time = Time.new(2017, 6, 1, 01, 04, 44)
+  time = Time.new(2017, 7, 1, 01, 04, 44)
   puts "Setting date to #{time}"
   travel_to time
 end

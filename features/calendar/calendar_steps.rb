@@ -12,13 +12,13 @@ end
 Then(/^I expect to( not)? see the club events$/) do |notOn|
   puts get_club_events
   assert(notOn.present? ^ (get_club_events == \
-  ["25 Jan at 7:00PM Club Meeting","25 Feb at 9:00AM Working Bee(to be confirmed)"]))
+  ["25 Jan at 7:00PM\nClub Meeting","25 Feb at 9:00AM\nWorking Bee(to be confirmed)"]))
 end
 
 Then(/^I expect to( not)? see the committee events$/) do |notOn|
   puts get_committee_events
   assert(notOn.present? ^ (get_committee_events == \
-  ["16 Jan at 7:00PM Committee Meeting"]))
+  ["16 Jan at 7:00PM\nCommittee Meeting"]))
 end
 
 def get_club_events()

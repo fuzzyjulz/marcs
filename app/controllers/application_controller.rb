@@ -6,8 +6,8 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :configure_permitted_parameters, if: :devise_controller?
   helper_method :marcs_image_tag, :extract_links, :show_member_submenu, :show_committee_submenu, :renderAsAjax,
-    :agm_time?, :financial_half_year?, :financial_year, :within_half_year_warning?, :within_full_year_warning?,
-    :safe_chars
+    :agm_time?, :financial_half_year?, :financial_year, :renewal_financial_half_year?, :renewal_financial_year, 
+    :within_half_year_warning?, :within_full_year_warning?, :safe_chars
   
   def marcs_image_tag(*p)
     ActionController::Base.helpers.image_tag(*p).sub(/s3\.amazonaws\.com\/marcsprod/,"marcsprod.s3-ap-southeast-2.amazonaws.com").html_safe
@@ -32,10 +32,18 @@ class ApplicationController < ActionController::Base
   end
 
   def financial_half_year?
+    (1..5).include? Date.today.month
+  end
+
+  def renewal_financial_half_year?
     (11..12).include? Date.today.month or (1..5).include? Date.today.month
   end
 
   def self.financial_year
+    (1..6).include?(Date.today.month) ? Date.today.year-1 : Date.today.year
+  end
+
+  def renewal_financial_year
     (1..5).include?(Date.today.month) ? Date.today.year-1 : Date.today.year
   end
 

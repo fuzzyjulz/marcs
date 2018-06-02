@@ -1,106 +1,121 @@
 -content_for :title, "Renew Membership 1 of 3"
 .container
- =simple_form_for [current_user, membership_year], url: user_membership_years_path(), method: :create do |f|
+ -if membership_year.membership_fee.nil?
   .row
    .col-md-offset-3.col-md-6
     .panel.panel-default
      .panel-heading
       %h1.panel-title
-       Check your details
+       Can't renew
      .panel-body
       %p
-       Please double check your current address details
-      .indented
-       %p.noMargins
-        %label.labelText
-         Current Address:
-        #{current_user.street}
-       %p
-        %label.labelText &nbsp;
-        #{current_user.city}, #{current_user.postcode}
-       %p
-        %label.labelText
-         Email:
-        #{current_user.email}
-       %p
-        %a{href: edit_user_path} Change my details
+       Sorry the membership fees haven't been setup yet for
+       #{membership_year.year_range}
+       year.
       %p
-       %i
-        If you have updated these details it may be a few days for our systems to update
-  -if within_half_year_warning?
+       Please check back later.
+ -else
+  =simple_form_for [current_user, membership_year], url: user_membership_years_path(), method: :create do |f|
    .row
     .col-md-offset-3.col-md-6
-     .bs-callout.bs-callout-info
-      -if was_financial_last_year?
-       %h4 Almost at half year membership
-       It is close to the new year, if you enrol for January - June it will be half price.
-      -else
-       As you were financial last year you are required to pay the full year fees.
-  -if within_full_year_warning?
+     .panel.panel-default
+      .panel-heading
+       %h1.panel-title
+        Check your details
+      .panel-body
+       %p
+        Please double check your current address details
+       .indented
+        %p.noMargins
+         %label.labelText
+          Current Address:
+         #{current_user.street}
+        %p
+         %label.labelText &nbsp;
+         #{current_user.city}, #{current_user.postcode}
+        %p
+         %label.labelText
+          Email:
+         #{current_user.email}
+        %p
+         %a{href: edit_user_path} Change my details
+       %p
+        %i
+         If you have updated these details it may be a few days for our systems to update
+   -if within_half_year_warning?
+    .row
+     .col-md-offset-3.col-md-6
+      .bs-callout.bs-callout-info
+       -if was_financial_last_year?
+        %h4 Almost at half year membership
+        It is close to the new year, if you enrol for January - June it will be half price.
+       -else
+        As you were financial last year you are required to pay the full year fees.
+   -if within_full_year_warning?
+    .row
+     .col-md-offset-3.col-md-6
+      .bs-callout.bs-callout-info
+       %h4 Almost at next financial year!
+       It is close to the new financial year, if you wait until July 1 to enrol then you won't need to pay a half
+       year membership.
    .row
     .col-md-offset-3.col-md-6
-     .bs-callout.bs-callout-info
-      %h4 Almost at next financial year!
-      It is close to the new financial year, if you wait until July 1 to enrol then you won't need to pay a half
-      year membership.
-  .row
-   .col-md-offset-3.col-md-6
-    .panel.panel-default
-     .panel-heading
-      %h1.panel-title
-       #{membership_year.year_range} #{membership_year.half_year? ? "Half" : "Full"} Year -
-       Membership Renewal
-     .panel-body
-      %h2{style: "margin-top: 0px"}
-       Membership Type
-      .indented
-       =f.input :membership_type, as: :radio, value: :senior, label: "Senior", include_hidden: false
-       =f.input :membership_type, as: :radio, value: :pensioner, label: "Pensioner",
-         input_html: {data: {toggle: "radio-collapse", target: "#pensionerNumberGroup"}}
-       #pensionerNumberGroup.indented
-        .input-group
-         %span.input-group-addon Pensioner Number
-         =f.input :pensioner_number, label: false,
-            input_html: {class:"form-control", type:"text", placeholder:"Enter your pensioner number"}
-       =f.input :membership_type, as: :radio, value: :student, label: "Student",
-          input_html: {data: {toggle: "radio-collapse", target: "#studentNumberGroup"}}
-       #studentNumberGroup.indented
-        %i As a student you are under 25
-        .input-group
-         %span.input-group-addon Student Number
-         =f.input :student_number, label: false, 
-            input_html: {class: "form-control", type:"text", placeholder:"Enter your student number"}
-       =f.input :membership_type, as: :radio, value: 'junior', label: "Junior",
-          input_html: {data: {toggle: "radio-collapse", target: "#juniorDescription"}}
-       #juniorDescription.indented
-        %i As a Junior you must be under 18
-      
-      %h2 Life Membership
-      %p
+     .panel.panel-default
+      .panel-heading
+       %h1.panel-title
+        #{membership_year.year_range} #{membership_year.half_year? ? "Half" : "Full"} Year -
+        Membership Renewal
+      .panel-body
+       %h2{style: "margin-top: 0px"}
+        Membership Type
        .indented
-        -if current_user.life_member?
-         .LifeMembership You are a life member
-        -else
-         Standard membership
-      
-      %h2 Affiliation
-      .indented
-       =f.input :affiliate, as: :radio, value: false, label: "MARCS is my main club"
-       =f.input :affiliate, as: :radio, value: true, label: "Another club is my main club",
-          input_html: {data: {toggle: "radio-collapse", target: "#mainClubGroup"}}
-       #mainClubGroup.indented
-        .input-group
-         %span.input-group-addon Main club
-         =f.input :affiliated_club, label: false, 
-            input_html: {class: "form-control", type:"text", placeholder:"Enter name of your main club"}
- 
-      %br
-      .indented
+        =f.input :membership_type, as: :radio, value: :senior, label: "Senior", include_hidden: false
+        =f.input :membership_type, as: :radio, value: :pensioner, label: "Pensioner",
+          input_html: {data: {toggle: "radio-collapse", target: "#pensionerNumberGroup"}}
+        #pensionerNumberGroup.indented
+         .input-group
+          %span.input-group-addon Pensioner Number
+          =f.input :pensioner_number, label: false,
+             input_html: {class:"form-control", type:"text", placeholder:"Enter your pensioner number"}
+        =f.input :membership_type, as: :radio, value: :student, label: "Student",
+           input_html: {data: {toggle: "radio-collapse", target: "#studentNumberGroup"}}
+        #studentNumberGroup.indented
+         %i As a student you are under 25
+         .input-group
+          %span.input-group-addon Student Number
+          =f.input :student_number, label: false, 
+             input_html: {class: "form-control", type:"text", placeholder:"Enter your student number"}
+        =f.input :membership_type, as: :radio, value: 'junior', label: "Junior",
+           input_html: {data: {toggle: "radio-collapse", target: "#juniorDescription"}}
+        #juniorDescription.indented
+         %i As a Junior you must be under 18
+       
+       %h2 Life Membership
+       %p
+        .indented
+         -if current_user.life_member?
+          .LifeMembership You are a life member
+         -else
+          Standard membership
+       
+       %h2 Affiliation
        .indented
-        =f.input :club_rules_accepted, as: :boolean, label: "", input_html: {data: {toggle: "enable", target: "#submitButton"}}
-        I have read and agree to the 
-        %a{href: club_rules_home_index_path, target: "_blank"} club rules
-        %span . I acknowledge that ticking this box has the same effect as my signature.
-      %br
-      .indented
-       =f.button :submit, "Next", id: "submitButton", class: "btn btn-primary"
+        =f.input :affiliate, as: :radio, value: false, label: "MARCS is my main club"
+        =f.input :affiliate, as: :radio, value: true, label: "Another club is my main club",
+           input_html: {data: {toggle: "radio-collapse", target: "#mainClubGroup"}}
+        #mainClubGroup.indented
+         .input-group
+          %span.input-group-addon Main club
+          =f.input :affiliated_club, label: false, 
+             input_html: {class: "form-control", type:"text", placeholder:"Enter name of your main club"}
+  
+       %br
+       .indented
+        .indented
+         =f.input :club_rules_accepted, as: :boolean, label: "", input_html: {data: {toggle: "enable", target: "#submitButton"}}
+         I have read and agree to the 
+         %a{href: club_rules_home_index_path, target: "_blank"} club rules
+         %span . I acknowledge that ticking this box has the same effect as my signature.
+       %br
+       .indented
+        =f.button :submit, "Next", id: "submitButton", class: "btn btn-primary"

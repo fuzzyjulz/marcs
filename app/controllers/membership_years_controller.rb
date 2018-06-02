@@ -66,8 +66,8 @@ class MembershipYearsController < ApplicationController
 
   def apply_member_details
     membership_year.user = current_user
-    membership_year.year = financial_year
-    membership_year.half_year = financial_half_year?
+    membership_year.year = renewal_financial_year
+    membership_year.half_year = renewal_financial_half_year?
     membership_year.life_member = current_user.life_member?
   end
 
@@ -86,8 +86,8 @@ class MembershipYearsController < ApplicationController
     @user = User.find(request[:user_id])
     @membership_year = MembershipYear.new() if @membership_year.nil?
 
-    membership_year.year = financial_year
-    membership_year.half_year = financial_half_year?
+    membership_year.year = renewal_financial_year
+    membership_year.half_year = renewal_financial_half_year?
 
     unless @user.membership_years.empty?
       flash[:alert] = "Membership has been recorded, so this member is no longer a new member"
@@ -122,8 +122,8 @@ class MembershipYearsController < ApplicationController
     membership_year.pensioner_number = nil unless membership_year.membership_type.to_sym == :pensioner
     membership_year.affiliated_club = nil unless membership_year.affiliate
 
-    membership_year.year = financial_year
-    membership_year.half_year = financial_half_year?
+    membership_year.year = renewal_financial_year
+    membership_year.half_year = renewal_financial_half_year?
     membership_year.life_member = false
     membership_year.new_member = true
     membership_year.club_rules_accepted = true
@@ -177,7 +177,7 @@ class MembershipYearsController < ApplicationController
 
   def membership_year
     if @membership_year.nil?
-      @membership_year = MembershipYear.find_by(user_id: current_user.id, year: financial_year)
+      @membership_year = MembershipYear.find_by(user_id: current_user.id, year: renewal_financial_year)
     end
     @membership_year
   end
