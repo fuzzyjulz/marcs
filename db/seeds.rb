@@ -38,3 +38,8 @@ create_membership_fee(2017, :senior,     91.00,   114.00,   40)
 create_membership_fee(2017, :pensioner,  91.00/2, 114.00,   40)
 create_membership_fee(2017, :student,    30.00,   114.00,   40)
 create_membership_fee(2017, :junior,     0.00,    114.00/2, 40)
+
+create_membership_fee(2018, :senior,     1.00,    114.00,   40)
+create_membership_fee(2018, :pensioner,  1.00,    114.00,   40)
+create_membership_fee(2018, :student,    1.00,    114.00,   40)
+create_membership_fee(2018, :junior,     1.00,    114.00/2, 40)
