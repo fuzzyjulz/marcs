@@ -3,7 +3,7 @@
  -batches = batch_list(@financial_year)
  -if batches.empty?
   .center
-   No members signed up yet for financial year #{@financial_year}.
+   No members signed up yet for financial year #{@financial_year}-#{@financial_year+1}.
  -batches.each do |batch|
   .row
    .col-lg-12.col-xs-12

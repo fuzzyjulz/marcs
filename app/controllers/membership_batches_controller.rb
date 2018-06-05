@@ -5,7 +5,7 @@ class MembershipBatchesController < ApplicationController
     authorize! :view_insurance_batches, current_user
     
     @financial_year = request[:id]
-    @financial_year ||= financial_year
+    @financial_year ||= renewal_financial_year
   end
 
   def create
@@ -17,7 +17,7 @@ class MembershipBatchesController < ApplicationController
   end
   
   def create_membership_batch
-    unless @financial_year == financial_year.to_s
+    unless @financial_year == renewal_financial_year.to_s
       flash[:alert] = "Cannot create batches for non current financial years(#{@financial_year})"
       return
     end
