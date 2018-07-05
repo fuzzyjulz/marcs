@@ -10,7 +10,7 @@ Rails.application.routes.draw do
     end
     resources :calendar_events, only: :index
     
-    devise_for :users, :controllers => { :sessions => "api/v1/sessions" }
+    devise_for :users, :controllers => { :sessions => "api/v1/sessions", :passwords => "api/v1/passwords" }
     devise_scope :user do
       namespace :api do
         namespace :v1 do

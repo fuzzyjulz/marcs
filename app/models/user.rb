@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  devise :database_authenticatable, :rememberable, :trackable, :validatable, :lockable, authentication_keys: [:fai]
+  devise :database_authenticatable, :rememberable, :trackable, :validatable, :lockable, :recoverable, authentication_keys: [:fai]
   validates :fai,  :presence => true
   
   has_many :user_wings, dependent: :destroy
