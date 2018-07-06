@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
   accepts_nested_attributes_for :user_wings
   
   def known_by_first_name
-    known_by.nil? ? first_name : known_by
+    known_by.blank? ? first_name : known_by
   end
 
   def name
