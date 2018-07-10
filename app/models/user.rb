@@ -24,6 +24,8 @@ class User < ActiveRecord::Base
       "marcs.clubsecretary@gmail.com"
     when "Vice President"
       "marcs.vp@gmail.com"
+    when "Webmaster"
+      "marcs.vic@gmail.com"
     else
       ""
     end
