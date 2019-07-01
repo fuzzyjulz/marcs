@@ -115,3 +115,17 @@ junior_member:
   financial: y
   membership_type: Junior
   sign_in_count: 2
+
+spectator_member:
+  id: 9
+  fai: 1240
+  first_name: Spector
+  last_name: Member
+  encrypted_password: <%= User.new.send(:password_digest, 'member') %>
+  email: spectator_member@marcs.org.au
+  street: 10 test street
+  city: Memberberg
+  postcode: 5678
+  financial: y
+  membership_type: Spectator
+  sign_in_count: 2

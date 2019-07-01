@@ -140,6 +140,20 @@ Scenario: As a junior member I should be able to renew my membership
   When I enter a transaction number and click next
   Then I expect to see the membership renewal complete screen
 
+@SpectatorMember
+Scenario: As a spectator member I should be able to renew my membership
+ Given I was previously a member
+   And it is within the full year membership period
+   
+  When I navigate to the membership renewal screen
+  
+  Then I expect that my membership type is selected
+   
+  When I agree to the rules and continue
+   And I expect to see the Spectator member full year fee
+  
+  When I enter a transaction number and click next
+  Then I expect to see the membership renewal complete screen
 
 @NonFinancialMember
 Scenario: As a senior member if my membership has already been sent I should not be able to resend it

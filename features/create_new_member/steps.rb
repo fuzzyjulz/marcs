@@ -18,7 +18,7 @@ Then(/^I expect to see the new member details$/) do
   assert has_text?("Hey ThatGuy")
 end
 
-When(/^I select (senior|pensioner|student|junior) and( non)? affiliate and create the membership$/) do |membership_type, non_affiliate|
+When(/^I select (senior|pensioner|student|junior|spectator) and( non)? affiliate and create the membership$/) do |membership_type, non_affiliate|
   choose("membership_year_membership_type_#{membership_type}")
   if non_affiliate.present?
     choose("membership_year_affiliate_false")
@@ -65,4 +65,12 @@ end
 
 When(/^I expect to see the new student non affiliate fee$/) do
   assert has_text?("$184.00")
+end
+
+When(/^I expect to see the new spectator affiliate fee$/) do
+  assert has_text?("$131.00")
+end
+
+When(/^I expect to see the new spectator non affiliate fee$/) do
+  assert has_text?("$131.00")
 end

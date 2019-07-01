@@ -37,3 +37,8 @@ Before('@JuniorMember') do
   @member = Members::JUNIOR_MEMBER
   assert MemberPage.new.login(@member).logged_in?, "Not logged in"
 end
+
+Before('@SpectatorMember') do
+  @member = Members::SPECTATOR_MEMBER
+  assert MemberPage.new.login(@member).logged_in?, "Not logged in"
+end

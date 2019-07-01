@@ -89,6 +89,13 @@
            input_html: {data: {toggle: "radio-collapse", target: "#juniorDescription"}}
         #juniorDescription.indented
          %i As a Junior you must be under 18
+        =f.input :membership_type, as: :radio, value: 'spectator', label: "Spectator",
+           input_html: {data: {toggle: "radio-collapse", target: "#spectatorDescription"}}
+        #spectatorDescription.indented
+         %i
+          Spectators are considered
+          %b full members
+          but have NO flying rights, and are not covered by MAAA insurance
        
        %h2 Life Membership
        %p

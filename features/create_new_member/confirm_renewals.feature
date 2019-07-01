@@ -23,3 +23,6 @@ Examples:
 
  | student         | affiliate     |
  | student         | non affiliate |
+ 
+ | spectator       | affiliate     |
+ | spectator       | non affiliate |

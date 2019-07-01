@@ -41,7 +41,8 @@
         -member_count += 1
         -affiliate_member_count += 1 if year.affiliate
         -junior_member_count += 1 if year.junior?
-        -full_member_count += 1 unless year.junior? or year.affiliate
+        -spectator_member_count += 1 if year.spectator?
+        -full_member_count += 1 unless year.junior? or year.affiliate or year.specator?
         -insurance_fees += year.insurance_fee
         %tr
          %td
@@ -70,6 +71,9 @@
         %td
          %b Affiliate:
          =affiliate_member_count
+        %td
+         %b Spectator:
+         =spectator_member_count
         %td
          %b Full Fee:
          =full_member_count

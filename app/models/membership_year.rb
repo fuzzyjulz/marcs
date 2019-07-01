@@ -17,6 +17,10 @@ class MembershipYear < ActiveRecord::Base
     membership_type.to_sym == :junior
   end
 
+  def spectator?
+    membership_type.to_sym == :spectator
+  end
+
   def member_marked_paid?
     confirmed_paid or !payment_date.nil?
   end

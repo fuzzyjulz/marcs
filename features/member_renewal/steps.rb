@@ -96,6 +96,10 @@ Then(/^I expect to( not)? see the Junior member full year fee$/) do |notIn|
   assert notIn.present? ^ has_text?("\$57.00")
 end
 
+Then(/^I expect to( not)? see the Spectator member full year fee$/) do |notIn|
+  assert notIn.present? ^ has_text?("\$91.00")
+end
+
 Then(/^I expect to( not)? see the membership renewal complete screen$/) do |notIn|
   assert notIn.present? ^ find_all(".membershipRenewalComplete").present?
 end

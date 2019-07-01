@@ -35,6 +35,14 @@ class User < ActiveRecord::Base
     !membership_type.nil? and membership_type.downcase.include? "life"
   end
   
+  def membership_type
+    if membership.nil?
+      self.read_attribute(:membership_type)
+    else
+      membership.membership_name 
+    end
+  end
+  
   def membership_type_sym
     if membership_type.nil?
       :senior
@@ -44,6 +52,8 @@ class User < ActiveRecord::Base
       :student
     elsif membership_type.downcase.include? "junior"
       :junior
+    elsif membership_type.downcase.include? "spectator"
+      :spectator
     else
       :senior
     end

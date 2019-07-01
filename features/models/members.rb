@@ -26,6 +26,7 @@ class Members
   STUDENT_MEMBER = Members.new(1237,'Student','Member', :student, false, true, 'student_member@marcs.org.au', '10 test street', 'Memberberg', '5678')
   PENSIONER_MEMBER = Members.new(1238,'Pensioner','Member', :pensioner, false, true, 'pensioner_member@marcs.org.au', '10 test street', 'Memberberg', '5678')
   JUNIOR_MEMBER = Members.new(1239,'Junior','Member', :junior, false, true, 'junior_member@marcs.org.au', '10 test street', 'Memberberg', '5678')
+  SPECTATOR_MEMBER = Members.new(1240,'Spector','Member', :spectator, false, true, 'spectator_member@marcs.org.au', '10 test street', 'Memberberg', '5678')
 
   UPDATED_MEMBER = Members.new(1,'Updated','Member', :senior, false, false, 'updated_email@marcs.org.au', '30 Updated Lane', 'Memberberg', '0000')
 end
