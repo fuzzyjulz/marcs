@@ -24,7 +24,7 @@ class MembershipBatchesController < ApplicationController
     
     members = members_in_batch(@financial_year, nil)
     if members.empty?
-      flash[:alert] = "Cannot create batches for non current financial years(#{@financial_year})"
+      flash[:alert] = "Cannot create batches with no members (#{@financial_year})"
       return
     end
     
@@ -40,7 +40,7 @@ class MembershipBatchesController < ApplicationController
   end
   
   def members_in_batch(year, batch)
-    MembershipYear.where(year: year, confirmed_paid: true, batch: batch)
+    MembershipYear.where(year: year, confirmed_paid: true, batch: batch).where.not(membership_type: "spectator")
   end
   
   def batch_list(year)
