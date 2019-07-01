@@ -148,7 +148,7 @@ Scenario: As a spectator member I should be able to renew my membership
   When I navigate to the membership renewal screen
   
   Then I expect that my membership type is selected
-   
+  
   When I agree to the rules and continue
    And I expect to see the Spectator member full year fee
   
