@@ -40,7 +40,7 @@ class MembershipBatchesController < ApplicationController
   end
   
   def members_in_batch(year, batch)
-    MembershipYear.where(year: year, confirmed_paid: true, batch: batch).where.not(membership_type: "spectator")
+    MembershipYear.where(year: year, confirmed_paid: true, batch: batch)
   end
   
   def batch_list(year)

@@ -9,7 +9,7 @@ class MembershipYearsController < ApplicationController
   def admin_paid
     authorize! :update_member_renewals, current_user
     
-    params = admin_membership_update_params
+    params = admin_membership_paid_params
     params[:confirmed_paid] = true
     
     membership_year = MembershipYear.find(request[:membership_year_id]).update!(params)
@@ -23,6 +23,25 @@ class MembershipYearsController < ApplicationController
     membership_year = MembershipYear.find(request[:membership_year_id]).update!(confirmed_paid: false)
     flash[:notice] = "Reverted payment confirmation"
     return redirect_to(membership_years_path)
+  end
+  
+  def admin_update
+    authorize! :update_member_renewals, current_user
+    
+    params = admin_membership_update_params
+    
+    membership_year = MembershipYear.find(request[:membership_year_id])
+    membership_year.update(params)
+    membership_year.total_fees = membership_year.total_fee
+    membership_year.save
+
+    if membership_year.errors.any?
+      flash[:alert] = membership_year.errors.full_messages.to_sentence
+      render :index
+    else
+      flash[:notice] = "Updated member details"
+      return redirect_to(membership_years_path)
+    end
   end
   
   def renew
@@ -194,7 +213,11 @@ class MembershipYearsController < ApplicationController
     params.require(:membership_year).permit(:payment_authorised_number, :payment_date)
   end
 
-  def admin_membership_update_params
+  def admin_membership_paid_params
     params.require(:membership_year).permit(:payment_date)
+  end
+
+  def admin_membership_update_params
+    params.require(:membership_year).permit(:membership_type, :affiliate, :half_year)
   end
 end

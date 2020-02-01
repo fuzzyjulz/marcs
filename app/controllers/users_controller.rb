@@ -92,14 +92,6 @@ class UsersController < ApplicationController
   end
   
   def refresh
-    Rails.cache.fetch("latest_member_refresh",expires_in: 1.day) do
-      GoogleMember.get_all_members.each do |member|
-        unless (member.nil?)
-          User::save_from_member(member)
-        end
-      end
-    end
-    
     stats
     render layout: nil
   end

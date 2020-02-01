@@ -8,10 +8,6 @@ class GoogleConnection
     @session = GoogleDrive.login_with_oauth(access_token)
   end
   
-  def get_membership_sheet()
-    @session.spreadsheet_by_key(ApplicationHelper::GOOGLE_MEMBERSHIP_SPREADSHEET_KEY).worksheets[0]
-  end
-  
   def get_photos_dirs()
     gallery = @session.collection_by_title("MARCS Gallery")
     gallery.subcollections
