@@ -13,7 +13,7 @@ gem 'cancan'
 gem 'bootstrap-sass'
 gem 'koala'                         #Facebook API for newsfeed
 gem 'google_drive'                  #Connector to google drive and spreadsheets
-gem "paperclip", "~> 5.0.0"
+gem "paperclip", "~> 6.1.0"
 gem 'sendgrid-rails', '>= 0.10.0'
 gem 'icalendar'
 #gem "icalendar-recurrence"
