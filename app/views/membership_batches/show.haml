@@ -16,7 +16,7 @@
           Financial Year #{@financial_year} -
           -if batch.nil?
            New Batch
-           -if batch.nil? and can? :create_insurance_batches, current_user and members_in_batch(@financial_year, batch).count != 0
+           -if batch.nil? and can? :create_insurance_batches, current_user and members_in_batch(@financial_year, batch).empty?
             =simple_form_for :membership_batches, url: membership_batches_path(), html:{class: "inline"} do |f|
              %input{type: "hidden", name: "id", value: @financial_year}
              =f.button :button, "Create Batch", class: "btn btn-primary"
