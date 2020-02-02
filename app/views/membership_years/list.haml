@@ -46,7 +46,7 @@
         %td=year.user.address
         %td
          =year.user.home_phone
-         -unless year.user.home_phone.empty? || year.user.mobile_phone.empty?
+         -unless year.user.home_phone.nil? || year.user.mobile_phone.nil?
           /
          =year.user.mobile_phone
          
