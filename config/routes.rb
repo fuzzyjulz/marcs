@@ -21,7 +21,7 @@ Rails.application.routes.draw do
       end
       get '/users/sign_out' => 'api/v1/sessions#destroy'
     end
-    resource :user do
+    resource :user, path: "member" do
       get :edit, :home, :refresh, :trainers, :committee, :change_password
       patch :update_change_password
       resources :membership_years, only: [:create, :update, :show], path: "membership" do
@@ -32,7 +32,7 @@ Rails.application.routes.draw do
         end
       end
     end
-    resources :users, only: [] do
+    resources :users, only: [], path: "member" do
       resources :membership_years, only: [:create], path: "membership" do
         collection do
           get :new_member_fees, :new_member_fees_saved
@@ -42,6 +42,10 @@ Rails.application.routes.draw do
     end
     resources :membership_years, only: [:index], path: "membership" do
       patch :admin_paid, :admin_paid_revert, :admin_update
+      get :list
+      collection do
+        get :renewals
+      end
     end
     resources :membership_batches, only: [:show, :create], path: "batch" do
       collection do

@@ -12,7 +12,7 @@ class Ability
           can [:view_committee_calendar], User
           if user.committee_executive?
             can [:refresh_album, :delete_album], Album
-            can [:view_commitee_area, :view_member_renewals, :update_member_renewals, :view_insurance_batches], User
+            can [:view_commitee_area, :view_member_renewals, :update_member_renewals, :view_insurance_batches, :view_member_list], User
             can [:create_member], User
             can [:create_insurance_batches], User
           end

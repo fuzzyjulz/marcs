@@ -3,6 +3,18 @@ class MembershipYearsController < ApplicationController
   helper_method :membership_year, :membership_fee
   
   def index
+    authorize! :view_member_list, current_user
+    return redirect_to(membership_year_list_path(renewal_financial_year))
+  end
+
+  def list
+    authorize! :view_member_list, current_user
+    @year = request[:membership_year_id]
+    @member_list = MembershipYear.where(year: @year).includes(:user).order("users.last_name")
+    @years = MembershipYear.distinct.pluck(:year)
+  end
+
+  def renewals
     authorize! :view_member_renewals, current_user
   end
   
