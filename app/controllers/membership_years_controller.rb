@@ -49,7 +49,7 @@ class MembershipYearsController < ApplicationController
     
     membership_year = MembershipYear.find(request[:membership_year_id]).update!(params)
     flash[:notice] = "Updated payment date"
-    return redirect_to(membership_years_path)
+    return redirect_to(renewals_membership_years_path)
   end
   
   def admin_paid_revert
@@ -57,7 +57,7 @@ class MembershipYearsController < ApplicationController
     
     membership_year = MembershipYear.find(request[:membership_year_id]).update!(confirmed_paid: false)
     flash[:notice] = "Reverted payment confirmation"
-    return redirect_to(membership_years_path)
+    return redirect_to(renewals_membership_years_path)
   end
   
   def admin_update
@@ -72,10 +72,10 @@ class MembershipYearsController < ApplicationController
 
     if membership_year.errors.any?
       flash[:alert] = membership_year.errors.full_messages.to_sentence
-      render :index
+      render :renewals
     else
       flash[:notice] = "Updated member details"
-      return redirect_to(membership_years_path)
+      return redirect_to(renewals_membership_years_path)
     end
   end
   
