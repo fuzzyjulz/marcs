@@ -24,7 +24,7 @@
        -paid_member_count += 1 if year.member_marked_paid?
        -confirmed_member_count += 1 if year.confirmed_paid
        %tr{class: "member#{year.user.id}"}
-        %td
+        %td.text-nowrap
          -if year.half_year
           Half
          -else
@@ -37,7 +37,7 @@
            =f.input :half_year, include_blank: false, label: false, input_html: {onChange:"this.form.submit()"}, collection: [["Half", true],["Full", false]]
         %td=year.user.first_name
         %td=year.user.last_name
-        %td
+        %td.text-nowrap
          =year.membership_name
          -unless year.confirmed_paid
           %button.btn.btn-default.glyphicon.glyphicon-pencil{"data-toggle":"collapse", "data-target": "#edit_membership_year_#{year.id}.membership_type"} 
