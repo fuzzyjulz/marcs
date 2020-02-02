@@ -71,6 +71,14 @@ class User < ActiveRecord::Base
     !membership_type.nil? and membership_type.downcase.include? "affiliate"
   end
   
+  def plane_instructor?
+    ["f","b"].include? club_instructor_type
+  end
+
+  def heli_instructor?
+    ["h","b"].include? club_instructor_type
+  end
+
   def self.get_committee_members
     User.where("committee_position IS NOT NULL and committee_position != ''")
   end

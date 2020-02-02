@@ -5,6 +5,7 @@
     .panel-body
      =simple_form_for [membership_year], url: membership_year_list_path(@year), method: :get, html: {class: "mb-0" } do |f|
       =f.input :membership_year, selected: membership_year_list_path(@year), include_blank: false, input_html: {onChange:"window.document.location = this.value"}, collection: @years.map {|year| [year, membership_year_list_path(year)]}
+     %a{href: membership_year_list_path(@year, :csv)} Download
   .col-lg-12.col-xs-12
    .panel.panel-default
     %table.table.table-striped

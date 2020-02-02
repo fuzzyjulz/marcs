@@ -12,6 +12,29 @@ class MembershipYearsController < ApplicationController
     @year = request[:membership_year_id]
     @member_list = MembershipYear.where(year: @year).includes(:user).order("users.last_name")
     @years = MembershipYear.distinct.pluck(:year)
+    respond_to do |format|
+        format.html
+        
+        format.csv { render csv: get_csv_member_list(), filename: "MemberList-#{@year}-updated_#{Date.current}.csv" }
+      end
+  end
+  
+  def get_csv_member_list
+    csv = "Year,Half/full,FAI,First Name,Last Name, Membership Type, Email, Plane Instructor, Heli Instructor\n"
+    @member_list.each do |year|
+      csv += [year.year,
+              year.half_year ? "Half" : "Full",
+              year.user.fai,
+              year.user.first_name,
+              year.user.last_name,
+              year.user.non_renewal? ? "Blacklisted" : year.membership_name,
+              year.user.email,
+              year.user.plane_instructor? ? "Yes": "No",
+              year.user.heli_instructor? ? "Yes": "No"
+             ].join(",")
+      csv += "\n"
+    end
+    csv
   end
 
   def renewals

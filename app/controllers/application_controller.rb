@@ -80,7 +80,14 @@ class ApplicationController < ActionController::Base
     value.present? ? value.to_s.gsub(/[^0-9a-zA-z\-_: ,]/,'').html_safe : nil
   end
   
-    protected
+  ActionController::Renderers.add :csv do |obj, options|
+    filename = options[:filename] || 'data'
+    str = obj.respond_to?(:to_csv) ? obj.to_csv : obj.to_s
+    send_data str, type: Mime[:csv],
+      disposition: "attachment; filename=#{filename}.csv"
+  end
+  
+  protected
   
     def configure_permitted_parameters
       devise_parameter_sanitizer.permit(:sign_up, keys:[:fai, :password, :password_confirmation, :remember_me] )
