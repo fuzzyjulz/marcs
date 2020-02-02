@@ -20,13 +20,14 @@ class MembershipYearsController < ApplicationController
   end
   
   def get_csv_member_list
-    csv = "Year,Half/full,FAI,First Name,Last Name, Membership Type, Email, Plane Instructor, Heli Instructor\n"
+    csv = "FAI,First Name,Last Name,Paid,Year,Half/full,Membership Type, Email, Plane Instructor, Heli Instructor\n"
     @member_list.each do |year|
-      csv += [year.year,
-              year.half_year ? "Half" : "Full",
-              year.user.fai,
+      csv += [year.user.fai,
               year.user.first_name,
               year.user.last_name,
+              year.confirmed_paid? ? "Yes": "No",
+              year.year,
+              year.half_year ? "Half" : "Full",
               year.user.non_renewal? ? "Blacklisted" : year.membership_name,
               year.user.email,
               year.user.plane_instructor? ? "Yes": "No",

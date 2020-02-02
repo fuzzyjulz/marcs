@@ -11,31 +11,37 @@
     %table.table.table-striped
      %thead
       %tr
-       %th Year
        %th FAI
        %th Name
        %th
+       
+       %th Conf. Paid
+       %th Year
        %th Membership
-       %th Student / Pensioner Number
+       %th Student / Pensioner #
        %th Club
        %th Address
+       %th E-mail
        %th Contact
        %th Committee Position
-       %th Wings
+       %th Instructor
        
      %tbody
       -confirmed_member_count = paid_member_count = member_count = 0
       -@member_list.each do |year|
        -member_count += 1
        %tr{class: "member#{year.user.id}"}
+        %td=year.user.fai
+        %td=year.user.first_name
+        %td=year.user.last_name
+        %td
+         -if year.confirmed_paid?
+          %span.glyphicon.glyphicon-ok
         %td.text-nowrap
          -if year.half_year
           Half
          -else
           Full
-        %td=year.user.fai
-        %td=year.user.first_name
-        %td=year.user.last_name
         %td
          -if year.user.non_renewal?
           Blacklisted
@@ -44,13 +50,19 @@
         %td="#{year.student_number}#{year.pensioner_number}"
         %td=year.affiliated_club
         %td=year.user.address
+        %td=year.user.email
         %td
          =year.user.home_phone
-         -unless year.user.home_phone.nil? || year.user.mobile_phone.nil?
-          /
+         -unless year.user.home_phone.blank? || year.user.mobile_phone.blank?
+          ="/"
          =year.user.mobile_phone
          
         %td=year.user.committee_position
+        %td
+         -if year.user.plane_instructor?
+          Plane
+         -if year.user.heli_instructor?
+          Heli
  .row
   .col-xs-6.col-xs-offset-3
    .panel.panel-default
