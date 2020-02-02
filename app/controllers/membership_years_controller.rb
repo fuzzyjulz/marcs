@@ -10,8 +10,8 @@ class MembershipYearsController < ApplicationController
   def list
     authorize! :view_member_list, current_user
     @year = request[:membership_year_id]
-    @member_list = MembershipYear.where(year: @year).includes(:user).order("year")
-    @years = MembershipYear.distinct.pluck(:year)
+    @member_list = MembershipYear.where(year: @year).includes(:user).order("users.last_name")
+    @years = MembershipYear.order("year").distinct.pluck(:year)
     respond_to do |format|
         format.html
         
