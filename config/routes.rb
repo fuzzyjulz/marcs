@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
     root 'home#index'
+    get :become_a_member, :club_location, :club_rules, :faqs, :clear_caches, :privacy, controller: 'home'
+    
     resources :home, only: :index do
       get :become_a_member, :club_location, :club_rules, :faqs, :clear_caches, :privacy, on: :collection
     end

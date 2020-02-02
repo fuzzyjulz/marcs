@@ -18,7 +18,7 @@ class ApplicationController < ActionController::Base
   end
   
   def show_member_submenu
-    (self.is_a? UsersController or self.is_a? MinutesController or self.is_a? MembershipYearsController  or self.is_a? MembershipBatchesController) \
+    (self.is_a? UsersController or self.is_a? MinutesController or self.is_a? MembershipYearsController  or self.is_a? MembershipBatchesController or action_name == "club_rules") \
     and can? :view_member_area, current_user
   end
   

@@ -18,3 +18,5 @@
     -if can? :renew_membership, current_user
      %li{class: (controller.is_a? MembershipYearsController and ["renew","fees","update","show"].include? action_name) ? "active" : ""}
       %a.renewMembership{href: renew_user_membership_years_path} Renew Membership
+    %li{class: (controller.is_a? HomeController and ["club_rules"].include? action_name) ? "active" : ""}
+     %a{href: club_rules_path} Club Rules
